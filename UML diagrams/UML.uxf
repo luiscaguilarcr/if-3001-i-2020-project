@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <help_text/>
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>190</x>
+      <y>320</y>
+      <w>505</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>edu.ucr.rp.algorithms.proyect.gui</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>740</x>
+      <y>30</y>
+      <w>505</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>edu.ucr.rp.algorithms.proyect.persistence</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>190</x>
+      <y>25</y>
+      <w>505</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>edu.ucr.rp.algorithms.proyect.logic</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>935</x>
+      <y>50</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lw=2
+Persistance&lt;K, E, L&gt;
+(interface)
+--
+save():boolean
+remove():bolean
+modify():boolean
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>155</y>
+      <w>125</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lw=2
+SuperAdminPersistance
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>935</x>
+      <y>155</y>
+      <w>125</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lw=2
+AdminPersistance
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1090</x>
+      <y>155</y>
+      <w>125</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lw=2
+CustomerPersistance
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1045</x>
+      <y>100</y>
+      <w>110</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>100</y>
+      <w>120</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>220.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>95</y>
+      <w>15</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>210</x>
+      <y>65</y>
+      <w>90</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lw=2
+SuperAdmin
+--
+name:String;
+password: String;
+id: int; 
+
+set()
+get()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>320</x>
+      <y>65</y>
+      <w>95</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lw=2
+Admin
+--
+name: String;
+password: String;
+id: int; 
+
+set()
+get()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>435</x>
+      <y>65</y>
+      <w>85</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lw=2
+Client
+--
+name: String;
+password: String;
+id: int;
+
+set()
+get()</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
