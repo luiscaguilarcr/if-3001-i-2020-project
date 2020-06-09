@@ -32,3 +32,7 @@ nutration-clinic/target/maven-status/maven-compiler-plugin/testCompile/default-t
 nutration-clinic/target/test-classes/META-INF/jpms.args
 nutration-clinic/pom.xml
 *.xml
+nutration-clinic/target/classes/.netbeans_automatic_build
+nutration-clinic/target/test-classes/.netbeans_automatic_build
+nutration-clinic/pom.xml
+*.xml
