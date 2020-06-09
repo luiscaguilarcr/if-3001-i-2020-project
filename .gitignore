@@ -31,3 +31,4 @@ nutration-clinic/target/maven-status/maven-compiler-plugin/testCompile/default-t
 nutration-clinic/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
 nutration-clinic/target/test-classes/META-INF/jpms.args
 nutration-clinic/pom.xml
+*.xml
