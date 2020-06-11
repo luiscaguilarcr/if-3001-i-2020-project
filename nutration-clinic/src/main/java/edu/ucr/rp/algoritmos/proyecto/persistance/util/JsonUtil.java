@@ -1,4 +1,4 @@
-package edu.ucr.rp.algoritmos.proyecto.persistance;
+package edu.ucr.rp.algoritmos.proyecto.persistance.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

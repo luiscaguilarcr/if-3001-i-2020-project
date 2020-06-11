@@ -1,4 +1,4 @@
 package edu.ucr.rp.algoritmos.proyecto.persistance;
 
-public class UserPersistance {
+public class DatesPersistence {
 }
