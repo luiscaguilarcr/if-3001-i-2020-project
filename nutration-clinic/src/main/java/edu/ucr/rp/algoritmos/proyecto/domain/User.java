@@ -1,24 +1,8 @@
 package edu.ucr.rp.algoritmos.proyecto.domain;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.util.Date;
-import edu.ucr.rp.algoritmos.proyecto.logic.lists.LinkedList;
-
 public class User {
     private String name, email, password;
     private Integer phoneNumber, iD, rol;
-    private Date date;
-    private LinkedList datesHistory; //TODO cambiar por LinkedList
-
-    public User(String name, String email, String password, Integer phoneNumber, Integer iD, Integer rol, Date date, LinkedList datesHistory) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.iD = iD;
-        this.rol = rol;
-        this.date = date;
-        this.datesHistory = datesHistory;
-    }
 
     public String getName() {
         return name;
@@ -47,7 +31,7 @@ public class User {
         return this;
     }
 
-    public int getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -56,7 +40,7 @@ public class User {
         return this;
     }
 
-    public int getiD() {
+    public Integer getiD() {
         return iD;
     }
 
@@ -65,30 +49,12 @@ public class User {
         return this;
     }
 
-    public int getRol() {
+    public Integer getRol() {
         return rol;
     }
 
     public User setRol(Integer rol) {
         this.rol = rol;
-        return this;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public User setDate(Date date) {
-        this.date = date;
-        return this;
-    }
-
-    public LinkedList getDatesHistory() {
-        return datesHistory;
-    }
-
-    public User setDatesHistory(LinkedList datesHistory) {
-        this.datesHistory = datesHistory;
         return this;
     }
 }

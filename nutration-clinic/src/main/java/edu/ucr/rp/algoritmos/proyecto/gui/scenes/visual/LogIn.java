@@ -1,4 +1,4 @@
-package edu.ucr.rp.algoritmos.proyecto.gui.javafx.visualStage;
+package edu.ucr.rp.algoritmos.proyecto.gui.scenes.visual;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;

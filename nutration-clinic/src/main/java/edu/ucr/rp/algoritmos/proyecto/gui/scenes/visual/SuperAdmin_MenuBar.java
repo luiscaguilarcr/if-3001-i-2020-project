@@ -1,4 +1,4 @@
-package edu.ucr.rp.algoritmos.proyecto.gui.javafx.visualStage;
+package edu.ucr.rp.algoritmos.proyecto.gui.scenes.visual;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
 import javafx.application.Platform;
@@ -12,10 +12,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Admin_MenuBar implements PaneViewer {
+public class SuperAdmin_MenuBar implements PaneViewer {
     private Stage stage;
 
-    public Admin_MenuBar(Stage stage) {
+    public SuperAdmin_MenuBar(Stage stage) {
         this.stage = stage;
     }
 
@@ -58,6 +58,21 @@ public class Admin_MenuBar implements PaneViewer {
 
         Config_Menu.getItems().addAll(ChangePassword_MenuItem, GenerateReport_MenuItem, LogOut_MenuItem, Exit_MenuItem);
 
+
+        ////////////////////////////////////////////////////////////////////////// Menu "ADMIN"
+        Menu Admin_Menu = new Menu("ADMIN");
+
+        ////////////////////////////////////////// MenuItems for Admin_Menu
+        // ManageAdmin_MenuItem
+        ImageView ManageAdmin_ImageView = new ImageView(new Image("seeIcon.png"));
+        MenuItem ManageAdmin_MenuItem = new MenuItem("Manage admin", ManageAdmin_ImageView);
+
+        ManageAdmin_MenuItem.setOnAction((event) -> {
+        });
+
+        Admin_Menu.getItems().addAll(ManageAdmin_MenuItem);
+
+
         ////////////////////////////////////////////////////////////////////////// Menu "CUSTOMER"
         Menu Customer_Menu = new Menu("CUSTOMER");
 
@@ -79,7 +94,7 @@ public class Admin_MenuBar implements PaneViewer {
         Customer_Menu.getItems().addAll(ManageCustomer_SubMenu);
 
         // Get the Menus in MenuBar
-        View_MenuBar.getMenus().addAll(Config_Menu, Customer_Menu);
+        View_MenuBar.getMenus().addAll(Config_Menu, Admin_Menu, Customer_Menu);
         View_MenuBar.setMinWidth(2000);
 
         /// Get the MenuBar in VBox

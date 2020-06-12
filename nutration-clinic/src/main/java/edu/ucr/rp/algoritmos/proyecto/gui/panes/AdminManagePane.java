@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.gui.panes;
 
-import edu.ucr.rp.algoritmos.proyecto.gui.javafx.visualStage.Admin_MenuBar;
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.visual.Admin_MenuBar;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
 import javafx.scene.layout.GridPane;

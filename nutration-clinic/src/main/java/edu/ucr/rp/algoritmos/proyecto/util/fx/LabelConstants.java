@@ -21,34 +21,6 @@ public class LabelConstants {
     public static final String TYPE_HERE_PROMPT_TEXT = "Type here";
     public static final String YES_LABEL = "Yes";
     public static final String NO_LABEL = "No";
-
-    public static final String TITLE_CATALOG_LIST = "Catalog list";
-    public static final String TITLE_ITEMS = "Items";
-    public static final String TITLE_CATALOG = "Catalog";
-    public static final String TITLE_CATALOG_ADD_FORM = "Add catalog";
-    public static final String CATALOG_NAME_COLUMN = "Name";
-    public static final String TITLE_CATALOG_SCHEMA = "Schema";
-    public static final String TITLE_CATALOG_CONFIG = "Catalog Configuration";
-    public static final String SUBTITLE_CATALOG_INFO_FORM = "Catalog information";
-    public static final String ITEMS_COLUMN = "Items";
-    public static final String DELETE_COLUMN = "Delete";
-
-    public static final String INVENTORY_NAME_COLUMN = "Inventory";
-    public static final String TITLE_INVENTORY = "Inventory";
-    public static final String ID = "Inventory";
-    public static final String TITLE_NEW_ITEM = "New item";
-    public static final String TITLE_DELETE_ALL_ITEMS = "Delete all items";
-    public static final String CONFIG_NAME_COLUMN = "Config";
-    public static final String TITLE_VIEW_INVENTORY = "View Inventory";
-    public static final String TITLE_MANAGE_ITEM = "Manage Item";
-
-    // Items
-    public static final String TITLE_CREATE_ITEM = "Create Item";
-    public static final String TITLE_ITEM = "Item";
-    public static final String TITLE_FEATURE = "Feature";
-    public static final String TITLE_VALUE = "Value";
-
-
     public static final String VIEW_ICON = "seeIcon.png";
     public static final String ITEMS_ICON = "itemsIcon.png";
     public static final String CONFIG_ICON = "configIcon.png";
