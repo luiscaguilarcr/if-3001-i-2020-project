@@ -1,6 +1,7 @@
-package edu.ucr.rp.algoritmos.proyecto.logic;
+package edu.ucr.rp.algoritmos.proyecto.logic.service;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.DateCustomer;
+import edu.ucr.rp.algoritmos.proyecto.logic.lists.Service;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class DateService implements Service<DateCustomer, String> {
     }
 
     @Override
-    public DateCustomer get(String key) {
+    public DateCustomer getById(String key) {
         return null;
     }
 

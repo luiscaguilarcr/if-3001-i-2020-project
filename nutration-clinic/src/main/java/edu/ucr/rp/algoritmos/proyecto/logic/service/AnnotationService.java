@@ -1,6 +1,7 @@
-package edu.ucr.rp.algoritmos.proyecto.logic;
+package edu.ucr.rp.algoritmos.proyecto.logic.service;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.AnnotationAdmin;
+import edu.ucr.rp.algoritmos.proyecto.logic.lists.Service;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class AnnotationService implements Service<AnnotationAdmin, String> {
     }
 
     @Override
-    public AnnotationAdmin get(String key) {
+    public AnnotationAdmin getById(String key) {
         return null;
     }
 

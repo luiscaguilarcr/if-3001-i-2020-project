@@ -1,7 +1,7 @@
 package edu.ucr.rp.algoritmos.proyecto.domain;
 
 public class User {
-    private String name, email, password;
+    private String name, email, password, address;
     private Integer phoneNumber, iD, rol;
 
     public String getName() {
@@ -28,6 +28,15 @@ public class User {
 
     public User setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public User setAddress(String address) {
+        this.address = address;
         return this;
     }
 
