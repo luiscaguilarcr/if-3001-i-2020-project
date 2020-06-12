@@ -1,4 +1,21 @@
 package edu.ucr.rp.algoritmos.proyecto.persistance;
 
-public class DatePersistence {
+import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
+import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.CustomerDateStack;
+
+public class DatePersistence implements Persistence<CustomerDate, CustomerDateStack> {
+    @Override
+    public boolean write(CustomerDate customerDate) {
+        return false;
+    }
+
+    @Override
+    public CustomerDateStack read() {
+        return null;
+    }
+
+    @Override
+    public boolean deleteAll() {
+        return false;
+    }
 }

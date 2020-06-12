@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.domain;
 
-public class AnnotationAdmin {
+public class AdminAnnotation {
     private Object weight, fat, height;
     private int customerID, docID;
 
@@ -8,7 +8,7 @@ public class AnnotationAdmin {
         return weight;
     }
 
-    public AnnotationAdmin setWeight(Object weight) {
+    public AdminAnnotation setWeight(Object weight) {
         this.weight = weight;
         return this;
     }
@@ -17,7 +17,7 @@ public class AnnotationAdmin {
         return fat;
     }
 
-    public AnnotationAdmin setFat(Object fat) {
+    public AdminAnnotation setFat(Object fat) {
         this.fat = fat;
         return this;
     }
@@ -26,7 +26,7 @@ public class AnnotationAdmin {
         return height;
     }
 
-    public AnnotationAdmin setHeight(Object height) {
+    public AdminAnnotation setHeight(Object height) {
         this.height = height;
         return this;
     }
@@ -35,7 +35,7 @@ public class AnnotationAdmin {
         return customerID;
     }
 
-    public AnnotationAdmin setCustomerID(int customerID) {
+    public AdminAnnotation setCustomerID(int customerID) {
         this.customerID = customerID;
         return this;
     }
@@ -44,7 +44,7 @@ public class AnnotationAdmin {
         return docID;
     }
 
-    public AnnotationAdmin setDocID(int docID) {
+    public AdminAnnotation setDocID(int docID) {
         this.docID = docID;
         return this;
     }

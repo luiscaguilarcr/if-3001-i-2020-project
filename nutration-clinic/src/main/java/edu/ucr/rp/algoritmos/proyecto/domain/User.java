@@ -2,7 +2,7 @@ package edu.ucr.rp.algoritmos.proyecto.domain;
 
 public class User {
     private String name, email, password, address;
-    private Integer phoneNumber, iD, rol;
+    private int phoneNumber, iD, rol;
 
     public String getName() {
         return name;
@@ -27,7 +27,7 @@ public class User {
     }
 
     public User setPassword(String password) {
-        this.password = password;
+        this.password = encrypt(password);
         return this;
     }
 
@@ -40,30 +40,48 @@ public class User {
         return this;
     }
 
-    public Integer getPhoneNumber() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
-    public User setPhoneNumber(Integer phoneNumber) {
+    public User setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
 
-    public Integer getiD() {
+    public int getiD() {
         return iD;
     }
 
-    public User setiD(Integer iD) {
+    public User setiD(int iD) {
         this.iD = iD;
         return this;
     }
 
-    public Integer getRol() {
+    public int getRol() {
         return rol;
     }
 
-    public User setRol(Integer rol) {
+    public User setRol(int rol) {
         this.rol = rol;
         return this;
+    }
+
+    private String encrypt(String password) {
+        this.password = password;
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+
+            byte[] array = md.digest(password.getBytes());
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < array.length; i++) {
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
+            }
+            return sb.toString();
+
+        } catch (java.security.NoSuchAlgorithmException me) {
+            return null;
+        }
+
     }
 }

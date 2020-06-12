@@ -1,6 +1,4 @@
-package edu.ucr.rp.algoritmos.proyecto.logic.lists;
-
-import java.util.List;
+package edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces;
 
 public interface Service<E, L> {
     boolean add(E element);
@@ -11,5 +9,5 @@ public interface Service<E, L> {
 
     E getById(int iD);
 
-    L getAll(); //TODO cambiar por LinkedList
+    L getAll();
 }

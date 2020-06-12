@@ -1,22 +1,22 @@
-package edu.ucr.rp.algoritmos.proyecto.logic.service;
+package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.User;
-import edu.ucr.rp.algoritmos.proyecto.logic.lists.Service;
-import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.LinkedList;
-
-import java.util.List;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
+import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.UserLinkedList;
+import edu.ucr.rp.algoritmos.proyecto.persistance.UserPersistence;
 
 /**
  * Esta clase maneja junto con la persistencia del archivo a todos los usuarios registrados
  */
-public class UserService implements Service<User, LinkedList> {
-    private LinkedList list = new LinkedList(); //TODO leerlo de persistencia
+public class UserService implements Service<User, UserLinkedList> {
+     public UserLinkedList list = new UserLinkedList(); //TODO leerlo de persistencia
+     public UserPersistence userPersistence = new UserPersistence();
 
     @Override
     public boolean add(User element) {
         if (validateAddition(element)) {
             list.add(element);
-            //TODO persistir en el archivo
+            userPersistence.write(element); //TODO test
             return true;
         }
         return false;
@@ -53,7 +53,7 @@ public class UserService implements Service<User, LinkedList> {
     }
 
     @Override
-    public LinkedList getAll() {
+    public UserLinkedList getAll() {
         return list;
     }
 

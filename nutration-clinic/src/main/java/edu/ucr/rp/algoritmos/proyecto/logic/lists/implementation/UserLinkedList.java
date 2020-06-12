@@ -6,7 +6,7 @@ import edu.ucr.rp.algoritmos.proyecto.logic.lists.interfaces.LinkedListInterface
 /**
  * @author Noel
  */
-public class LinkedList implements LinkedListInterface {
+public class UserLinkedList implements LinkedListInterface {
     private Node firstNode, node;
 
     //To generate a node object
