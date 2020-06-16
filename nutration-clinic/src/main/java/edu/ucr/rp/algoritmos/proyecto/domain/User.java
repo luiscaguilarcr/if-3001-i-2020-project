@@ -68,7 +68,6 @@ public class User {
     }
 
     private String encrypt(String password) {
-        this.password = password;
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
 

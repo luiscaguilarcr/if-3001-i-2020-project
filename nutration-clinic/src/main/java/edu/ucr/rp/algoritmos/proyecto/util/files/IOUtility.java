@@ -27,6 +27,14 @@ public class IOUtility {
         {
             return "Error";
         }
+    }
 
+    //  Methods  \\
+    public static void verifyUsersDir(){
+        // Validate files/
+        File root = new File("files/");
+        if(!root.exists()) {
+            root.mkdir();
+        }
     }
 }

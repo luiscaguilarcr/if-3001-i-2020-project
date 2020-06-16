@@ -14,7 +14,7 @@ public class HistoryAppService implements Service<HistoryApp, HistoryAppAVL> {
     }
 
     @Override
-    public boolean edit(HistoryApp element) {
+    public boolean edit(HistoryApp oldElement, HistoryApp newElement) {
         return false;
     }
 

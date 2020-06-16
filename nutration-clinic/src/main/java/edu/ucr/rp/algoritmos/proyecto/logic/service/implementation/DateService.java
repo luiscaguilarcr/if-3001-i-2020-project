@@ -11,7 +11,7 @@ public class DateService implements Service<CustomerDate, AdminAnnotationQueue> 
     }
 
     @Override
-    public boolean edit(CustomerDate element) {
+    public boolean edit(CustomerDate oldElement, CustomerDate newElement) {
         return false;
     }
 

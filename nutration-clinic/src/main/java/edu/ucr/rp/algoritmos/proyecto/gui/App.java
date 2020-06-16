@@ -20,12 +20,12 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         // Create and store all the scenes.
-        //scenes.put(SceneName.LOGIN, new LogInScene(stage).getScene()); //pasar stage como parámetro
-        scenes.put(SceneName.SUPER_ADMIN, new SuperAdminScene(stage).getScene());
+        scenes.put(SceneName.LOGIN, new LogInScene(stage).getScene()); //pasar stage como parámetro
+        //scenes.put(SceneName.SUPER_ADMIN, new SuperAdminScene(stage).getScene());
 
         // Start with the main scene
-        //stage.setScene(scenes.get(SceneName.LOGIN));
-        stage.setScene(scenes.get(SceneName.SUPER_ADMIN));
+        stage.setScene(scenes.get(SceneName.LOGIN));
+        //stage.setScene(scenes.get(SceneName.SUPER_ADMIN));
         stage.setTitle("Inventory System");
         stage.show();
     }

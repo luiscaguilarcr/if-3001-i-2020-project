@@ -1,19 +1,24 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.ucr.rp.algoritmos.proyecto.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.lists.interfaces.LinkedListInterface;
 
 /**
  * @author Noel
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserLinkedList implements LinkedListInterface {
-    private Node firstNode, node;
-
+    public Node firstNode, node;
     //To generate a node object
-    class Node {
-        Node previousNode;
-        Node nextNode;
-        User user;
+    public UserLinkedList(){}
+    public static class Node {
+        public Node nextNode;
+        public User user;
+
+        public Node() {
+        }
+
         public Node(User user) {
             this.user = user;
         }
@@ -21,6 +26,7 @@ public class UserLinkedList implements LinkedListInterface {
 
     /**
      * Agrega un usuario en una lista enlazada de nodos.
+     *
      * @param user que se quiere agregar
      */
     @Override
@@ -32,44 +38,40 @@ public class UserLinkedList implements LinkedListInterface {
             firstNode = node; //Posiciona el nuevo nodo en la primera posición
         } else { //Case 2: la lista tiene al menos un nodo
             node.nextNode = newNode; //se le otorga al último nodo ingresado un apuntador del nuevo nodo
-            newNode.previousNode = node; //se le otorga un puntero anterior al nuevo nodo en el último nodo agregado
             node = newNode; //se deja una referencia del último nodo agregado
         }
     }
 
     /**
      * Remueve un usuario en una lista enlazada de nodos.
+     *
      * @param user que se quiere remover
      */
     @Override
     public void remove(User user) {
-        Node tempNode = firstNode; //This variable saves in a temporal node the node.
-        while (tempNode != null) {
-            if (tempNode.user == user) {
-                if (tempNode.nextNode != null) {    //Case #1: The second node is removed
-                    tempNode.nextNode.previousNode = tempNode.previousNode;   //Assigns the previous node of the node that was deleted to a temporary variable.
-                    if (tempNode.previousNode != null) {
-                        tempNode.previousNode.nextNode = tempNode.nextNode;        //Assigns the next node of the node that was deleted to a temporary variable
-                    }//End if
-                } else {    //Case #2: The last node is removed.
-                    tempNode.previousNode.nextNode = null;
-                }//End if/else
-                if (tempNode.previousNode != null) {    //Case #3: The third node is removed
-                    tempNode.previousNode.nextNode = tempNode.nextNode; //Relates the previous node to the next node from which it was removed.
-                    if (tempNode.nextNode != null) {
-                        tempNode.nextNode.previousNode = tempNode.previousNode;
-                    }//End if
-                } else {    //Case #4: The first node is removed.
-                    firstNode = tempNode.nextNode;
-                    tempNode.nextNode.previousNode = null;
-                }//End if/else
-            }//End if(tempNode.value == value)
+        // Store head node
+        Node tempNode = firstNode, previousNode = null;
+        // If head node itself holds the key to be deleted
+        if (tempNode != null && tempNode.user.getiD() == user.getiD()) {
+            firstNode = tempNode.nextNode; // Changed head
+            return;
+        }
+        // Search for the key to be deleted, keep track of the
+        // previous node as we need to change tempNode.next
+        while (tempNode != null && tempNode.user.getiD() != user.getiD()) {
+            previousNode = tempNode;
             tempNode = tempNode.nextNode;
-        }//End while()
+        }
+        // If key was not present in linked list
+        if (tempNode == null) return;
+        // Unlink the node from linked list
+        previousNode.nextNode = tempNode.nextNode;
     }
 
+
     /**
-     * Obtiene la longitud de la lista enlazada doble de usuarios.
+     * Obtiene la longitud de la lista.
+     *
      * @return longitud de la lista
      */
     @Override
@@ -88,13 +90,14 @@ public class UserLinkedList implements LinkedListInterface {
 
     /**
      * Obtiene el índice de un usuario.
+     *
      * @param user que se quiere buscar
      * @return índice del elemento ingresado
      */
     @Override
     public int indexOf(User user) {
         Node tempNode = firstNode;
-        if(!contains(user)){
+        if (!contains(user)) {
             return -1;
         }
         int index = 0;
@@ -110,11 +113,12 @@ public class UserLinkedList implements LinkedListInterface {
 
     /**
      * Obtiene el objeto en el índice solicitado.
+     *
      * @param index del elemento que se quiere obtener
      * @return elemento de la lista
      */
     @Override
-    public User getAt(int index) {
+    public User get(int index) {
         int accountant = 0; //contador para la posición en el índice
         Node tempNode = firstNode; //posicionar un nodo temporal en el primer elemento
         if (!isEmpty()) { //Caso 1: la lista tiene al menos un número
@@ -131,6 +135,7 @@ public class UserLinkedList implements LinkedListInterface {
 
     /**
      * Verifica si el elemento ingresado es contenido por la lista.
+     *
      * @param user a evaluar
      * @return true si lo contine, de lo contrario, false
      */
@@ -144,7 +149,7 @@ public class UserLinkedList implements LinkedListInterface {
         //Loops through the list of nodes
         while (tempNode != null) {
             //When the item to find is found, enter it in the if
-            if (user == tempNode.user) {
+            if (user.getiD() == tempNode.user.getiD()) {
                 return true;
             }
             //Advance one position in the node list
@@ -155,6 +160,7 @@ public class UserLinkedList implements LinkedListInterface {
 
     /**
      * Valida si la lista está limpia.
+     *
      * @return true si la lista está vacía, si no, false
      */
     @Override
@@ -162,8 +168,13 @@ public class UserLinkedList implements LinkedListInterface {
         return firstNode == null;
     }
 
+    public void clear(){
+        firstNode = null;
+    }
+
     /**
      * Para pruebas
+     *
      * @param user que se quiere imprimir
      */
     public void print(User user) {

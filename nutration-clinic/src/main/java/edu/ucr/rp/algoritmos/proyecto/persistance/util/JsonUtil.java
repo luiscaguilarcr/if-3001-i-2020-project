@@ -1,5 +1,7 @@
 package edu.ucr.rp.algoritmos.proyecto.persistance.util;
 
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -8,7 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class JsonUtil {
-    private ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
     public <T> String asJson(T value) {
         try {

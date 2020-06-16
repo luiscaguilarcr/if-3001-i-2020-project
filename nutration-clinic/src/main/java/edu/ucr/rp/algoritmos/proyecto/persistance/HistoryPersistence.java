@@ -7,8 +7,9 @@ import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.HistoryAppAVL;
  * Permite persistir la información que el usuario realice
  */
 public class HistoryPersistence implements Persistence<HistoryApp, HistoryAppAVL> {
+
     @Override
-    public boolean write(HistoryApp historyApp) {
+    public boolean write(HistoryAppAVL historyAppAVL) {
         return false;
     }
 

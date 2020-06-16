@@ -11,7 +11,7 @@ public interface LinkedListInterface {
 
     int indexOf(User user);
 
-    User getAt(int index);
+    User get(int index);
 
     boolean contains(User user);
 

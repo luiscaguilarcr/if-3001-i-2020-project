@@ -6,7 +6,7 @@ import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.AdminAnnotation
 public class AnnotationPersistence implements Persistence<AdminAnnotation, AdminAnnotationQueue> {
 
     @Override
-    public boolean write(AdminAnnotation adminAnnotation) {
+    public boolean write(AdminAnnotationQueue adminAnnotationQueue) {
         return false;
     }
 
@@ -19,5 +19,4 @@ public class AnnotationPersistence implements Persistence<AdminAnnotation, Admin
     public boolean deleteAll() {
         return false;
     }
-
 }
