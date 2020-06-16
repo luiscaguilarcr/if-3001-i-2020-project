@@ -1,12 +1,16 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.lists.interfaces;
 
+import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
+
 public interface StackInterface {
-    
-   public void push(int x);
 
-    public Object pop();
+    public void push(CustomerDate element);
 
-    public Object peek();
+    public void pop(CustomerDate element);
+
+    public CustomerDate peek(CustomerDate element);
+
+    public void modify(CustomerDate element, CustomerDate NewElement);
 
     public int size();
 
