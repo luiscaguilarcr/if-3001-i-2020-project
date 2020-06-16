@@ -12,7 +12,7 @@ public class EatingPlanService implements Service<EatingPlan, List> {
     }
 
     @Override
-    public boolean edit(EatingPlan element) {
+    public boolean edit(EatingPlan oldElement, EatingPlan newElement) {
         return false;
     }
 

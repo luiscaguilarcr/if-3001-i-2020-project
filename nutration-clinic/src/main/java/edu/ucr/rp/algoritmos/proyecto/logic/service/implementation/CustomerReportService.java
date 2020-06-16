@@ -11,7 +11,7 @@ public class CustomerReportService implements Service<CustomerReport, CustomerRe
     }
 
     @Override
-    public boolean edit(CustomerReport element) {
+    public boolean edit(CustomerReport oldElement, CustomerReport newElement) {
         return false;
     }
 

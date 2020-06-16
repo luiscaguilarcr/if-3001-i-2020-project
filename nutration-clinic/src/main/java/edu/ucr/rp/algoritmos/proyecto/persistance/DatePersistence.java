@@ -4,8 +4,9 @@ import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.CustomerDateStack;
 
 public class DatePersistence implements Persistence<CustomerDate, CustomerDateStack> {
+
     @Override
-    public boolean write(CustomerDate customerDate) {
+    public boolean write(CustomerDateStack customerDateStack) {
         return false;
     }
 

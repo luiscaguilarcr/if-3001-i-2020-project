@@ -6,7 +6,7 @@ package edu.ucr.rp.algoritmos.proyecto.persistance;
  * @param <T> Type of Collection.
  */
 public interface Persistence<E, T> {
-    boolean write(E e);
+    boolean write(T t);
     T read();
     boolean deleteAll();
 }

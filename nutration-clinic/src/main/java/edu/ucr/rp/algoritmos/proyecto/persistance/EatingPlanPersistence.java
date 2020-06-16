@@ -5,8 +5,9 @@ import edu.ucr.rp.algoritmos.proyecto.domain.EatingPlan;
 import java.util.List;
 
 public class EatingPlanPersistence implements Persistence<EatingPlan, List> {
+
     @Override
-    public boolean write(EatingPlan eatingPlan) {
+    public boolean write(List list) {
         return false;
     }
 

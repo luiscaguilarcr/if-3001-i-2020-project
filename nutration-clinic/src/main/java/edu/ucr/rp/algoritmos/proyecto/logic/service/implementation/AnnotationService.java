@@ -11,7 +11,7 @@ public class AnnotationService implements Service<AdminAnnotation, AdminAnnotati
     }
 
     @Override
-    public boolean edit(AdminAnnotation element) {
+    public boolean edit(AdminAnnotation oldElement, AdminAnnotation newElement) {
         return false;
     }
 
