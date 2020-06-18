@@ -67,6 +67,7 @@ public class Customer_MenuBar implements PaneViewer {
         ImageView ManageDates_ImageView = new ImageView(new Image("seeIcon.png"));
         MenuItem ManageCustomer_SubMenu = new MenuItem("Manage dates", ManageDates_ImageView);
 
+        
         Dates_Menu.getItems().addAll(ManageCustomer_SubMenu);
 
         // Get the Menus in MenuBar
@@ -84,3 +85,27 @@ public class Customer_MenuBar implements PaneViewer {
         return getMenuVBox();
     }
 }
+//public class AddDatesForm implements PaneViewer{
+//    private static GridPane pane;
+//    public GridPane addDatesForm(){
+//        pane = PaneUtil.buildPane();
+//        setupControls();
+//        addHandlers();
+//        return pane;
+//    }
+//    /**
+//     * Inicializar botones, textFields, labels....
+//     */
+//    private void setupControls() {
+//    }
+//    /**
+//     * Agregar acción de evento
+//     */
+//    private void addHandlers() {
+//    }
+//    
+//     @Override
+//    public Pane getPane() {
+//        return addDatesForm();
+//    }
+//}
