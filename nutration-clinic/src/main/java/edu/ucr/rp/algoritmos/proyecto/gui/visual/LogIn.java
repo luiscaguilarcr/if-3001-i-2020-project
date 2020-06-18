@@ -1,8 +1,10 @@
-package edu.ucr.rp.algoritmos.proyecto.gui.scenes.visual;
+package edu.ucr.rp.algoritmos.proyecto.gui.visual;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.gui.App;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
+import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -20,7 +22,10 @@ public class LogIn implements PaneViewer {
     private static PasswordField passwordTextField;
     private static Button extiButton;
     private static Button logInButton;
+    private static boolean validUser = false;
     private Stage stage;
+    private Utility utility = new Utility();
+    private static UserService userService = UserService.getInstance();
 
     public LogIn(Stage stage) {
         this.stage = stage;
@@ -53,8 +58,8 @@ public class LogIn implements PaneViewer {
             iDTextField.setStyle("-fx-background-color: #FFFFFF");
         });
         logInButton.setOnAction(e -> {
-            if(validateLogIn()){
-                if(LogInUser() == null){
+            if (validateLogIn()) {
+                if (logInUser() == null) {
                     PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Error when logging in to the account", "Check the user ID and password, and try again");
                 }
             }
@@ -74,43 +79,47 @@ public class LogIn implements PaneViewer {
         } else {
             passwordTextField.setStyle("-fx-background-color: #FFFFFF");
         }
-        if(!iDTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty()){
+        if (!iDTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty()) {
             return true;
         }
         return false;
     }
 
-    public User LogInUser(){
-        UserService userService = UserService.getInstance();
-        if(userService.getById(Integer.parseInt(iDTextField.getText())) != null){
+    public User logInUser() {
+        if (userService.getById(Integer.parseInt(iDTextField.getText())) != null) {
             User user = userService.getById(Integer.parseInt(iDTextField.getText()));
             String passwordUser = user.getPassword();
-            String passwordEnter = encrypt(passwordTextField.getText());
-            if((user.getPassword()).equals(encrypt(passwordTextField.getText()))){
+            String passwordEnter = utility.encrypt(passwordTextField.getText());
+            if ((user.getPassword()).equals(utility.encrypt(passwordTextField.getText()))) {
+                validUser = true;
+                App app = new App();
+                app.start(stage);
                 return user;
             }
         }
         return null;
     }
 
+    public static boolean validateUser() {
+        return validUser;
+    }
+
+    public static User getUser() {
+        if (validateUser()) {
+            return userService.getById(Integer.parseInt(iDTextField.getText()));
+        }
+        return null;
+    }
+
+    public static int getRol() {
+        if (validateUser()) {
+            return userService.getById(Integer.parseInt(iDTextField.getText())).getRol();
+        }
+        return -1;
+    }
+
     @Override
     public Pane getPane() {
         return LogIn();
-    }
-
-    private String encrypt(String password) {
-        try {
-            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
-            byte[] array = md.digest(password.getBytes());
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < array.length; i++) {
-                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
-            }
-            return sb.toString();
-
-        } catch (java.security.NoSuchAlgorithmException me) {
-            return null;
-        }
-
     }
 }

@@ -1,8 +1,8 @@
 package edu.ucr.rp.algoritmos.proyecto.gui.panes;
 
-import edu.ucr.rp.algoritmos.proyecto.gui.scenes.visual.Customer_MenuBar;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
+import edu.ucr.rp.algoritmos.proyecto.gui.visual.Main_MenuBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -11,15 +11,14 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomerManagePane implements PaneViewer {
-
+public class MainManagePane implements PaneViewer {
     // Contains all the Panes.
     private static Map<PaneName, Pane> panes = new HashMap<>();
     private Stage stage;
     private static Pane basePane;
     private static HBox hbox;
 
-    public CustomerManagePane(Stage stage) {
+    public MainManagePane(Stage stage) {
         this.stage = stage;
         this.basePane = buildBasePane();
         initializePanes(stage, basePane);
@@ -32,7 +31,7 @@ public class CustomerManagePane implements PaneViewer {
      */
     private void initializePanes(Stage stage, Pane basePane) {
         panes.put(PaneName.BASE, basePane);
-        panes.put(PaneName.CUSTOMER_BAR, new Customer_MenuBar(stage).getPane());
+        panes.put(PaneName.LOG_IN, new Main_MenuBar(stage).getPane());
     }
 
     @Override
@@ -57,7 +56,7 @@ public class CustomerManagePane implements PaneViewer {
      * @param pane
      */
     private void setupBasePane(Pane pane) {
-        ((GridPane) pane).add(panes.get(PaneName.CUSTOMER_BAR), 0, 0);
+        ((GridPane) pane).add(panes.get(PaneName.LOG_IN), 0, 0);
         hbox = new HBox();
         ((GridPane) pane).add(hbox, 0, 1);
     }
@@ -81,7 +80,7 @@ public class CustomerManagePane implements PaneViewer {
     }
 
     /**
-     * Returns a Map of the scenes by {@link SceneName}
+     * Returns a Map of the scenes
      *
      * @return
      */

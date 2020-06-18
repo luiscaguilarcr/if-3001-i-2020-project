@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.gui.panes;
 
-import edu.ucr.rp.algoritmos.proyecto.gui.scenes.visual.LogIn;
+import edu.ucr.rp.algoritmos.proyecto.gui.visual.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
 import javafx.scene.layout.GridPane;
@@ -81,7 +81,7 @@ public class LogInManagePane implements PaneViewer {
     }
 
     /**
-     * Returns a Map of the scenes by {@link SceneName}
+     * Returns a Map of the scenes
      *
      * @return
      */

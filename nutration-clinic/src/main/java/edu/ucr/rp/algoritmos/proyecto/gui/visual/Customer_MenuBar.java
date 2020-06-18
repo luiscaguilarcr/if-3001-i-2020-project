@@ -1,4 +1,4 @@
-package edu.ucr.rp.algoritmos.proyecto.gui.scenes.visual;
+package edu.ucr.rp.algoritmos.proyecto.gui.visual;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
 import javafx.application.Platform;
@@ -12,10 +12,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Admin_MenuBar implements PaneViewer {
+public class Customer_MenuBar implements PaneViewer {
     private Stage stage;
 
-    public Admin_MenuBar(Stage stage) {
+    public Customer_MenuBar(Stage stage) {
         this.stage = stage;
     }
 
@@ -32,9 +32,9 @@ public class Admin_MenuBar implements PaneViewer {
         ImageView ChangePasswordInventory_ImageView = new ImageView(new Image("seeIcon.png"));
         MenuItem ChangePassword_MenuItem = new MenuItem("Change password", ChangePasswordInventory_ImageView);
 
-        // GenerateReport_MenuItem
-        ImageView GenerateReport_ImageView = new ImageView(new Image("seeIcon.png"));
-        MenuItem GenerateReport_MenuItem = new MenuItem("Generate report", GenerateReport_ImageView);
+        // PersonalProgress_MenuItem
+        ImageView PersonalProgress_ImageView = new ImageView(new Image("seeIcon.png"));
+        MenuItem PersonalProgress_MenuItem = new MenuItem("Personal progress", PersonalProgress_ImageView);
 
         // LogOut_MenuItem
         ImageView LogOut_ImageView = new ImageView(new Image("seeIcon.png"));
@@ -47,7 +47,7 @@ public class Admin_MenuBar implements PaneViewer {
         ChangePassword_MenuItem.setOnAction((event) -> {
         });
 
-        GenerateReport_MenuItem.setOnAction((event)->{
+        PersonalProgress_MenuItem.setOnAction((event)->{
         });
 
         LogOut_MenuItem.setOnAction((event) -> {
@@ -56,30 +56,21 @@ public class Admin_MenuBar implements PaneViewer {
         Exit_MenuItem.setOnAction((event) -> Platform.exit());
         Exit_MenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 
-        Config_Menu.getItems().addAll(ChangePassword_MenuItem, GenerateReport_MenuItem, LogOut_MenuItem, Exit_MenuItem);
+        Config_Menu.getItems().addAll(ChangePassword_MenuItem, PersonalProgress_MenuItem, LogOut_MenuItem, Exit_MenuItem);
 
-        ////////////////////////////////////////////////////////////////////////// Menu "CUSTOMER"
-        Menu Customer_Menu = new Menu("CUSTOMER");
 
-        ////////////////////////////////////////// MenuItems for Admin_Menu
+        ////////////////////////////////////////////////////////////////////////// Menu "DATES"
+        Menu Dates_Menu = new Menu("DATES");
+
+        ////////////////////////////////////////// MenuItems for Dates_Menu
         // ManageCustomer_MenuItem
-        ImageView ManageCustomer_ImageView = new ImageView(new Image("seeIcon.png"));
-        Menu ManageCustomer_SubMenu = new Menu("Manage customer", ManageCustomer_ImageView);
+        ImageView ManageDates_ImageView = new ImageView(new Image("seeIcon.png"));
+        MenuItem ManageCustomer_SubMenu = new MenuItem("Manage dates", ManageDates_ImageView);
 
-        // ManageCustomer_MenuItem
-        ImageView Customers_ImageView = new ImageView(new Image("seeIcon.png"));
-        MenuItem Customers_MenuItem = new MenuItem("Customers", Customers_ImageView);
-
-        // ManageCustomer_MenuItem
-        ImageView Dates_ImageView = new ImageView(new Image("seeIcon.png"));
-        MenuItem Dates_MenuItem = new MenuItem("Dates", Dates_ImageView);
-
-        ManageCustomer_SubMenu.getItems().addAll(Customers_MenuItem, Dates_MenuItem);
-
-        Customer_Menu.getItems().addAll(ManageCustomer_SubMenu);
+        Dates_Menu.getItems().addAll(ManageCustomer_SubMenu);
 
         // Get the Menus in MenuBar
-        View_MenuBar.getMenus().addAll(Config_Menu, Customer_Menu);
+        View_MenuBar.getMenus().addAll(Config_Menu, Dates_Menu);
         View_MenuBar.setMinWidth(2000);
 
         /// Get the MenuBar in VBox

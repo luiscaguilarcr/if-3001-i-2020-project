@@ -26,7 +26,6 @@ public class LogInScene implements SceneViewer {
 
     private Scene buildScene() {
         Scene scene = new Scene(managePane.getPane(), 900, 700);
-        // more code...
         scene.getStylesheets().add("Style.css");
         return scene;
     }
