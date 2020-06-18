@@ -1,10 +1,10 @@
 package edu.ucr.rp.algoritmos.proyecto.gui;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.model.SceneName;
-import edu.ucr.rp.algoritmos.proyecto.gui.scenes.LogInScene;
-import edu.ucr.rp.algoritmos.proyecto.gui.scenes.SuperAdminScene;
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.MainScene;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -19,17 +19,19 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        // Create and store all the scenes.
-        scenes.put(SceneName.LOGIN, new LogInScene(stage).getScene()); //pasar stage como parámetro
-        //scenes.put(SceneName.SUPER_ADMIN, new SuperAdminScene(stage).getScene());
-
         // Start with the main scene
-        stage.setScene(scenes.get(SceneName.LOGIN));
-        //stage.setScene(scenes.get(SceneName.SUPER_ADMIN));
+        scenes.put(SceneName.MAIN_S, new MainScene(stage).getScene());
+        stage.setScene(scenes.get(SceneName.MAIN_S));
+
         stage.setTitle("Inventory System");
+        //stage.getIcons().add(new Image("logo.png"));
+        stage.getIcons().add(new Image("naturaleza.png"));
         stage.show();
     }
-    /** Returns a Map of the scenes by {@link SceneName} */
+
+    /**
+     * Returns a Map of the scenes by {@link SceneName}
+     */
     public static Map<SceneName, Scene> getScenes() {
         return scenes;
     }

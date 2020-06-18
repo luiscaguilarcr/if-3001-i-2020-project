@@ -10,6 +10,7 @@ import org.junit.Test;
 public class UserPersistenceTest {
     UserPersistence userPersistence;
     private static UserLinkedList userLinkedList;
+    Utility utility = new Utility();
 
     @Test
     public void testAddition() {
@@ -21,15 +22,17 @@ public class UserPersistenceTest {
             for (int i = 0; i < userLinkedList.size(); i++) {
                 tempUserLinkedList.add(userLinkedList.get(i));
             }
-            User user = Utility.randomUser();
+            User user = utility.randomUser();
             tempUserLinkedList.add(user);
+
+            if (userPersistence.write(tempUserLinkedList)) {
+                System.out.println("Se guardó");
+                System.out.println("Tamaño " + tempUserLinkedList.size());
+            } else {
+                System.out.println("No se guardó");
+            }
         }
-        if (userPersistence.write(tempUserLinkedList)) {
-            System.out.println("Se guardó");
-            System.out.println("Tamaño " + tempUserLinkedList.size());
-        } else {
-            System.out.println("No se guardó");
-        }
+
     }
 
     @Test
@@ -45,7 +48,7 @@ public class UserPersistenceTest {
             User user = new User();
             user.setPassword("admin");
             user.setName("admin");
-            user.setiD(123456);
+            user.setiD(123);
             user.setRol(1);
             user.setPhoneNumber(0000);
             user.setAddress("");
