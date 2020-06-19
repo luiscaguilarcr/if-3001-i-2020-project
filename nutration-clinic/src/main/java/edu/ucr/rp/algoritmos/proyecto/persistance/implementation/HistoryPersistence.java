@@ -1,7 +1,7 @@
 package edu.ucr.rp.algoritmos.proyecto.persistance.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.HistoryApp;
-import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation.HistoryAppAVL;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.HistoryAppAVL;
 import edu.ucr.rp.algoritmos.proyecto.persistance.interfaces.Persistence;
 
 /**

@@ -1,4 +1,4 @@
-package edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.interfaces;
+package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces;
 
 public interface AVLInterface {
 }

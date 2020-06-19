@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation;
+package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.interfaces.StackInterface;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.StackInterface;
 
 
 

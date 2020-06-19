@@ -1,7 +1,7 @@
 package edu.ucr.rp.algoritmos.proyecto.persistance.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.AdminAnnotation;
-import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation.AdminAnnotationQueue;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnotationQueue;
 import edu.ucr.rp.algoritmos.proyecto.persistance.interfaces.Persistence;
 
 public class AnnotationPersistence implements Persistence<AdminAnnotation, AdminAnnotationQueue> {
