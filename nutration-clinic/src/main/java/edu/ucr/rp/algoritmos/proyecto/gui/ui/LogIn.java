@@ -1,4 +1,4 @@
-package edu.ucr.rp.algoritmos.proyecto.gui.visual;
+package edu.ucr.rp.algoritmos.proyecto.gui.ui;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.gui.App;

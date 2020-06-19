@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ucr.rp.algoritmos.proyecto.gui.scenes.visual.util;
+package edu.ucr.rp.algoritmos.proyecto.gui.ui.util;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
@@ -56,7 +56,7 @@ public class AddDatesForm implements PaneViewer {
     }
 
     /**
-     * Agregar acción de evento
+     * Agregar acciï¿½n de evento
      */
     private void addHandlers() {
         exitButton.setOnAction(e -> Platform.exit());

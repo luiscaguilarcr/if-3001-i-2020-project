@@ -1,6 +1,6 @@
-package edu.ucr.rp.algoritmos.proyecto.gui.panes;
+package edu.ucr.rp.algoritmos.proyecto.gui.managepane;
 
-import edu.ucr.rp.algoritmos.proyecto.gui.visual.LogIn;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
 import javafx.scene.layout.GridPane;

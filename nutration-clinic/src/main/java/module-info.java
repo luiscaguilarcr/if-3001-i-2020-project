@@ -8,7 +8,7 @@ module inventory.system {
     exports edu.ucr.rp.algoritmos.proyecto.domain to com.fasterxml.jackson.databind;
     exports edu.ucr.rp.algoritmos.proyecto.util to com.fasterxml.jackson.databind;
     exports edu.ucr.rp.algoritmos.proyecto.logic.service.implementation to com.fasterxml.jackson.databind;
-    exports edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation to com.fasterxml.jackson.databind;
+    exports edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation to com.fasterxml.jackson.databind;
     exports edu.ucr.rp.algoritmos.proyecto.gui to javafx.graphics;
     opens edu.ucr.rp.algoritmos.proyecto.domain to javafx.base;
 }

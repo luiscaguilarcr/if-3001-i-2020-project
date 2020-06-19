@@ -1,8 +1,8 @@
-package edu.ucr.rp.algoritmos.proyecto.gui.visual;
+package edu.ucr.rp.algoritmos.proyecto.gui.ui;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
-import edu.ucr.rp.algoritmos.proyecto.gui.panes.MainManagePane;
+import edu.ucr.rp.algoritmos.proyecto.gui.managepane.MainManagePane;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;

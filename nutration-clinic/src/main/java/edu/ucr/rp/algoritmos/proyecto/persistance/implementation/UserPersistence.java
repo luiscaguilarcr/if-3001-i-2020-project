@@ -1,7 +1,7 @@
 package edu.ucr.rp.algoritmos.proyecto.persistance.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.User;
-import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation.UserLinkedList;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 import edu.ucr.rp.algoritmos.proyecto.persistance.interfaces.Persistence;
 import edu.ucr.rp.algoritmos.proyecto.persistance.util.JsonUtil;
 import org.apache.commons.io.FileUtils;

@@ -2,9 +2,9 @@ package edu.ucr.rp.algoritmos.proyecto.gui.scenes;
 
 
 import edu.ucr.rp.algoritmos.proyecto.gui.model.SceneViewer;
-import edu.ucr.rp.algoritmos.proyecto.gui.panes.LogInManagePane;
-import edu.ucr.rp.algoritmos.proyecto.gui.panes.MainManagePane;
-import edu.ucr.rp.algoritmos.proyecto.gui.visual.LogIn;
+import edu.ucr.rp.algoritmos.proyecto.gui.managepane.LogInManagePane;
+import edu.ucr.rp.algoritmos.proyecto.gui.managepane.MainManagePane;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
