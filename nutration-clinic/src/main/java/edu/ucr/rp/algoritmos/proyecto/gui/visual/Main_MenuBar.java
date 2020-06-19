@@ -1,6 +1,8 @@
 package edu.ucr.rp.algoritmos.proyecto.gui.visual;
 
+import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
+import edu.ucr.rp.algoritmos.proyecto.gui.panes.MainManagePane;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -143,6 +145,7 @@ public class Main_MenuBar implements PaneViewer {
         MenuItem viewDate_MenuItem = new MenuItem("View", viewDate_ImageView);
 
         addDate_MenuItem.setOnAction((event) -> {
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_DATES_FORM));
         });
 
         modifyDate_MenuItem.setOnAction((event) -> {
@@ -179,7 +182,6 @@ public class Main_MenuBar implements PaneViewer {
             } else if (rol == 2) {
                 personalProgress_MenuItem.setVisible(false);
                 admin_Menu.setVisible(false);
-                dates_Menu.setVisible(false);
             } else if (rol == 3) {
                 generateReport_MenuItem.setVisible(false);
                 admin_Menu.setVisible(false);

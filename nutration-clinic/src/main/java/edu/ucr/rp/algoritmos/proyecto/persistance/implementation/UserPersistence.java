@@ -1,7 +1,8 @@
-package edu.ucr.rp.algoritmos.proyecto.persistance;
+package edu.ucr.rp.algoritmos.proyecto.persistance.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.User;
-import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.UserLinkedList;
+import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation.UserLinkedList;
+import edu.ucr.rp.algoritmos.proyecto.persistance.interfaces.Persistence;
 import edu.ucr.rp.algoritmos.proyecto.persistance.util.JsonUtil;
 import org.apache.commons.io.FileUtils;
 import java.io.File;
@@ -11,7 +12,7 @@ import java.net.MalformedURLException;
 /**
  * Maneja una lista completa de usuarios
  */
-public class UserPersistence implements Persistence<User, UserLinkedList>{
+public class UserPersistence implements Persistence<User, UserLinkedList> {
     private final String path = "files/user.json";
     //private final String suffix = ".json";
     private final JsonUtil jsonUtil = new JsonUtil();

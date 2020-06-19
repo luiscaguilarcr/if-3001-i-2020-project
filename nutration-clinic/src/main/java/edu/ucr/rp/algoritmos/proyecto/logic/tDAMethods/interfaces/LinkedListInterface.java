@@ -1,4 +1,4 @@
-package edu.ucr.rp.algoritmos.proyecto.logic.lists.interfaces;
+package edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.interfaces;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.User;
 

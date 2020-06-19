@@ -1,8 +1,8 @@
 package persistence;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.User;
-import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.UserLinkedList;
-import edu.ucr.rp.algoritmos.proyecto.persistance.UserPersistence;
+import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation.UserLinkedList;
+import edu.ucr.rp.algoritmos.proyecto.persistance.implementation.UserPersistence;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import edu.ucr.rp.algoritmos.proyecto.util.files.IOUtility;
 import org.junit.Test;

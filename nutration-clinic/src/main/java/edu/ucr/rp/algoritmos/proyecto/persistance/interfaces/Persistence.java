@@ -1,4 +1,4 @@
-package edu.ucr.rp.algoritmos.proyecto.persistance;
+package edu.ucr.rp.algoritmos.proyecto.persistance.interfaces;
 
 /**
  *

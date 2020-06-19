@@ -1,7 +1,7 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.CustomerReport;
-import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.CustomerReportTree;
+import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation.CustomerReportTree;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 
 public class CustomerReportService implements Service<CustomerReport, CustomerReportTree> {

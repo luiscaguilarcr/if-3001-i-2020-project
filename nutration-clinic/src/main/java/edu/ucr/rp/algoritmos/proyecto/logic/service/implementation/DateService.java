@@ -1,10 +1,10 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.AdminAnnotationQueue;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
+import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation.CustomerDateStack;
 
-public class DateService implements Service<CustomerDate, AdminAnnotationQueue> {
+public class DateService implements Service<CustomerDate, CustomerDateStack> {
     @Override
     public boolean add(CustomerDate element) {
         return false;
@@ -26,7 +26,7 @@ public class DateService implements Service<CustomerDate, AdminAnnotationQueue> 
     }
 
     @Override
-    public AdminAnnotationQueue getAll() {
+    public CustomerDateStack getAll() {
         return null;
     }
 }

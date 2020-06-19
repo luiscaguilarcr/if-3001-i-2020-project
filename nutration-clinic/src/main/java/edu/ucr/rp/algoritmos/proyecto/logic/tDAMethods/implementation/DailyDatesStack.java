@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
+package edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.lists.interfaces.StackInterface;
+import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.interfaces.StackInterface;
 
 
 
@@ -91,7 +91,7 @@ public class DailyDatesStack implements StackInterface {
             }
 
         } else {
-            System.out.println("La íla esta vacia");
+            System.out.println("La ï¿½la esta vacia");
         }
 
         return null;

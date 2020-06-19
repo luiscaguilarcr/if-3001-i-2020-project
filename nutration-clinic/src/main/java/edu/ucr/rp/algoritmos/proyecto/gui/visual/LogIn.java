@@ -88,8 +88,6 @@ public class LogIn implements PaneViewer {
     public User logInUser() {
         if (userService.getById(Integer.parseInt(iDTextField.getText())) != null) {
             User user = userService.getById(Integer.parseInt(iDTextField.getText()));
-            String passwordUser = user.getPassword();
-            String passwordEnter = utility.encrypt(passwordTextField.getText());
             if ((user.getPassword()).equals(utility.encrypt(passwordTextField.getText()))) {
                 validUser = true;
                 App app = new App();
@@ -105,14 +103,14 @@ public class LogIn implements PaneViewer {
     }
 
     public static User getUser() {
-        if (validateUser()) {
+        if (validUser) {
             return userService.getById(Integer.parseInt(iDTextField.getText()));
         }
         return null;
     }
 
     public static int getRol() {
-        if (validateUser()) {
+        if (validUser) {
             return userService.getById(Integer.parseInt(iDTextField.getText())).getRol();
         }
         return -1;

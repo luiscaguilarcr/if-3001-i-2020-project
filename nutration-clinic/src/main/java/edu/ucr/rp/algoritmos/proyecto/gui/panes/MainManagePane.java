@@ -2,6 +2,7 @@ package edu.ucr.rp.algoritmos.proyecto.gui.panes;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.visual.util.AddDatesForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.visual.Main_MenuBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,6 +33,7 @@ public class MainManagePane implements PaneViewer {
     private void initializePanes(Stage stage, Pane basePane) {
         panes.put(PaneName.BASE, basePane);
         panes.put(PaneName.LOG_IN, new Main_MenuBar(stage).getPane());
+        panes.put(PaneName.ADD_DATES_FORM, new AddDatesForm().getPane());
     }
 
     @Override

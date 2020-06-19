@@ -1,8 +1,8 @@
-package edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation;
+package edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.ucr.rp.algoritmos.proyecto.domain.User;
-import edu.ucr.rp.algoritmos.proyecto.logic.lists.interfaces.LinkedListInterface;
+import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.interfaces.LinkedListInterface;
 
 /**
  * @author Noel

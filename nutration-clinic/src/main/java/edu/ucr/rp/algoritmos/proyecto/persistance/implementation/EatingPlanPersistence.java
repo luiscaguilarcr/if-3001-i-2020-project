@@ -1,6 +1,7 @@
-package edu.ucr.rp.algoritmos.proyecto.persistance;
+package edu.ucr.rp.algoritmos.proyecto.persistance.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.EatingPlan;
+import edu.ucr.rp.algoritmos.proyecto.persistance.interfaces.Persistence;
 
 import java.util.List;
 

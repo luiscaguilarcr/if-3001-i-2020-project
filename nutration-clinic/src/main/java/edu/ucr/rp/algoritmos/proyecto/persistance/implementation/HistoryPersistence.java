@@ -1,7 +1,8 @@
-package edu.ucr.rp.algoritmos.proyecto.persistance;
+package edu.ucr.rp.algoritmos.proyecto.persistance.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.HistoryApp;
-import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.HistoryAppAVL;
+import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation.HistoryAppAVL;
+import edu.ucr.rp.algoritmos.proyecto.persistance.interfaces.Persistence;
 
 /**
  * Permite persistir la información que el usuario realice

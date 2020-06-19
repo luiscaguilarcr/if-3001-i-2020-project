@@ -1,7 +1,7 @@
-package edu.ucr.rp.algoritmos.proyecto.logic.lists.interfaces;
+package edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.interfaces;
 
 import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.lists.implementation.AdminAnnotationQueue;
+import edu.ucr.rp.algoritmos.proyecto.logic.tDAMethods.implementation.AdminAnnotationQueue;
 
 public interface QueueInterface {
     void enqueue(CustomerDate adminAnotation);
