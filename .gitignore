@@ -34,5 +34,4 @@ nutration-clinic/target/classes/.netbeans_automatic_build
 nutration-clinic/target/test-classes/.netbeans_automatic_build
 *.xml
 *.txt
-*.json
 nutration-clinic/files/user.json
