@@ -41,6 +41,11 @@ public class PaneUtil {
         pane.add(passwordField, column, row);
         return passwordField;
     }
+      public static DatePicker buildDatePicker(GridPane pane, int column, int row) {
+        DatePicker datePicker = new DatePicker();
+        pane.add(datePicker, column, row);
+        return datePicker;
+    }
 
     public static void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
