@@ -33,7 +33,18 @@ public class MainManagePane implements PaneViewer {
     private void initializePanes(Stage stage, Pane basePane) {
         panes.put(PaneName.BASE, basePane);
         panes.put(PaneName.LOG_IN, new Main_MenuBar(stage).getPane());
-        panes.put(PaneName.ADD_DATES_FORM, new AddDatesForm().getPane());
+        //panes.put(PaneName.CHANGE_PASSWORD), new ChangePassword().getPane());
+        //panes.put(PaneName.GENERATE_REPORT), new GenerateReport().getPane());
+        //panes.put(PaneName.PERSONAL_PROGRESS), new PersonalProgress().getPane());
+
+        //panes.put(PaneName.ADD_USER_FORM), new AddUserForm().getPane());
+        //panes.put(PaneName.MODIFY_USER_FORM), new ModifyUserForm().getPane());
+        //panes.put(PaneName.VIEW_USER_FORM), new ViewUserForm().getPane());
+
+        panes.put(PaneName.ADD_DATE_FORM, new AddDatesForm().getPane());
+        //panes.put(PaneName.MODIFY_DATE_FORM), new ModifyDate().getPane());
+        //panes.put(PaneName.VIEW_DATES, new viewDates().getPane());
+
     }
 
     @Override

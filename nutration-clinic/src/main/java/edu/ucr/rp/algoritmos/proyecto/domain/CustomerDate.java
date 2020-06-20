@@ -1,5 +1,8 @@
 package edu.ucr.rp.algoritmos.proyecto.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomerDate {
     private String date;
     private String hour;
