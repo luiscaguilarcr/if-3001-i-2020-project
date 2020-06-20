@@ -122,7 +122,7 @@ public class Main_MenuBar implements PaneViewer {
         MenuItem viewCustomer_MenuItem = new MenuItem("View", viewCustomer_ImageView);
 
         addCustomer_MenuItem.setOnAction((event) -> {
-            //MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_USER_FORM));
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_USER_FORM));
             //AddUserForm.setUserRol(3);
             //ModifyUserForm.setUserRol(3);
             //ViewUserForm.setUserRol(3);
