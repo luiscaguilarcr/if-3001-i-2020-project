@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.gui;
 
-import edu.ucr.rp.algoritmos.proyecto.gui.model.SceneName;
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.SceneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.MainScene;
 import javafx.application.Application;
 import javafx.scene.Scene;

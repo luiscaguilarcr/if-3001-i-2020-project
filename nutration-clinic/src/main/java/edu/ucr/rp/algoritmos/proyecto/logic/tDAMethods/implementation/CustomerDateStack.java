@@ -5,18 +5,17 @@
  */
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.StackInterface;
 
-
-class Node {
-    CustomerDate date;
-    Node nextNode;
-}
-
 public class CustomerDateStack implements StackInterface {
-    private Node firstNode;
-    private int accountant;
+    public Node firstNode;
+    public int accountant;
+
+    public static class Node {
+        public CustomerDate date;
+        public Node nextNode;
+    }
 
     public CustomerDateStack() {//constructor
         firstNode = null;

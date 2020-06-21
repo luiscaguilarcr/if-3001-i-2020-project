@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.AdminAnnotation;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnotationQueue;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 

@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.EatingPlan;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.EatingPlan;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 
 import java.util.List;

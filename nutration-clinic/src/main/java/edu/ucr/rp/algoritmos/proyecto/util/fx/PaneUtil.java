@@ -4,12 +4,11 @@ import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.*;
 import org.controlsfx.control.CheckComboBox;
 
 import static edu.ucr.rp.algoritmos.proyecto.util.fx.UIConstants.*;
@@ -18,7 +17,7 @@ public class PaneUtil {
 
     public static GridPane buildPane() {
         GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.BASELINE_RIGHT);
+        gridPane.setAlignment(Pos.CENTER_RIGHT);
         gridPane.setPadding(new Insets(40, 40, 40, 40));
         gridPane.setHgap(5);
         gridPane.setVgap(5);
@@ -27,7 +26,14 @@ public class PaneUtil {
         ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
         columnTwoConstrains.setHgrow(Priority.ALWAYS);
         gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
+
         return gridPane;
+    }
+
+    public static BorderPane buildBorderPane(GridPane pane) {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setRight(pane);
+        return borderPane;
     }
 
     public static TextField buildTextInput(GridPane pane, int column, int row) {
@@ -65,7 +71,8 @@ public class PaneUtil {
 
     public static Button buildButtonImage(Image image, GridPane pane, int column, int row) {
         Button button = new Button("", new ImageView(image));
-        pane.setHalignment(button, HPos.CENTER);
+        pane.setHalignment(button, HPos.RIGHT);
+        button.setStyle("-fx-background-color: #009688");
         pane.setMargin(button, BUTTON_DEFAULT_INSETS);
         pane.add(button, column, row);
         return button;
@@ -101,6 +108,12 @@ public class PaneUtil {
     public static Label buildLabel(GridPane pane, String text, int column, int row) {
         Label label = new Label(text);
         pane.add(label, column, row);
+        return label;
+    }
+
+    public static Label buildLabelVBox(HBox HBox, String text, int column, int row) {
+        Label label = new Label(text);
+        HBox.getChildren().add(column, label);
         return label;
     }
 

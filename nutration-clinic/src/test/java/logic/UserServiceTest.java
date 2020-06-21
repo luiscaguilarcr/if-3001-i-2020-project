@@ -1,6 +1,6 @@
 package logic;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import org.junit.Test;

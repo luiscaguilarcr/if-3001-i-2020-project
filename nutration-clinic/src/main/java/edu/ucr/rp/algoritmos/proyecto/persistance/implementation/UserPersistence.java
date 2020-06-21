@@ -1,20 +1,16 @@
 package edu.ucr.rp.algoritmos.proyecto.persistance.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 import edu.ucr.rp.algoritmos.proyecto.persistance.interfaces.Persistence;
-import edu.ucr.rp.algoritmos.proyecto.persistance.util.JsonUtil;
+import edu.ucr.rp.algoritmos.proyecto.util.JsonUtil;
 import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-/**
- * Maneja una lista completa de usuarios
- */
 public class UserPersistence implements Persistence<User, UserLinkedList> {
     private final String path = "files/user.json";
-    //private final String suffix = ".json";
     private final JsonUtil jsonUtil = new JsonUtil();
 
     /**
@@ -25,23 +21,13 @@ public class UserPersistence implements Persistence<User, UserLinkedList> {
     @Override
     public boolean write(UserLinkedList userLinkedList) {
         if (userLinkedList == null) return false;
-        return saveUser(userLinkedList);
+        return saveUsers(userLinkedList);
     }
 
-    private boolean saveUser(UserLinkedList userLinkedList) {
+    private boolean saveUsers(UserLinkedList userLinkedList) {
         jsonUtil.toFile(new File(path), userLinkedList);
         return true;
     }
-
-    /*public boolean write(User user) {
-        if (user == null) return false;
-        return saveUser(user);
-    }
-
-    private boolean saveUser(User user) {
-        jsonUtil.toFile(new File(path+user.getiD()+suffix), user);
-        return true;
-    }*/
 
     /**
      * Para leer una lista de usuarios.

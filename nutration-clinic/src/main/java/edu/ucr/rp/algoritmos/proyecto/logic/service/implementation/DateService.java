@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 

@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 
 public interface StackInterface {
 

@@ -1,7 +1,7 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import edu.ucr.rp.algoritmos.proyecto.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.LinkedListInterface;
 
 /**

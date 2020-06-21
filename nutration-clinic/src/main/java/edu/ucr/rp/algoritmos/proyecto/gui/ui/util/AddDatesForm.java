@@ -5,9 +5,8 @@
  */
 package edu.ucr.rp.algoritmos.proyecto.gui.ui.util;
 
-import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 
 import java.time.LocalDate;
@@ -17,7 +16,6 @@ import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;

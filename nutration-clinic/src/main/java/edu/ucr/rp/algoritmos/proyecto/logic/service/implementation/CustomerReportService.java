@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.CustomerReport;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerReport;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerReportTree;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 

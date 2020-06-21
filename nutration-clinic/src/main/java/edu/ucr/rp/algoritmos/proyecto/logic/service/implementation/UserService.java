@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 import edu.ucr.rp.algoritmos.proyecto.persistance.implementation.UserPersistence;

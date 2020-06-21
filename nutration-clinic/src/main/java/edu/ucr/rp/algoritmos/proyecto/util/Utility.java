@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.util;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 
 public class Utility {
     public static User user;
