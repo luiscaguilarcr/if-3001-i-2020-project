@@ -2,8 +2,10 @@ package edu.ucr.rp.algoritmos.proyecto.gui.managepane;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.AddDatesForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.Main_MenuBar;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ViewDate;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -42,8 +44,8 @@ public class MainManagePane implements PaneViewer {
         //panes.put(PaneName.VIEW_USER_FORM), new ViewUserForm().getPane());
 
         panes.put(PaneName.ADD_DATE_FORM, new AddDatesForm().getPane());
-        //panes.put(PaneName.MODIFY_DATE_FORM), new ModifyDate().getPane());
-        //panes.put(PaneName.VIEW_DATES, new viewDates().getPane());
+        //panes.put(PaneName.MODIFY_DATE_FORM, new ModifyDate().getPane());
+        // panes.put(PaneName.VIEW_DATES, new ViewDate().getPane());
 
     }
 

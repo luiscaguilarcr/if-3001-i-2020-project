@@ -3,7 +3,7 @@ package edu.ucr.rp.algoritmos.proyecto.gui.ui;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.managepane.MainManagePane;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.AddDatesForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main_MenuBar implements PaneViewer {
+
     private Stage stage;
     private Menu admin_Menu;
     private Menu dates_Menu;
@@ -104,7 +105,6 @@ public class Main_MenuBar implements PaneViewer {
 
         admin_Menu.getItems().addAll(addAdmin_MenuItem, modifyAdmin_MenuItem, viewAdmin_MenuItem);
 
-
         ////////////////////////////////////////////////////////////////////////// Menu "CUSTOMER"
         customer_Menu = new Menu("CUSTOMER");
 
@@ -129,13 +129,13 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         modifyCustomer_MenuItem.setOnAction((event) -> {
+
         });
 
         viewCustomer_MenuItem.setOnAction((event) -> {
         });
 
         customer_Menu.getItems().addAll(addCustomer_MenuItem, modifyCustomer_MenuItem, viewCustomer_MenuItem);
-
 
         ////////////////////////////////////////////////////////////////////////// Menu "DATES"
         dates_Menu = new Menu("DATES");
@@ -159,9 +159,11 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         modifyDate_MenuItem.setOnAction((event) -> {
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.MODIFY_DATE_FORM));
         });
 
         viewDate_MenuItem.setOnAction((event) -> {
+             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_DATES));
         });
 
         dates_Menu.getItems().addAll(addDate_MenuItem, modifyDate_MenuItem, viewDate_MenuItem);
