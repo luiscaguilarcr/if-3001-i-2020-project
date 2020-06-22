@@ -1,7 +1,9 @@
 package edu.ucr.rp.algoritmos.proyecto.gui;
 
-import edu.ucr.rp.algoritmos.proyecto.gui.model.SceneName;
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.SceneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.MainScene;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.UserPersistence;
+import edu.ucr.rp.algoritmos.proyecto.util.files.IOUtility;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -23,8 +25,10 @@ public class App extends Application {
         scenes.put(SceneName.MAIN_S, new MainScene(stage).getScene());
         stage.setScene(scenes.get(SceneName.MAIN_S));
 
+        IOUtility ioUtility = new IOUtility();
+        ioUtility.verifyAppDir(); //TODO test
+        
         stage.setTitle("Inventory System");
-        //stage.getIcons().add(new Image("logo.png"));
         stage.getIcons().add(new Image("naturaleza.png"));
         stage.show();
     }

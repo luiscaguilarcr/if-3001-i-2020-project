@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.QueueInterface;
 
 public class AdminAnnotationQueue implements QueueInterface {

@@ -5,18 +5,18 @@
  */
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.CustomerDate;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.StackInterface;
 
-
-class Node {
-    CustomerDate date;
-    Node nextNode;
-}
-
 public class CustomerDateStack implements StackInterface {
-    private Node firstNode;
-    private int accountant;
+    public Node firstNode;
+    public int accountant;
+
+    public static class Node {
+        public CustomerDate date;
+        public Node nextNode;
+    }
 
     public CustomerDateStack() {//constructor
         firstNode = null;
@@ -24,17 +24,17 @@ public class CustomerDateStack implements StackInterface {
     }
 
     @Override
-    public void push(CustomerDate element) {
-        Node aux = new Node();
-        aux.date = element;
+    public void push(CustomerDate customerDate) {
+        Node tempNode = new Node();
+        tempNode.date = customerDate;
 
-        aux.nextNode = firstNode;
-        firstNode = aux;
+        tempNode.nextNode = firstNode;
+        firstNode = tempNode;
         accountant++;
     }
 
     @Override
-    public void pop(CustomerDate element) {//remover
+    public void pop(CustomerDate customerDate) {//remover
         Node current;
         current = firstNode;
         Node past;
@@ -44,7 +44,7 @@ public class CustomerDateStack implements StackInterface {
         if (firstNode != null) {
             while (current != null && found != true) {
 
-                if (current.date == element) {
+                if (current.date.getCustomerID() == customerDate.getCustomerID()) {
                     if (current == firstNode) {
                         firstNode = firstNode.nextNode;
                     } else {
@@ -68,14 +68,14 @@ public class CustomerDateStack implements StackInterface {
     }
 
     @Override
-    public CustomerDate peek(CustomerDate element) {//seleccionar
+    public CustomerDate peek(CustomerDate customerDate) {//seleccionar
         Node current;
         current = firstNode;
         boolean found = false;
 
         if (firstNode != null) {
             while (current != null && found != true) {
-                if (current.date == element) {
+                if (current.date == customerDate) {
 
                     found = true;
                     return current.date;
@@ -85,9 +85,8 @@ public class CustomerDateStack implements StackInterface {
             if (!found) {
                 System.out.println("\n Nodo no encontrado\n");
             }
-
         } else {
-            System.out.println("La �la esta vacia");
+            System.out.println("La pila la esta vacia");
         }
 
         return null;
@@ -99,12 +98,12 @@ public class CustomerDateStack implements StackInterface {
     }
 
     @Override
-    public boolean isFull() {
+    public boolean validateFill() {
         return accountant > 0;
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean validateEmpty() {
         return accountant == 0;
     }
 
@@ -133,5 +132,34 @@ public class CustomerDateStack implements StackInterface {
             System.out.println("La pila esta vacia");
         }
 
+    }
+
+    /**
+     * Valida la existencia de una cita
+     * @param customerDate que se quiere validar
+     * @return true si la pila contiene la cita, si no, false
+     */
+    public boolean contains(CustomerDate customerDate){
+        Node tempNode = firstNode;
+        while (tempNode != null){
+            if(tempNode.date.getCustomerID() == customerDate.getCustomerID()){
+                return true;
+            }
+            tempNode = tempNode.nextNode;
+        }
+        return false;
+    }
+
+    public CustomerDate getByAcc(int index){
+        Node tempNode = firstNode;
+        int accountant  = 0;
+        while (tempNode != null){
+            if(accountant == index){
+                return tempNode.date;
+            }
+            accountant++;
+            tempNode = tempNode.nextNode;
+        }
+        return null;
     }
 }

@@ -1,13 +1,12 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import edu.ucr.rp.algoritmos.proyecto.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.LinkedListInterface;
 
 /**
  * @author Noel
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserLinkedList implements LinkedListInterface {
     public Node firstNode, node;
     //To generate a node object
@@ -49,22 +48,16 @@ public class UserLinkedList implements LinkedListInterface {
      */
     @Override
     public void remove(User user) {
-        // Store head node
         Node tempNode = firstNode, previousNode = null;
-        // If head node itself holds the key to be deleted
-        if (tempNode != null && tempNode.user.getiD() == user.getiD()) {
+        if (tempNode != null && tempNode.user.getID() == user.getID()) {
             firstNode = tempNode.nextNode; // Changed head
             return;
         }
-        // Search for the key to be deleted, keep track of the
-        // previous node as we need to change tempNode.next
-        while (tempNode != null && tempNode.user.getiD() != user.getiD()) {
+        while (tempNode != null && tempNode.user.getID() != user.getID()) {
             previousNode = tempNode;
             tempNode = tempNode.nextNode;
         }
-        // If key was not present in linked list
         if (tempNode == null) return;
-        // Unlink the node from linked list
         previousNode.nextNode = tempNode.nextNode;
     }
 
@@ -97,7 +90,7 @@ public class UserLinkedList implements LinkedListInterface {
     @Override
     public int indexOf(User user) {
         Node tempNode = firstNode;
-        if (!contains(user)) {
+        if (!containsByID(user)) {
             return -1;
         }
         int index = 0;
@@ -121,7 +114,7 @@ public class UserLinkedList implements LinkedListInterface {
     public User get(int index) {
         int accountant = 0; //contador para la posición en el índice
         Node tempNode = firstNode; //posicionar un nodo temporal en el primer elemento
-        if (!isEmpty()) { //Caso 1: la lista tiene al menos un número
+        if (!validateEmpty()) { //Caso 1: la lista tiene al menos un número
             while (tempNode != null) {
                 if (accountant == index) {
                     return tempNode.user;//devolver el número en el índice pedido
@@ -140,8 +133,8 @@ public class UserLinkedList implements LinkedListInterface {
      * @return true si lo contine, de lo contrario, false
      */
     @Override
-    public boolean contains(User user) {
-        if (isEmpty()) { //Case 1: the list is empty
+    public boolean containsByID(User user) {
+        if (validateEmpty()) { //Case 1: the list is empty
             return false;
         }
         //The temporary node is positioned on the first node
@@ -149,7 +142,25 @@ public class UserLinkedList implements LinkedListInterface {
         //Loops through the list of nodes
         while (tempNode != null) {
             //When the item to find is found, enter it in the if
-            if (user.getiD() == tempNode.user.getiD()) {
+            if (user.getID() == tempNode.user.getID()) {
+                return true;
+            }
+            //Advance one position in the node list
+            tempNode = tempNode.nextNode;
+        }
+        return false;
+    }
+
+    public boolean containsByName(User user) {
+        if (validateEmpty()) { //Case 1: the list is empty
+            return false;
+        }
+        //The temporary node is positioned on the first node
+        Node tempNode = firstNode;
+        //Loops through the list of nodes
+        while (tempNode != null) {
+            //When the item to find is found, enter it in the if
+            if (user.getName() == tempNode.user.getName()) {
                 return true;
             }
             //Advance one position in the node list
@@ -164,7 +175,7 @@ public class UserLinkedList implements LinkedListInterface {
      * @return true si la lista está vacía, si no, false
      */
     @Override
-    public boolean isEmpty() {
+    public boolean validateEmpty() {
         return firstNode == null;
     }
 

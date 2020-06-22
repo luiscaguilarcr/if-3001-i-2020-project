@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.AdminAnnotation;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnotationQueue;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 
@@ -21,7 +21,7 @@ public class AnnotationService implements Service<AdminAnnotation, AdminAnnotati
     }
 
     @Override
-    public AdminAnnotation getById(int iD) {
+    public AdminAnnotation getByID(int iD) {
         return null;
     }
 

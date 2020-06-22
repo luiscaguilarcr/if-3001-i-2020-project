@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.EatingPlan;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.EatingPlan;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class EatingPlanService implements Service<EatingPlan, List> {
     }
 
     @Override
-    public EatingPlan getById(int iD) {
+    public EatingPlan getByID(int iD) {
         return null;
     }
 

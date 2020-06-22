@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 
 public interface LinkedListInterface {
     void add(User user);
@@ -13,7 +13,7 @@ public interface LinkedListInterface {
 
     User get(int index);
 
-    boolean contains(User user);
+    boolean containsByID(User user);
 
-    boolean isEmpty();
+    boolean validateEmpty();
 }

@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.CustomerReport;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerReport;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerReportTree;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 
@@ -21,7 +21,7 @@ public class CustomerReportService implements Service<CustomerReport, CustomerRe
     }
 
     @Override
-    public CustomerReport getById(int iD) {
+    public CustomerReport getByID(int iD) {
         return null;
     }
 

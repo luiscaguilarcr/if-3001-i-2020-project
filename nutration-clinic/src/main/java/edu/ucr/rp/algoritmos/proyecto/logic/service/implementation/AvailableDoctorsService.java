@@ -1,29 +1,29 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.AvailableDoctor;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 
 import java.util.List;
 
-public class AvailableDoctorsService implements Service <AvailableDoctor, List> {
+public class AvailableDoctorsService implements Service <AdminAvailability, List> {
 
     @Override
-    public boolean add(AvailableDoctor element) {
+    public boolean add(AdminAvailability element) {
         return false;
     }
 
     @Override
-    public boolean edit(AvailableDoctor oldElement, AvailableDoctor newElement) {
+    public boolean edit(AdminAvailability oldElement, AdminAvailability newElement) {
         return false;
     }
 
     @Override
-    public boolean remove(AvailableDoctor element) {
+    public boolean remove(AdminAvailability element) {
         return false;
     }
 
     @Override
-    public AvailableDoctor getById(int iD) {
+    public AdminAvailability getByID(int iD) {
         return null;
     }
 

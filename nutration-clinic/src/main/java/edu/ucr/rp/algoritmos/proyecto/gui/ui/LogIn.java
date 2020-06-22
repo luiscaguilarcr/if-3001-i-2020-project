@@ -1,8 +1,8 @@
 package edu.ucr.rp.algoritmos.proyecto.gui.ui;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.gui.App;
-import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
@@ -10,8 +10,7 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class LogIn implements PaneViewer {
@@ -20,13 +19,13 @@ public class LogIn implements PaneViewer {
     private static Label passwordNameLabel;
     private static TextField iDTextField;
     private static PasswordField passwordTextField;
-    private static Button extiButton;
+    private static Button exitButton;
     private static Button logInButton;
     private static boolean validUser = false;
     private Stage stage;
     private Utility utility = new Utility();
     private static UserService userService = UserService.getInstance();
-
+    private GridPane gridPane;
     public LogIn(Stage stage) {
         this.stage = stage;
     }
@@ -45,18 +44,13 @@ public class LogIn implements PaneViewer {
         passwordTextField = PaneUtil.buildPasswordField(pane, 1, 1);
         logInButton = PaneUtil.buildButton("LOGIN", pane, 1, 2);
         logInButton.setAlignment(Pos.CENTER);
-        extiButton = PaneUtil.buildButtonImage(new Image("exit.png"), pane, 2, 2);
-
+        exitButton = PaneUtil.buildButtonImage(new Image("exit2.png"), pane, 1, 2);
     }
 
     private void addHandlers() {
-        extiButton.setOnAction(e -> Platform.exit());
-        iDTextField.setOnMouseClicked(event -> {
-            iDTextField.setStyle("-fx-background-color: #FFFFFF");
-        });
-        passwordTextField.setOnAction(event -> {
-            iDTextField.setStyle("-fx-background-color: #FFFFFF");
-        });
+        exitButton.setOnAction(e -> Platform.exit());
+        iDTextField.setOnMouseClicked(e -> iDTextField.setStyle("-fx-background-color: #FFFFFF"));
+        passwordTextField.setOnAction(e -> iDTextField.setStyle("-fx-background-color: #FFFFFF"));
         logInButton.setOnAction(e -> {
             if (validateLogIn()) {
                 if (logInUser() == null) {
@@ -86,8 +80,8 @@ public class LogIn implements PaneViewer {
     }
 
     public User logInUser() {
-        if (userService.getById(Integer.parseInt(iDTextField.getText())) != null) {
-            User user = userService.getById(Integer.parseInt(iDTextField.getText()));
+        if (userService.getByID(Integer.parseInt(iDTextField.getText())) != null) {
+            User user = userService.getByID(Integer.parseInt(iDTextField.getText()));
             if ((user.getPassword()).equals(utility.encrypt(passwordTextField.getText()))) {
                 validUser = true;
                 App app = new App();
@@ -102,16 +96,20 @@ public class LogIn implements PaneViewer {
         return validUser;
     }
 
+    public static void refresh() {
+        validUser = false;
+    }
+
     public static User getUser() {
         if (validUser) {
-            return userService.getById(Integer.parseInt(iDTextField.getText()));
+            return userService.getByID(Integer.parseInt(iDTextField.getText()));
         }
         return null;
     }
 
     public static int getRol() {
         if (validUser) {
-            return userService.getById(Integer.parseInt(iDTextField.getText())).getRol();
+            return userService.getByID(Integer.parseInt(iDTextField.getText())).getRol();
         }
         return -1;
     }

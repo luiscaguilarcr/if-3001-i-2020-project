@@ -1,27 +1,25 @@
 package logic;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
+import edu.ucr.rp.algoritmos.proyecto.util.TestUtility;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
+import edu.ucr.rp.algoritmos.proyecto.util.files.IOUtility;
+import logic.interfaces.TestService;
 import org.junit.Test;
 
-public class UserServiceTest {
+public class UserServiceTest implements TestService {
     private static UserService userService;
+    TestUtility testUtility = new TestUtility();
     Utility utility = new Utility();
 
     @Test
     public void testAddition() {
-        userService = UserService.getInstance();
-        User user = utility.randomUser();
+        IOUtility ioUtility = new IOUtility();
+        ioUtility.verifyAppDir();
 
-        /*User user = new User();
-        user.setPassword("admin");
-        user.setName("admin");
-        user.setiD(123);
-        user.setRol(1);
-        user.setPhoneNumber(0000);
-        user.setAddress("");
-        user.setEmail("");*/
+        userService = UserService.getInstance();
+        User user = testUtility.randomUser();
 
         if (userService.add(user)) {
             System.out.println("Se creó");
@@ -33,10 +31,10 @@ public class UserServiceTest {
     @Test
     public void testDelete() {
         userService = UserService.getInstance();
-        User user = userService.getById(123);
+        User user = userService.getByID(123);
         User tempUser = user;
         if (userService.remove(user)) {
-            System.out.println("Se borró el usuario " + user.getName() + " ID: " + user.getiD());
+            System.out.println("Se borró el usuario " + user.getName() + " ID: " + user.getID());
         } else {
             System.out.println("No se borró");
         }
@@ -44,9 +42,9 @@ public class UserServiceTest {
 
     @Test //SI FUNCIONA
     public void testEdit() {
-        utility = new Utility();
+        testUtility = new TestUtility();
         userService = UserService.getInstance();
-        User oldUser = userService.getById(123);
+        User oldUser = userService.getByID(123);
         if (oldUser != null) {
             User newUser = oldUser;
             newUser.setPassword(utility.encrypt("adminn"));
@@ -62,9 +60,17 @@ public class UserServiceTest {
     @Test //SI FUNCIONA
     public void getByID() {
         userService = UserService.getInstance();
-        User user = userService.getById(123);
+        User user = userService.getByID(123);
         System.out.println(user.getName());
         System.out.println(user.getPassword());
+    }
+
+    @Override
+    public void getByDoctorID() {
+    }
+
+    @Override
+    public void test() {
     }
 
 }

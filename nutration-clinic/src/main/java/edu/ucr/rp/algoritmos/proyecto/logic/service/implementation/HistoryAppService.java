@@ -1,6 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.HistoryApp;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.HistoryAppAVL;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 
@@ -24,7 +24,7 @@ public class HistoryAppService implements Service<HistoryApp, HistoryAppAVL> {
     }
 
     @Override
-    public HistoryApp getById(int iD) {
+    public HistoryApp getByID(int iD) {
         return null;
     }
 

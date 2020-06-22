@@ -1,10 +1,9 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.UserPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
-import edu.ucr.rp.algoritmos.proyecto.persistance.implementation.UserPersistence;
-import edu.ucr.rp.algoritmos.proyecto.util.files.IOUtility;
 
 /**
  * Esta clase maneja en conjunto con la persistencia los usuarios del sistema.
@@ -13,7 +12,7 @@ import edu.ucr.rp.algoritmos.proyecto.util.files.IOUtility;
  */
 
 public class UserService implements Service<User, UserLinkedList> {
-    public UserLinkedList list;
+    public UserLinkedList userLinkedList;
     private UserPersistence userPersistence;
     private static UserService instance;
 
@@ -21,7 +20,7 @@ public class UserService implements Service<User, UserLinkedList> {
      * Constructor
      */
     private UserService() {
-        list = new UserLinkedList();
+        userLinkedList = new UserLinkedList();
         userPersistence = new UserPersistence();
         refresh();
     }
@@ -44,9 +43,9 @@ public class UserService implements Service<User, UserLinkedList> {
     @Override
     public boolean add(User user) {
         refresh();
-        if (!list.contains(user)) {
-            list.add(user);
-            return userPersistence.write(list);
+        if (validateAddition(user)) {
+            userLinkedList.add(user);
+            return userPersistence.write(userLinkedList);
         }
         return false;
     }
@@ -61,13 +60,13 @@ public class UserService implements Service<User, UserLinkedList> {
     @Override
     public boolean edit(User oldUser, User newUser) {
         refresh();
-        if (list.contains(oldUser)) {
-            list.remove(oldUser);
-            list.add(newUser);
-            userPersistence.write(list);
+        if (userLinkedList.containsByID(oldUser)) {
+            userLinkedList.remove(oldUser);
+            userLinkedList.add(newUser);
+            userPersistence.write(userLinkedList);
             refresh();
         }
-        return list.contains(newUser);
+        return userLinkedList.containsByID(newUser);
     }
 
     /**
@@ -79,9 +78,9 @@ public class UserService implements Service<User, UserLinkedList> {
     @Override
     public boolean remove(User user) {
         refresh();
-        if (list.contains(user)) {
-            list.remove(user);
-            return userPersistence.write(list);
+        if (userLinkedList.containsByID(user)) {
+            userLinkedList.remove(user);
+            return userPersistence.write(userLinkedList);
         }
         return false;
     }
@@ -93,11 +92,21 @@ public class UserService implements Service<User, UserLinkedList> {
      * @return true si el iD ingresado corresponde a un usuario, si no, false
      */
     @Override
-    public User getById(int iD) {
+    public User getByID(int iD) {
         refresh();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getiD() == iD) {
-                return list.get(i);
+        for (int i = 0; i < userLinkedList.size(); i++) {
+            if (userLinkedList.get(i).getID() == iD) {
+                return userLinkedList.get(i);
+            }
+        }
+        return null;
+    }
+
+    public User getByName(String name) {
+        refresh();
+        for (int i = 0; i < userLinkedList.size(); i++) {
+            if (userLinkedList.get(i).getName() == name) {
+                return userLinkedList.get(i);
             }
         }
         return null;
@@ -106,22 +115,28 @@ public class UserService implements Service<User, UserLinkedList> {
     @Override
     public UserLinkedList getAll() {
         refresh();
-        return list;
+        return userLinkedList;
     }
 
     /**
      * Refresca la lista de usuarios
      */
     private void refresh() {
-        IOUtility.verifyUsersDir();
         userPersistence = new UserPersistence();
         UserLinkedList tempUserLinkedList = new UserLinkedList();
-        if (userPersistence.read() != null) {
-            list = userPersistence.read();
-            for (int i = 0; i < list.size(); i++) {
-                tempUserLinkedList.add(list.get(i));
+
+        userLinkedList = userPersistence.read();
+        if (userLinkedList != null) {
+            for (int i = 0; i < userLinkedList.size(); i++) {
+                tempUserLinkedList.add(userLinkedList.get(i));
             }
         }
-        list = tempUserLinkedList;
+        userLinkedList = tempUserLinkedList;
+    }
+
+    private boolean validateAddition(User user){
+        if(userLinkedList.containsByID(user)) return false;
+        if(userLinkedList.containsByName(user)) return false;
+        return true;
     }
 }
