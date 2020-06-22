@@ -1,6 +1,13 @@
 package edu.ucr.rp.algoritmos.proyecto.util.files;
 
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.UserPersistence;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
+import java.io.IOException;
 
 public class IOUtility {
     public static String getFileAppSize()
@@ -29,12 +36,36 @@ public class IOUtility {
         }
     }
 
-    //  Methods  \\
-    public static void verifyUsersDir(){
+    /**
+     * Verifica si el directorio principal existe, si no, lo crea con un usuario SuperAdmin predeterminado.
+     */
+    public void verifyAppDir(){
         // Validate files/
+        UserService userService = UserService.getInstance();
         File root = new File("files/");
+        UserPersistence userPersistence = new UserPersistence();
         if(!root.exists()) {
             root.mkdir();
+            User superAdmin = new User();
+            superAdmin.setID(1234567890);
+            superAdmin.setName("super-admin");
+            superAdmin.setPassword("super-admin");
+            superAdmin.setRol(1);
+            userService.add(superAdmin);
         }
+    }
+
+    /**
+     * Vacía la información guardada en la aplicación por completo.
+     */
+    public boolean deleteAppDir(){
+        // Validate files/
+            try {
+                FileUtils.forceDelete(new File("files/"));
+                return true;
+            }catch (IOException e){
+                return false;
+            }
+
     }
 }

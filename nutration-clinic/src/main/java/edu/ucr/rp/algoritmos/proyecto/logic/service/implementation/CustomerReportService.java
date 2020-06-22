@@ -21,7 +21,7 @@ public class CustomerReportService implements Service<CustomerReport, CustomerRe
     }
 
     @Override
-    public CustomerReport getById(int iD) {
+    public CustomerReport getByID(int iD) {
         return null;
     }
 

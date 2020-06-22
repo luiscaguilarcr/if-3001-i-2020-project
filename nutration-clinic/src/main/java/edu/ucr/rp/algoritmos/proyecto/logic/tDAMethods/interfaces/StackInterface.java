@@ -14,8 +14,8 @@ public interface StackInterface {
 
     public int size();
 
-    public boolean isFull();
+    public boolean validateFill();
 
-    public boolean isEmpty();
+    public boolean validateEmpty();
 
 }

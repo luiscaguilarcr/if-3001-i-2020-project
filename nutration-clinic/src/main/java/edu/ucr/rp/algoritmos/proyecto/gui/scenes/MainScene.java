@@ -32,9 +32,9 @@ public class MainScene implements SceneViewer {
     public Scene buildScene(boolean validate) {
         Scene scene;
         if (validate) {
-            scene = new Scene(mainManagePane.getPane(), 900, 700);
+            scene = new Scene(mainManagePane.getPane(), 1364, 745);
         } else {
-            scene = new Scene(logInManagePane.getPane(), 900, 700);
+            scene = new Scene(logInManagePane.getPane(), 1364, 745);
         }
         // more code...
         scene.getStylesheets().add("Style.css");

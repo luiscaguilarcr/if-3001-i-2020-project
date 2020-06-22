@@ -23,7 +23,7 @@ public class AvailableDoctorsService implements Service <AdminAvailability, List
     }
 
     @Override
-    public AdminAvailability getById(int iD) {
+    public AdminAvailability getByID(int iD) {
         return null;
     }
 

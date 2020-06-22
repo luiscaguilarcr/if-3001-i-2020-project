@@ -21,7 +21,7 @@ public class AnnotationService implements Service<AdminAnnotation, AdminAnnotati
     }
 
     @Override
-    public AdminAnnotation getById(int iD) {
+    public AdminAnnotation getByID(int iD) {
         return null;
     }
 

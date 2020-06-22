@@ -5,6 +5,7 @@ public class EatingPlan {
     private String flours;
     private String fruits;
     private int iD;
+    private int fat;
 
     public String getCarbohydrates() {
         return carbohydrates;
@@ -39,6 +40,15 @@ public class EatingPlan {
 
     public EatingPlan setID(int iD) {
         this.iD = iD;
+        return this;
+    }
+
+    public int getFat() {
+        return fat;
+    }
+
+    public EatingPlan setFat(int fat) {
+        this.fat = fat;
         return this;
     }
 }

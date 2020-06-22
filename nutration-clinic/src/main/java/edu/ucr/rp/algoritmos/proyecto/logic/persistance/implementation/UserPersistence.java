@@ -1,8 +1,9 @@
-package edu.ucr.rp.algoritmos.proyecto.persistance.implementation;
+package edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
-import edu.ucr.rp.algoritmos.proyecto.persistance.interfaces.Persistence;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.interfaces.Persistence;
 import edu.ucr.rp.algoritmos.proyecto.util.JsonUtil;
 import org.apache.commons.io.FileUtils;
 import java.io.File;
@@ -63,4 +64,5 @@ public class UserPersistence implements Persistence<User, UserLinkedList> {
             return false;
         }
     }
+
 }

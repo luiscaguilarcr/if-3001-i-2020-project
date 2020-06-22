@@ -2,19 +2,19 @@ package persistence;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
-import edu.ucr.rp.algoritmos.proyecto.persistance.implementation.UserPersistence;
-import edu.ucr.rp.algoritmos.proyecto.util.Utility;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.UserPersistence;
+import edu.ucr.rp.algoritmos.proyecto.util.TestUtility;
 import edu.ucr.rp.algoritmos.proyecto.util.files.IOUtility;
+import logic.interfaces.TestPersistence;
 import org.junit.Test;
 
-public class UserPersistenceTest {
+public class UserPersistenceTest implements TestPersistence {
     UserPersistence userPersistence;
     private static UserLinkedList userLinkedList;
-    Utility utility = new Utility();
-
+    TestUtility testUtility = new TestUtility();
+    IOUtility ioUtility = new IOUtility();
     @Test
     public void testAddition() {
-        IOUtility.verifyUsersDir();
         userPersistence = new UserPersistence();
         UserLinkedList tempUserLinkedList = new UserLinkedList();
         if (userPersistence.read() != null) {
@@ -22,7 +22,7 @@ public class UserPersistenceTest {
             for (int i = 0; i < userLinkedList.size(); i++) {
                 tempUserLinkedList.add(userLinkedList.get(i));
             }
-            User user = utility.randomUser();
+            User user = testUtility.randomUser();
             tempUserLinkedList.add(user);
 
             if (userPersistence.write(tempUserLinkedList)) {
@@ -35,9 +35,10 @@ public class UserPersistenceTest {
 
     }
 
+    @Override
     @Test
-    public void testAddSuperAdmin() {
-        IOUtility.verifyUsersDir();
+    public void testAddition2() {
+        ioUtility.verifyAppDir();
         userPersistence = new UserPersistence();
         UserLinkedList tempUserLinkedList = new UserLinkedList();
         if (userPersistence.read() != null) {
@@ -48,7 +49,7 @@ public class UserPersistenceTest {
             User user = new User();
             user.setPassword("admin");
             user.setName("admin");
-            user.setiD(123);
+            user.setID(123);
             user.setRol(1);
             user.setPhoneNumber(0000);
             user.setAddress("");
@@ -77,5 +78,13 @@ public class UserPersistenceTest {
         userPersistence = new UserPersistence();
         UserLinkedList userLinkedList = userPersistence.read();
         System.out.println(userLinkedList.get(0).getPhoneNumber());
+    }
+
+    @Override
+    @Test
+    public void test() {
+        IOUtility ioUtility = new IOUtility();
+        //ioUtility.deleteAppDir();
+        ioUtility.verifyAppDir();
     }
 }

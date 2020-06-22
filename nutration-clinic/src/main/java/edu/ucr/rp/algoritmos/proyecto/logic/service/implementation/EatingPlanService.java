@@ -22,7 +22,7 @@ public class EatingPlanService implements Service<EatingPlan, List> {
     }
 
     @Override
-    public EatingPlan getById(int iD) {
+    public EatingPlan getByID(int iD) {
         return null;
     }
 

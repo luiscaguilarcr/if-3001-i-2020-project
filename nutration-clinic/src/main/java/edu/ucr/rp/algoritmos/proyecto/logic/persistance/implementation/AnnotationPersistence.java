@@ -1,8 +1,8 @@
-package edu.ucr.rp.algoritmos.proyecto.persistance.implementation;
+package edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnotationQueue;
-import edu.ucr.rp.algoritmos.proyecto.persistance.interfaces.Persistence;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.interfaces.Persistence;
 import edu.ucr.rp.algoritmos.proyecto.util.JsonUtil;
 import org.apache.commons.io.FileUtils;
 

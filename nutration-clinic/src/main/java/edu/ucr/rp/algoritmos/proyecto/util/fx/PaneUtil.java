@@ -63,7 +63,7 @@ public class PaneUtil {
 
     public static Button buildButton(String text, GridPane pane, int column, int row) {
         Button button = new Button(text);
-        pane.setHalignment(button, HPos.CENTER);
+        pane.setHalignment(button, HPos.LEFT);
         pane.setMargin(button, BUTTON_DEFAULT_INSETS);
         pane.add(button, column, row);
         return button;
@@ -72,7 +72,7 @@ public class PaneUtil {
     public static Button buildButtonImage(Image image, GridPane pane, int column, int row) {
         Button button = new Button("", new ImageView(image));
         pane.setHalignment(button, HPos.RIGHT);
-        button.setStyle("-fx-background-color: #009688");
+        button.setStyle("-fx-background-color: #00bfa5");
         pane.setMargin(button, BUTTON_DEFAULT_INSETS);
         pane.add(button, column, row);
         return button;

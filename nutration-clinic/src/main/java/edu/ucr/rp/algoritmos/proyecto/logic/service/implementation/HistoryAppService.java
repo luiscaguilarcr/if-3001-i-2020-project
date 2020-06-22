@@ -24,7 +24,7 @@ public class HistoryAppService implements Service<HistoryApp, HistoryAppAVL> {
     }
 
     @Override
-    public HistoryApp getById(int iD) {
+    public HistoryApp getByID(int iD) {
         return null;
     }
 

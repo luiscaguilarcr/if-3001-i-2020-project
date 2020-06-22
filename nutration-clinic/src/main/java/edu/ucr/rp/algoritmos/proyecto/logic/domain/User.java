@@ -2,7 +2,7 @@ package edu.ucr.rp.algoritmos.proyecto.logic.domain;
 
 public class User {
     private String name, email, password, address;
-    private int phoneNumber, iD, rol;
+    private int phoneNumber, ID, rol;
 
     public String getName() {
         return name;
@@ -49,12 +49,12 @@ public class User {
         return this;
     }
 
-    public int getiD() {
-        return iD;
+    public int getID() {
+        return ID;
     }
 
-    public User setiD(int iD) {
-        this.iD = iD;
+    public User setID(int ID) {
+        this.ID = ID;
         return this;
     }
 

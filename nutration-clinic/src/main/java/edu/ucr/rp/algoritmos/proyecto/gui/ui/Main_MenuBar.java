@@ -62,7 +62,7 @@ public class Main_MenuBar implements PaneViewer {
         MenuItem guide_MenuItem = new MenuItem("User's guide", guide_ImageView);
 
         // exit_MenuItem
-        ImageView exit_ImageView = new ImageView(new Image("exit.png"));
+        ImageView exit_ImageView = new ImageView(new Image("exit3.png"));
         MenuItem exit_MenuItem = new MenuItem("Exit", exit_ImageView);
 
         changePassword_MenuItem.setOnAction((event) -> {
@@ -178,7 +178,7 @@ public class Main_MenuBar implements PaneViewer {
 
         // viewDate_MenuItem
         ImageView annotationsDate_ImageView = new ImageView(new Image("annotations.png"));
-        annotationsDate_MenuItem = new MenuItem("View", annotationsDate_ImageView);
+        annotationsDate_MenuItem = new MenuItem("Annotation", annotationsDate_ImageView);
 
         addDate_MenuItem.setOnAction((event) -> {
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_DATE_FORM));

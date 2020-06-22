@@ -1,7 +1,7 @@
-package edu.ucr.rp.algoritmos.proyecto.persistance.implementation;
+package edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
-import edu.ucr.rp.algoritmos.proyecto.persistance.interfaces.Persistence;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.EatingPlan;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.interfaces.Persistence;
 import edu.ucr.rp.algoritmos.proyecto.util.JsonUtil;
 import org.apache.commons.io.FileUtils;
 
@@ -10,36 +10,37 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
-public class AdminAvailabilityPersistence implements Persistence<AdminAvailability, List> {
-    private final String path = "files/adminAvailability.json";
+public class EatingPlanPersistence implements Persistence<EatingPlan, List> {
+    private final String path = "files/eatingPlan.json";
     private final JsonUtil jsonUtil = new JsonUtil();
 
     /**
-     * Para guardar la disponibilidad de un doctor.
+     * Para guardar planes de comidas.
      * @param list que se quiere guardar
      * @return true si se guardó, si no, false
      */
     @Override
     public boolean write(List list) {
         if (list == null) return false;
-        return saveDoctorAvailability(list);
+        return saveEatingPlan(list);
+
     }
 
-    private boolean saveDoctorAvailability(List list) {
+    private boolean saveEatingPlan(List list) {
         jsonUtil.toFile(new File(path), list);
         return true;
     }
 
     /**
-     * Para leer una lista de disponibilidad de doctores.
-     * @return lista de disponibilidad de doctores
+     * Para leer una lista de planes de comidas.
+     * @return lista de planes de comidas
      */
     @Override
     public List read() {
-        return readDoctorAvailability();
+        return readEatingPlan();
     }
 
-    private List readDoctorAvailability(){
+    private List readEatingPlan(){
         File file = new File(path);
         if(file.exists()){
             try {
@@ -52,8 +53,8 @@ public class AdminAvailabilityPersistence implements Persistence<AdminAvailabili
     }
 
     /**
-     * Elimina toda la lista de disponibilidad de doctores.
-     * @return true si se eliminaron todos los usuarios, si no, false
+     * Elimina todos los planes de comidas del sistema.
+     * @return true si se eliminaron todos los planes de comidas, si no, false
      */
     @Override
     public boolean deleteAll() {

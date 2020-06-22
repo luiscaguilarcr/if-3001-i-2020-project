@@ -1,5 +1,7 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.domain;
 
+import java.util.Date;
+
 public class CustomerDate {
     private String date;
     private String hour;

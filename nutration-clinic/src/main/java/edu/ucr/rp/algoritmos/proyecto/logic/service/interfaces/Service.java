@@ -7,7 +7,7 @@ public interface Service<E, L> {
 
     boolean remove(E element);
 
-    E getById(int iD);
+    E getByID(int iD);
 
     L getAll();
 }

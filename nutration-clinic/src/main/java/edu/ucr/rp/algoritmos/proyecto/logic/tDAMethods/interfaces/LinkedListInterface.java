@@ -13,7 +13,7 @@ public interface LinkedListInterface {
 
     User get(int index);
 
-    boolean contains(User user);
+    boolean containsByID(User user);
 
-    boolean isEmpty();
+    boolean validateEmpty();
 }
