@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main_MenuBar implements PaneViewer {
+
     private Stage stage;
     private Menu admin_Menu;
     private Menu dates_Menu;
@@ -127,7 +128,6 @@ public class Main_MenuBar implements PaneViewer {
 
         admin_Menu.getItems().addAll(addAdmin_MenuItem, modifyAdmin_MenuItem, viewAdmin_MenuItem);
 
-
         ////////////////////////////////////////////////////////////////////////// Menu "CUSTOMER"
         customer_Menu = new Menu("CUSTOMER");
 
@@ -152,13 +152,13 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         modifyCustomer_MenuItem.setOnAction((event) -> {
+
         });
 
         viewCustomer_MenuItem.setOnAction((event) -> {
         });
 
         customer_Menu.getItems().addAll(addCustomer_MenuItem, modifyCustomer_MenuItem, viewCustomer_MenuItem);
-
 
         ////////////////////////////////////////////////////////////////////////// Menu "DATES"
         dates_Menu = new Menu("DATES");
@@ -186,9 +186,11 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         modifyDate_MenuItem.setOnAction((event) -> {
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.MODIFY_DATE_FORM));
         });
 
         viewDate_MenuItem.setOnAction((event) -> {
+             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_DATES));
         });
 
         annotationsDate_MenuItem.setOnAction((event) -> {

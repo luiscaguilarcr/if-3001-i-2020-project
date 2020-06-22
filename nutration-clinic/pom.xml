@@ -60,6 +60,12 @@
             <artifactId>controlsfx</artifactId>
             <version>11.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>11.0.2</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
 </project>
