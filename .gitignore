@@ -36,4 +36,3 @@ nutration-clinic/target/test-classes/.netbeans_automatic_build
 *.txt
 *.json
 nutration-clinic/files/user.json
-nutration-clinic/src/test/java/logic/DateServiceTest.java
