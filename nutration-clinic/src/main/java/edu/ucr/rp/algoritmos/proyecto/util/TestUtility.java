@@ -28,7 +28,7 @@ public class TestUtility {
     }
 
     public void generateUserName() {
-        String[] list = {"Carlitos Aguilar", "Braulio Carrillo", "Andrés Turrio", "Hernán Olivar", "Rosa Marquez"};
+        String[] list = {"Carlitos Aguilar", "Braulio Carrillo", "Andre Turrio", "Hern Olivar", "Rosa Marquez", "Lolo Quesada", "Fran Mars", "Yeiny Misun"};
         user.setName(list[random(list.length)]);
     }
 

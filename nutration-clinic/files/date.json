@@ -2,10 +2,154 @@
   "firstNode" : {
     "date" : {
       "date" : "22/JUNE/2020",
-      "hour" : "19:50:50",
-      "customerID" : 261,
-      "adminID" : 217
+      "hour" : "21:37:26",
+      "customerID" : 211,
+      "adminID" : 160
+    },
+    "nextNode" : {
+      "date" : {
+        "date" : "22/JUNE/2020",
+        "hour" : "21:37:26",
+        "customerID" : 173,
+        "adminID" : 160
+      },
+      "nextNode" : {
+        "date" : {
+          "date" : "22/JUNE/2020",
+          "hour" : "21:37:25",
+          "customerID" : 153,
+          "adminID" : 207
+        },
+        "nextNode" : {
+          "date" : {
+            "date" : "22/JUNE/2020",
+            "hour" : "21:37:25",
+            "customerID" : 184,
+            "adminID" : 102
+          },
+          "nextNode" : {
+            "date" : {
+              "date" : "22/JUNE/2020",
+              "hour" : "21:37:25",
+              "customerID" : 252,
+              "adminID" : 285
+            },
+            "nextNode" : {
+              "date" : {
+                "date" : "22/JUNE/2020",
+                "hour" : "21:37:20",
+                "customerID" : 262,
+                "adminID" : 170
+              },
+              "nextNode" : {
+                "date" : {
+                  "date" : "22/JUNE/2020",
+                  "hour" : "21:37:20",
+                  "customerID" : 166,
+                  "adminID" : 225
+                },
+                "nextNode" : {
+                  "date" : {
+                    "date" : "22/JUNE/2020",
+                    "hour" : "21:37:20",
+                    "customerID" : 224,
+                    "adminID" : 207
+                  },
+                  "nextNode" : {
+                    "date" : {
+                      "date" : "22/JUNE/2020",
+                      "hour" : "21:37:20",
+                      "customerID" : 81,
+                      "adminID" : 202
+                    },
+                    "nextNode" : {
+                      "date" : {
+                        "date" : "22/JUNE/2020",
+                        "hour" : "21:37:19",
+                        "customerID" : 215,
+                        "adminID" : 291
+                      },
+                      "nextNode" : {
+                        "date" : {
+                          "date" : "22/JUNE/2020",
+                          "hour" : "21:37:19",
+                          "customerID" : 168,
+                          "adminID" : 160
+                        },
+                        "nextNode" : {
+                          "date" : {
+                            "date" : "22/JUNE/2020",
+                            "hour" : "21:37:19",
+                            "customerID" : 199,
+                            "adminID" : 214
+                          },
+                          "nextNode" : {
+                            "date" : {
+                              "date" : "22/JUNE/2020",
+                              "hour" : "21:37:19",
+                              "customerID" : 221,
+                              "adminID" : 170
+                            },
+                            "nextNode" : {
+                              "date" : {
+                                "date" : "22/JUNE/2020",
+                                "hour" : "21:37:19",
+                                "customerID" : 109,
+                                "adminID" : 249
+                              },
+                              "nextNode" : {
+                                "date" : {
+                                  "date" : "22/JUNE/2020",
+                                  "hour" : "21:30:32",
+                                  "customerID" : 147,
+                                  "adminID" : 285
+                                },
+                                "nextNode" : {
+                                  "date" : {
+                                    "date" : "22/JUNE/2020",
+                                    "hour" : "21:30:28",
+                                    "customerID" : 234,
+                                    "adminID" : 226
+                                  },
+                                  "nextNode" : {
+                                    "date" : {
+                                      "date" : "22/JUNE/2020",
+                                      "hour" : "21:26:15",
+                                      "customerID" : 197,
+                                      "adminID" : 207
+                                    },
+                                    "nextNode" : {
+                                      "date" : {
+                                        "date" : "22/JUNE/2020",
+                                        "hour" : "21:26:4",
+                                        "customerID" : 348,
+                                        "adminID" : 202
+                                      },
+                                      "nextNode" : {
+                                        "date" : {
+                                          "date" : "22/JUNE/2020",
+                                          "hour" : "21:26:0",
+                                          "customerID" : 227,
+                                          "adminID" : 160
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
-  "accountant" : 1
+  "accountant" : 19
 }

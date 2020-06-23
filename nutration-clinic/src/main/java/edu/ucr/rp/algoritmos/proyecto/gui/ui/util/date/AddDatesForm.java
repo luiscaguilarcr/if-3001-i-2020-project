@@ -48,7 +48,7 @@ public class AddDatesForm implements PaneViewer {
     private static Label SelectdoctorLabel;
     private static DateService dateService;
     private static UserService userService;
-    private static ObservableList<String> observableDoctor;
+    private ObservableList<String> observableDoctor;
     
     private Calendar calendar;
     public GridPane addDatesForm() {
@@ -82,8 +82,6 @@ public class AddDatesForm implements PaneViewer {
         list.add("5:00pm");
         ObservableList<String> observableList = FXCollections.observableList(list);
         List<String> listdoctor = new ArrayList<String>();
-     
-        observableDoctor = FXCollections.observableArrayList("");
         
         AddDateTitleLabel = PaneUtil.buildLabel(pane, "Book appointment", 0, 0);
         DateFieldLabel = PaneUtil.buildLabel(pane, "Date Field", 0, 1);
@@ -96,7 +94,7 @@ public class AddDatesForm implements PaneViewer {
         doctorsComboBox = PaneUtil.buildComboBox(pane, observableDoctor, 1, 3);
         addDateButton = PaneUtil.buildButton("Add Date", pane, 1, 5);
         cancelButton = PaneUtil.buildButtonImage(new Image("logout.png"), pane, 2, 5);
-       
+
     }
 
     /**
@@ -142,20 +140,11 @@ public class AddDatesForm implements PaneViewer {
      */
     public static void refresh() {
         serviceInstance();
-        if(dateService.getByID(LogIn.getUser().getID()) != null){
-            MainManagePane.clearPane();
+        if(dateService.getDatesByAdminID(LogIn.getUser().getID()) == null){
             PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You can't add another date");
-        }else{
-            CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
-            List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
-            observableDoctor = FXCollections.observableArrayList(namesList);
+            MainManagePane.clearPane();
         }
-         CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
-            List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
-            observableDoctor = FXCollections.observableArrayList(namesList);
-        
     }
-   
     
     @Override
     public Pane getPane() {

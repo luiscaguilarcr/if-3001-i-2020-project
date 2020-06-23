@@ -17,15 +17,16 @@ public class UserServiceTest implements TestService {
     public void testAddition() {
         IOUtility ioUtility = new IOUtility();
         ioUtility.verifyAppDir();
-
-        userService = UserService.getInstance();
-        User user = testUtility.randomUser();
-
-        if (userService.add(user)) {
-            System.out.println("Se creó");
-        } else {
-            System.out.println("No se creó");
+        for (int i = 0; i < 10; i++) {
+            userService = UserService.getInstance();
+            User user = testUtility.randomUser();
+            if (userService.add(user)) {
+                System.out.println("Se creó");
+            } else {
+                System.out.println("No se creó");
+            }
         }
+
     }
 
     @Test

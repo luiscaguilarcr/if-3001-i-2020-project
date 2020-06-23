@@ -136,7 +136,6 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
     public List getNamesOfCustomersByDates(CustomerDateStack customerDateStack){
         List customerNamesByDates = new ArrayList();
         UserService userService = UserService.getInstance();
-        CustomerDateStack customerNamesDateStack = new CustomerDateStack();
         for (int i = 0; i < customerDateStack.size(); i++) {
             String name = userService.getByID(customerDateStack.getByAcc(i).getCustomerID()).getName();
             customerNamesByDates.add(name);
