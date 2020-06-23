@@ -49,6 +49,7 @@ public class AddDatesForm implements PaneViewer {
     private static DateService dateService;
     private static UserService userService;
     private  ObservableList<String> observableDoctor;
+
     
     private Calendar calendar;
     public GridPane addDatesForm() {
@@ -82,6 +83,7 @@ public class AddDatesForm implements PaneViewer {
         list.add("5:00pm");
         ObservableList<String> observableList = FXCollections.observableList(list);
         List<String> listdoctor = new ArrayList<String>();
+
               CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
             List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
             observableDoctor = FXCollections.observableArrayList(namesList);
@@ -98,7 +100,7 @@ public class AddDatesForm implements PaneViewer {
         doctorsComboBox = PaneUtil.buildComboBox(pane, observableDoctor, 1, 3);
         addDateButton = PaneUtil.buildButton("Add Date", pane, 1, 5);
         cancelButton = PaneUtil.buildButtonImage(new Image("logout.png"), pane, 2, 5);
-       
+
     }
 
     /**
@@ -143,6 +145,7 @@ public class AddDatesForm implements PaneViewer {
      * Valida que el usuario no tenga agregada una cita
      */
     public static void refresh() {
+
        
 //        if(dateService.getByID(LogIn.getUser().getID()) != null){
 //            MainManagePane.clearPane();
@@ -155,9 +158,15 @@ public class AddDatesForm implements PaneViewer {
 //         CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
 //            List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
 //            observableDoctor = FXCollections.observableArrayList(namesList);
-         serviceInstance();
+//         serviceInstance();
+
+        serviceInstance();
+        if(dateService.getDatesByAdminID(LogIn.getUser().getID()) == null){
+            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You can't add another date");
+            MainManagePane.clearPane();
+        }
+
     }
-   
     
     @Override
     public Pane getPane() {
