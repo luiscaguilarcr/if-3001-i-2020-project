@@ -3,11 +3,11 @@ package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.DatePersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.UserPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
-import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
-import edu.ucr.rp.algoritmos.proyecto.util.files.IOUtility;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DateService implements Service<CustomerDate, CustomerDateStack> {
@@ -131,6 +131,17 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
     public CustomerDateStack getAll() {
         refresh();
         return customerDateStack;
+    }
+
+    public List getNamesOfCustomersByDates(CustomerDateStack customerDateStack){
+        List customerNamesByDates = new ArrayList();
+        UserService userService = UserService.getInstance();
+        CustomerDateStack customerNamesDateStack = new CustomerDateStack();
+        for (int i = 0; i < customerDateStack.size(); i++) {
+            String name = userService.getByID(customerDateStack.getByAcc(i).getCustomerID()).getName();
+            customerNamesByDates.add(name);
+        }
+        return customerNamesByDates;
     }
 
     /**
