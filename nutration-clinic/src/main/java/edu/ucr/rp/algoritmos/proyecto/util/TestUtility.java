@@ -108,7 +108,6 @@ public class TestUtility {
         if (validate()) {
             customerDate = new CustomerDate();
             setID();
-            //customerDate.setEatingPlanID();
             setDateAndHour();
 
             return customerDate;

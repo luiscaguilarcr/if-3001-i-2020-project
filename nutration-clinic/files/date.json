@@ -1,66 +1,11 @@
 {
   "firstNode" : {
     "date" : {
-      "date" : "21/JUNE/2020",
-      "hour" : "10:00am",
-      "customerID" : 244,
-      "adminID" : 217,
-      "eatingPlanID" : 0
-    },
-    "nextNode" : {
-      "date" : {
-        "date" : "21/JUNE/2020",
-        "hour" : "7:00am",
-        "customerID" : 181,
-        "adminID" : 217,
-        "eatingPlanID" : 0
-      },
-      "nextNode" : {
-        "date" : {
-          "date" : "21/JUNE/2020",
-          "hour" : "4:00am",
-          "customerID" : 287,
-          "adminID" : 217,
-          "eatingPlanID" : 0
-        },
-        "nextNode" : {
-          "date" : {
-            "date" : "21/JUNE/2020",
-            "hour" : "4:00pm",
-            "customerID" : 231,
-            "adminID" : 164,
-            "eatingPlanID" : 0
-          },
-          "nextNode" : {
-            "date" : {
-              "date" : "21/JUNE/2020",
-              "hour" : "6:00pm",
-              "customerID" : 121,
-              "adminID" : 220,
-              "eatingPlanID" : 0
-            },
-            "nextNode" : {
-              "date" : {
-                "date" : "21/JUNE/2020",
-                "hour" : "13:9:52",
-                "customerID" : 300,
-                "adminID" : 148,
-                "eatingPlanID" : 0
-              },
-              "nextNode" : {
-                "date" : {
-                  "date" : "21/JUNE/2020",
-                  "hour" : "13:9:45",
-                  "customerID" : 261,
-                  "adminID" : 114,
-                  "eatingPlanID" : 0
-                }
-              }
-            }
-          }
-        }
-      }
+      "date" : "22/JUNE/2020",
+      "hour" : "19:50:50",
+      "customerID" : 261,
+      "adminID" : 217
     }
   },
-  "accountant" : 7
+  "accountant" : 1
 }
