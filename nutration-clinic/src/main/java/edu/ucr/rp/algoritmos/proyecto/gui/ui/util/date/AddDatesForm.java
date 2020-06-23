@@ -48,7 +48,7 @@ public class AddDatesForm implements PaneViewer {
     private static Label SelectdoctorLabel;
     private static DateService dateService;
     private static UserService userService;
-    private static ObservableList<String> observableDoctor;
+    private  ObservableList<String> observableDoctor;
     
     private Calendar calendar;
     public GridPane addDatesForm() {
@@ -82,8 +82,10 @@ public class AddDatesForm implements PaneViewer {
         list.add("5:00pm");
         ObservableList<String> observableList = FXCollections.observableList(list);
         List<String> listdoctor = new ArrayList<String>();
-     
-        observableDoctor = FXCollections.observableArrayList("");
+              CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
+            List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
+            observableDoctor = FXCollections.observableArrayList(namesList);
+//        observableDoctor = FXCollections.observableArrayList("");
         
         AddDateTitleLabel = PaneUtil.buildLabel(pane, "Book appointment", 0, 0);
         DateFieldLabel = PaneUtil.buildLabel(pane, "Date Field", 0, 1);
@@ -141,19 +143,19 @@ public class AddDatesForm implements PaneViewer {
      * Valida que el usuario no tenga agregada una cita
      */
     public static void refresh() {
-        serviceInstance();
-        if(dateService.getByID(LogIn.getUser().getID()) != null){
-            MainManagePane.clearPane();
-            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You can't add another date");
-        }else{
-            CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
-            List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
-            observableDoctor = FXCollections.observableArrayList(namesList);
-        }
-         CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
-            List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
-            observableDoctor = FXCollections.observableArrayList(namesList);
-        
+       
+//        if(dateService.getByID(LogIn.getUser().getID()) != null){
+//            MainManagePane.clearPane();
+//            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You can't add another date");
+//        }else{
+//            CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
+//            List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
+//            observableDoctor = FXCollections.observableArrayList(namesList);
+//        }
+//         CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
+//            List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
+//            observableDoctor = FXCollections.observableArrayList(namesList);
+         serviceInstance();
     }
    
     

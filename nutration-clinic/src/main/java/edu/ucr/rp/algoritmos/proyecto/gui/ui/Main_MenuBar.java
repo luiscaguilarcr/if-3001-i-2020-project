@@ -181,9 +181,9 @@ public class Main_MenuBar implements PaneViewer {
         annotationsDate_MenuItem = new MenuItem("Annotation", annotationsDate_ImageView);
 
         addDate_MenuItem.setOnAction((event) -> {
-            AddDatesForm.refresh();
+            
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_DATE_FORM));
-           
+           AddDatesForm.refresh();
         });
 
         modifyDate_MenuItem.setOnAction((event) -> {
