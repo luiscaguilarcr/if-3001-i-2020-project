@@ -4,7 +4,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.App;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.AddDatesForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;

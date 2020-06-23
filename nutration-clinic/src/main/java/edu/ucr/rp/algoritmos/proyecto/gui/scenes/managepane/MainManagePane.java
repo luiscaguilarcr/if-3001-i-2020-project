@@ -2,8 +2,9 @@ package edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.AddDatesForm;
+
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.Main_MenuBar;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ViewDate;
 import javafx.scene.layout.GridPane;

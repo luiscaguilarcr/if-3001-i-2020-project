@@ -5,7 +5,8 @@
  */
 package edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date;
 
-import edu.ucr.rp.algoritmos.proyecto.gui.model.PaneViewer;
+
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -14,7 +15,7 @@ import javafx.scene.layout.Pane;
  *
  * @author Alvaro Miranda Cort
  */
-public class ModifyDate implements PaneViewer{
+public class ModifyDate implements PaneViewer {
     private static GridPane pane;
     
     
