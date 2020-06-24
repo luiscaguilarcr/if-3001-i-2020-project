@@ -5,6 +5,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -188,6 +189,7 @@ public class Main_MenuBar implements PaneViewer {
 
         modifyDate_MenuItem.setOnAction((event) -> {
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.MODIFY_DATE_FORM));
+            ModifyDate.refresh();
         });
 
         viewDate_MenuItem.setOnAction((event) -> {

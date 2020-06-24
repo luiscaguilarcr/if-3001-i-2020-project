@@ -1,11 +1,11 @@
 package logic;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.util.TestUtility;
 import logic.interfaces.TestService;
 import org.junit.Test;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
 
 public class DateServiceTest implements TestService {
     private static DateService dateService = DateService.getInstance();

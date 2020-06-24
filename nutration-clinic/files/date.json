@@ -1,27 +1,19 @@
 {
   "firstNode" : {
     "date" : {
-      "date" : "22/JUNE/2020",
-      "hour" : "21:40:55",
-      "customerID" : 181,
-      "adminID" : 173
+      "date" : "30/6/2020",
+      "hour" : "4:00pm",
+      "customerID" : 217,
+      "adminID" : 217
     },
     "nextNode" : {
       "date" : {
-        "date" : "22/JUNE/2020",
-        "hour" : "21:19:5",
-        "customerID" : 281,
-        "adminID" : 187
-      },
-      "nextNode" : {
-        "date" : {
-          "date" : "22/JUNE/2020",
-          "hour" : "19:50:50",
-          "customerID" : 261,
-          "adminID" : 217
-        }
+        "date" : "30/6/2020",
+        "hour" : "12:00pm",
+        "customerID" : 155,
+        "adminID" : 217
       }
     }
   },
-  "accountant" : 3
+  "accountant" : 2
 }

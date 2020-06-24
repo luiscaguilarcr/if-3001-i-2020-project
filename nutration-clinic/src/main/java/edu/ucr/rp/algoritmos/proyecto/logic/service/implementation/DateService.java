@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
@@ -59,12 +64,12 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
     @Override
     public boolean edit(CustomerDate oldCustomerDate, CustomerDate newCustomerDate) {
         refresh();
-        if (customerDateStack.contains(oldCustomerDate)) {
+//        if (customerDateStack.contains(oldCustomerDate)) {
             customerDateStack.pop(oldCustomerDate);
             customerDateStack.push(newCustomerDate);
             datePersistence.write(customerDateStack);
             refresh();
-        }
+//        }
         return customerDateStack.contains(newCustomerDate);
     }
 
