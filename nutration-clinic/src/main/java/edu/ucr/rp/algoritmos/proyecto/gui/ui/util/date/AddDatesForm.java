@@ -51,6 +51,7 @@ public class AddDatesForm implements PaneViewer {
     private static UserService userService;
     private ObservableList<String> observableDoctor;
     public static CustomerDate customerDateOLD;
+     
 
     public GridPane addDatesForm() {
         pane = PaneUtil.buildPane();

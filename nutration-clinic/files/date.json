@@ -1,19 +1,75 @@
 {
   "firstNode" : {
     "date" : {
-      "date" : "30/6/2020",
-      "hour" : "4:00pm",
-      "customerID" : 217,
-      "adminID" : 217
+      "date" : "24/JUNE/2020",
+      "hour" : "12:6:46",
+      "customerID" : 281,
+      "adminID" : 220
     },
     "nextNode" : {
       "date" : {
-        "date" : "30/6/2020",
-        "hour" : "12:00pm",
-        "customerID" : 155,
-        "adminID" : 217
+        "date" : "24/JUNE/2020",
+        "hour" : "12:6:46",
+        "customerID" : 121,
+        "adminID" : 138
+      },
+      "nextNode" : {
+        "date" : {
+          "date" : "24/JUNE/2020",
+          "hour" : "12:6:46",
+          "customerID" : 244,
+          "adminID" : 220
+        },
+        "nextNode" : {
+          "date" : {
+            "date" : "24/JUNE/2020",
+            "hour" : "12:6:46",
+            "customerID" : 181,
+            "adminID" : 217
+          },
+          "nextNode" : {
+            "date" : {
+              "date" : "24/JUNE/2020",
+              "hour" : "12:6:46",
+              "customerID" : 231,
+              "adminID" : 220
+            },
+            "nextNode" : {
+              "date" : {
+                "date" : "24/JUNE/2020",
+                "hour" : "12:6:46",
+                "customerID" : 287,
+                "adminID" : 148
+              },
+              "nextNode" : {
+                "date" : {
+                  "date" : "24/JUNE/2020",
+                  "hour" : "12:6:46",
+                  "customerID" : 300,
+                  "adminID" : 173
+                },
+                "nextNode" : {
+                  "date" : {
+                    "date" : "30/6/2020",
+                    "hour" : "4:00pm",
+                    "customerID" : 217,
+                    "adminID" : 217
+                  },
+                  "nextNode" : {
+                    "date" : {
+                      "date" : "30/6/2020",
+                      "hour" : "12:00pm",
+                      "customerID" : 155,
+                      "adminID" : 217
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
-  "accountant" : 2
+  "accountant" : 9
 }

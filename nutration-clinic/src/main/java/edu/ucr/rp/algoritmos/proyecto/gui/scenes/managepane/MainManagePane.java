@@ -45,8 +45,8 @@ public class MainManagePane implements PaneViewer {
         //panes.put(PaneName.VIEW_USER_FORM), new ViewUserForm().getPane());
 
         panes.put(PaneName.ADD_DATE_FORM, new AddDatesForm().getPane());
-       panes.put(PaneName.MODIFY_DATE_FORM, new ModifyDate().getPane());
-        // panes.put(PaneName.VIEW_DATES, new ViewDate().getPane());
+        panes.put(PaneName.MODIFY_DATE_FORM, new ModifyDate().getPane());
+         panes.put(PaneName.VIEW_DATES, new ViewDate().getPane());
 
     }
 
