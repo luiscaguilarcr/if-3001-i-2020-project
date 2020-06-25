@@ -5,6 +5,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddUserForm;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -114,6 +115,7 @@ public class Main_MenuBar implements PaneViewer {
         MenuItem viewAdmin_MenuItem = new MenuItem("View", viewAdmin_ImageView);
 
         addAdmin_MenuItem.setOnAction((event) -> {
+               MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_ADMIN));
             //MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_USER_FORM));
             //AddUserForm.setUserRol(2);
             //ModifyUserForm.setUserRol(2);
@@ -146,6 +148,7 @@ public class Main_MenuBar implements PaneViewer {
 
         addCustomer_MenuItem.setOnAction((event) -> {
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_USER_FORM));
+            AddUserForm.visible();
             //AddUserForm.setUserRol(3);
             //ModifyUserForm.setUserRol(3);
             //ViewUserForm.setUserRol(3);

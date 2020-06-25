@@ -7,6 +7,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.ui.Main_MenuBar;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ViewDate;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddAdmin;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -40,7 +41,7 @@ public class MainManagePane implements PaneViewer {
         //panes.put(PaneName.GENERATE_REPORT), new GenerateReport().getPane());
         //panes.put(PaneName.PERSONAL_PROGRESS), new PersonalProgress().getPane());
 
-        //panes.put(PaneName.ADD_USER_FORM), new AddUserForm().getPane());
+        panes.put(PaneName.ADD_ADMIN, new AddAdmin().getPane());
         //panes.put(PaneName.MODIFY_USER_FORM), new ModifyUserForm().getPane());
         //panes.put(PaneName.VIEW_USER_FORM), new ViewUserForm().getPane());
 
