@@ -122,4 +122,10 @@ public class PaneUtil {
         pane.add(textField, 1, row);
         return textField;
     }
+    public static TextArea builTextArea(GridPane pane ){
+    TextArea textArea = new TextArea();
+    textArea.setEditable(false);
+    pane.add(textArea,1,10);
+    return textArea;
+    }
 }

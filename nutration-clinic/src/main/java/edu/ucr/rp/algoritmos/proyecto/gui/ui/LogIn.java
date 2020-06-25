@@ -2,7 +2,11 @@ package edu.ucr.rp.algoritmos.proyecto.gui.ui;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.gui.App;
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.LogInManagePane;
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddUserForm;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
@@ -14,6 +18,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class LogIn implements PaneViewer {
+
     private static GridPane pane;
     private static Label iDLabel;
     private static Label passwordNameLabel;
@@ -26,6 +31,8 @@ public class LogIn implements PaneViewer {
     private Utility utility = new Utility();
     private static UserService userService = UserService.getInstance();
     private GridPane gridPane;
+    private static Button registerButton;
+
     public LogIn(Stage stage) {
         this.stage = stage;
     }
@@ -34,6 +41,8 @@ public class LogIn implements PaneViewer {
         pane = PaneUtil.buildPane();
         setupControls();
         addHandlers();
+        //visible();
+        
         return pane;
     }
 
@@ -45,6 +54,8 @@ public class LogIn implements PaneViewer {
         logInButton = PaneUtil.buildButton("LOGIN", pane, 1, 2);
         logInButton.setAlignment(Pos.CENTER);
         exitButton = PaneUtil.buildButtonImage(new Image("exit2.png"), pane, 1, 2);
+        registerButton = PaneUtil.buildButton("Register", pane, 1, 5);
+       
     }
 
     private void addHandlers() {
@@ -57,6 +68,15 @@ public class LogIn implements PaneViewer {
                     PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Error when logging in to the account", "Check the user ID and password, and try again");
                 }
             }
+        });
+        registerButton.setOnAction(e -> {
+            
+           //notVisible();
+          LogInManagePane.clearPane();
+            LogInManagePane.setCenterPane(LogInManagePane.getPanes().get(PaneName.ADD_USER_FORM));
+            
+      AddUserForm.visible();
+    
         });
     }
 
@@ -98,6 +118,26 @@ public class LogIn implements PaneViewer {
 
     public static void refresh() {
         validUser = false;
+    }
+
+    private void notVisible() {
+        passwordTextField.setVisible(false);
+        iDTextField.setVisible(false);
+        exitButton.setVisible(false);
+        iDLabel.setVisible(false);
+        logInButton.setVisible(false);
+        passwordNameLabel.setVisible(false);
+        registerButton.setVisible(false);
+    }
+
+    public static void visible() {
+        passwordTextField.setVisible(true);
+        iDTextField.setVisible(true);
+        exitButton.setVisible(true);
+        iDLabel.setVisible(true);
+        logInButton.setVisible(true);
+        passwordNameLabel.setVisible(true);
+        registerButton.setVisible(true);
     }
 
     public static User getUser() {
