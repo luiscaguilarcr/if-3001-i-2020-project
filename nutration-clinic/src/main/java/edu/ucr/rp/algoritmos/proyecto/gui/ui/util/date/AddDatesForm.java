@@ -14,10 +14,13 @@ import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.*;
+
 import static java.util.Collections.list;
+
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -29,6 +32,7 @@ import javafx.scene.layout.Pane;
 import javafx.collections.ObservableList;
 import javafx.collections.*;
 import javafx.scene.control.Alert;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -48,10 +52,11 @@ public class AddDatesForm implements PaneViewer {
     private static Label SelectdoctorLabel;
     private static DateService dateService;
     private static UserService userService;
-    private  ObservableList<String> observableDoctor;
+    private ObservableList<String> observableDoctor;
 
-    
+
     private Calendar calendar;
+
     public GridPane addDatesForm() {
         pane = PaneUtil.buildPane();
         setupControls();
@@ -84,11 +89,11 @@ public class AddDatesForm implements PaneViewer {
         ObservableList<String> observableList = FXCollections.observableList(list);
         List<String> listdoctor = new ArrayList<String>();
 
-              CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
-            List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
-            observableDoctor = FXCollections.observableArrayList(namesList);
+        //CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
+        //List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
+        //observableDoctor = FXCollections.observableArrayList(namesList);
 //        observableDoctor = FXCollections.observableArrayList("");
-        
+
         AddDateTitleLabel = PaneUtil.buildLabel(pane, "Book appointment", 0, 0);
         DateFieldLabel = PaneUtil.buildLabel(pane, "Date Field", 0, 1);
         checkInDatePicker = PaneUtil.buildDatePicker(pane, 1, 1);
@@ -125,28 +130,29 @@ public class AddDatesForm implements PaneViewer {
             PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You must to select a valid hour to add a new date");
             verify = false;
         }
-        
-        if(verify){
+
+        if (verify) {
             CustomerDate customerDate = new CustomerDate();
             int doctorID = userService.getByName(doctorsComboBox.getSelectionModel().getSelectedItem().toString()).getID();
             customerDate.setAdminID(doctorID);
             customerDate.setCustomerID(LogIn.getUser().getID());
             //customerDate.setDate(checkInDatePicker.g);
             customerDate.setHour(horasComboBox.getSelectionModel().getSelectedItem().toString());
-            if(dateService.add(customerDate)){
+            if (dateService.add(customerDate)) {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Date added", "The date was added correctly");
-            }else{
+            } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error when adding the date", "The date was not added");
             }
         }
-        
+
     }
+
     /**
      * Valida que el usuario no tenga agregada una cita
      */
     public static void refresh() {
 
-       
+
 //        if(dateService.getByID(LogIn.getUser().getID()) != null){
 //            MainManagePane.clearPane();
 //            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You can't add another date");
@@ -161,13 +167,13 @@ public class AddDatesForm implements PaneViewer {
 //         serviceInstance();
 
         serviceInstance();
-        if(dateService.getDatesByAdminID(LogIn.getUser().getID()) == null){
+        if (dateService.getDatesByAdminID(LogIn.getUser().getID()) == null) {
             PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You can't add another date");
             MainManagePane.clearPane();
         }
 
     }
-    
+
     @Override
     public Pane getPane() {
         return addDatesForm();

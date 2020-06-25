@@ -1,16 +1,16 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.QueueInterface;
 
 public class AdminAnnotationQueue implements QueueInterface {
-    class Node {
-        CustomerDate adminAnotation;
+    public class Node {
+        AdminAnnotation adminAnnotation;
         Node nextNode;
     }
 
-    Node firstNode;
-    Node lastNode;
+    public Node firstNode;
+    public Node lastNode;
     int accountant;
 
     public AdminAnnotationQueue() {
@@ -20,9 +20,9 @@ public class AdminAnnotationQueue implements QueueInterface {
     }
 
     @Override
-    public void enqueue(CustomerDate adminAnotation) {
+    public void enqueue(AdminAnnotation adminAnnotation) {
         Node aux = new Node();
-        aux.adminAnotation = adminAnotation;
+        aux.adminAnnotation = adminAnnotation;
         if (firstNode == null) {
             firstNode = aux;
             firstNode.nextNode = null;
@@ -36,7 +36,7 @@ public class AdminAnnotationQueue implements QueueInterface {
     }
 
     @Override
-    public void dequeue(CustomerDate adminAnotation) {
+    public void dequeue(AdminAnnotation adminAnnotation) {
         Node actual;
         Node past;
         past = null;
@@ -45,7 +45,7 @@ public class AdminAnnotationQueue implements QueueInterface {
 
         if (firstNode != null) {
             while (actual != null && found != true) {
-                if (actual.adminAnotation == adminAnotation) {
+                if (actual.adminAnnotation.equals(adminAnnotation)) {
                     if (actual == firstNode) {
                         firstNode = firstNode.nextNode;
                         accountant--;
@@ -72,11 +72,6 @@ public class AdminAnnotationQueue implements QueueInterface {
     }
 
     @Override
-    public boolean isEmpty() {
-        return firstNode == null;
-    }
-
-    @Override
     public int size() {
         return accountant;
     }
@@ -87,12 +82,41 @@ public class AdminAnnotationQueue implements QueueInterface {
         Node actual = firstNode;
         if (firstNode != null) {
             while (actual != null) {
-                if (actual.adminAnotation.getCustomerID() == iD) {
-                    out.enqueue(actual.adminAnotation);
+                if (actual.adminAnnotation.getCustomerID() == iD) {
+                    out.enqueue(actual.adminAnnotation);
                 }
                 actual = actual.nextNode;
             }
         }
         return out;
+    }
+
+    @Override
+    public boolean contains(AdminAnnotation adminAnnotation) {
+        Node tempNode = firstNode;
+        while (tempNode != null) {
+            if (tempNode.adminAnnotation.getCustomerID() == adminAnnotation.getCustomerID() && tempNode.adminAnnotation.getDate().equals(adminAnnotation.getDate())) {
+                return true;
+            }
+            tempNode = tempNode.nextNode;
+        }
+        return false;
+    }
+
+    public boolean validateEmpty() {
+        return firstNode == null;
+    }
+
+    public AdminAnnotation get(int index) {
+        int accountant = 0;
+        Node tempNode = firstNode;
+        while (tempNode.nextNode != null) {
+            if (accountant == index) {
+                return tempNode.adminAnnotation;
+            }
+            accountant++;
+            tempNode = tempNode.nextNode;
+        }
+        return null;
     }
 }
