@@ -47,7 +47,7 @@ public class ModifyDate implements PaneViewer {
     private static DateService dateService;
     private ObservableList<String> observableDoctor;
     private static AddDatesForm addDate = new AddDatesForm();
-    public static CustomerDate customerDate;
+    public static CustomerDate customerFinal;
     
     public GridPane modifyDate() {
         pane = PaneUtil.buildPane();
@@ -126,9 +126,8 @@ public class ModifyDate implements PaneViewer {
             customerNew.setAdminID(217);
             customerNew.setDate(checkInDatePicker.getEditor().getText());
             customerNew.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
-             
-            if (dateService.edit(addDate.customerDateOLD, customerNew)) {
-                 customerDate = customerNew;
+               customerFinal = customerNew;
+            if (dateService.edit(dateService.getByID(LogIn.getUser().getID()), customerNew)) {              
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Date modified", "The date was modified correctly");
             } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error when modified the date", "The date was not modified");
