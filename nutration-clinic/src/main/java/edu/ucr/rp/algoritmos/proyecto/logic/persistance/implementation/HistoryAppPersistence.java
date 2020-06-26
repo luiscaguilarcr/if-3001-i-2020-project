@@ -1,34 +1,32 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation;
 
-import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.persistance.interfaces.Persistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.HistoryAppAVL;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.interfaces.Persistence;
 import edu.ucr.rp.algoritmos.proyecto.util.JsonUtil;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.List;
 
-public class HistoryUserDatePersistence implements Persistence<CustomerDate, CustomerDateStack> {
-    private final String path = "files/historyUserDate.json";
+public class HistoryAppPersistence implements Persistence<HistoryApp, HistoryAppAVL> {
+    private final String path = "files/historyApp.json";
     private final JsonUtil jsonUtil = new JsonUtil();
 
     /**
      * Para guardar el historial de la aplicación.
-     * @param customerDateStack que se quiere guardar
+     * @param historyAppAVL que se quiere guardar
      * @return true si se guardó, si no, false
      */
     @Override
-    public boolean write(CustomerDateStack customerDateStack) {
-        if (customerDateStack == null) return false;
-        return saveHistory(customerDateStack);
+    public boolean write(HistoryAppAVL historyAppAVL) {
+        if (historyAppAVL == null) return false;
+        return saveHistory(historyAppAVL);
     }
 
-    private boolean saveHistory(CustomerDateStack customerDateStack) {
-        jsonUtil.toFile(new File(path), customerDateStack);
+    private boolean saveHistory(HistoryAppAVL historyAppAVL) {
+        jsonUtil.toFile(new File(path), historyAppAVL);
         return true;
     }
 
@@ -37,15 +35,15 @@ public class HistoryUserDatePersistence implements Persistence<CustomerDate, Cus
      * @return AVL del historial de la aplicación
      */
     @Override
-    public CustomerDateStack read() {
+    public HistoryAppAVL read() {
         return readHistory();
     }
 
-    private CustomerDateStack readHistory(){
+    private HistoryAppAVL readHistory(){
         File file = new File(path);
         if(file.exists()){
             try {
-                return jsonUtil.asObject(file.toURI().toURL(), CustomerDateStack.class);
+                return jsonUtil.asObject(file.toURI().toURL(), HistoryAppAVL.class);
             } catch (MalformedURLException e) {
                 System.out.println(e.getMessage());
             }

@@ -14,10 +14,13 @@ import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.*;
+
 import static java.util.Collections.list;
+
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -51,7 +54,7 @@ public class AddDatesForm implements PaneViewer {
     private static UserService userService;
     private ObservableList<String> observableDoctor;
     public static CustomerDate customerDateOLD;
-     
+    private Calendar calendar;
 
     public GridPane addDatesForm() {
         pane = PaneUtil.buildPane();
@@ -91,6 +94,11 @@ public class AddDatesForm implements PaneViewer {
 //        List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
 //        observableDoctor = FXCollections.observableArrayList(namesList);
         observableDoctor = FXCollections.observableArrayList(listdoctor);
+        //CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
+        //List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
+        //observableDoctor = FXCollections.observableArrayList(namesList);
+//        observableDoctor = FXCollections.observableArrayList("");
+
 
         AddDateTitleLabel = PaneUtil.buildLabel(pane, "Book appointment", 0, 0);
         DateFieldLabel = PaneUtil.buildLabel(pane, "Date Field", 0, 1);
@@ -135,9 +143,14 @@ public class AddDatesForm implements PaneViewer {
 //            int doctorID = userService.getByName(doctorsComboBox.getSelectionModel().getSelectedItem().toString()).getID();
             customerDate.setAdminID(217);
             customerDate.setCustomerID(LogIn.getUser().getID());
+
             customerDate.setDate(checkInDatePicker.getEditor().getText());
             customerDate.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
             customerDateOLD = customerDate;
+
+            //customerDate.setDate(checkInDatePicker.g);
+            customerDate.setHour(horasComboBox.getSelectionModel().getSelectedItem().toString());
+
             if (dateService.add(customerDate)) {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Date added", "The date was added correctly");
             } else {

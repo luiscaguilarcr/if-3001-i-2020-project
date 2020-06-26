@@ -4,6 +4,12 @@ import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerReport;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerReportTree;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 
+/**
+ * Esta clase maneja en conjunto con la persistencia, los TDA(tree) y los objetos tipo CustomerReport
+ * los reportes hechos para un cliente en el sistema.
+ *
+ * @author Luis Carlos Aguilar
+ */
 public class CustomerReportService implements Service<CustomerReport, CustomerReportTree> {
     @Override
     public boolean add(CustomerReport element) {

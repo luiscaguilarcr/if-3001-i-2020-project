@@ -5,7 +5,10 @@ import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.HistoryApp
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 
 /**
- * Maneja el historial general(hostorial) hecho en la app
+ * Esta clase maneja en conjunto con la persistencia, los TDA(AVL) y los objetos tipo HistoryApp
+ * el historial del sistema.
+ *
+ * @author Luis Carlos Aguilar
  */
 public class HistoryAppService implements Service<HistoryApp, HistoryAppAVL> {
     @Override

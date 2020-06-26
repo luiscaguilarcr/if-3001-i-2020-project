@@ -6,11 +6,11 @@ import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 
 /**
- * Esta clase maneja en conjunto con la persistencia los usuarios del sistema.
+ * Esta clase maneja en conjunto con la persistencia, los TDA(linked list) y los objetos tipo User
+ * a los usuarios en el sistema.
  *
- * @author Luis Carlos
+ * @author Luis Carlos Aguilar
  */
-
 public class UserService implements Service<User, UserLinkedList> {
     public UserLinkedList userLinkedList;
     private UserPersistence userPersistence;
@@ -38,7 +38,7 @@ public class UserService implements Service<User, UserLinkedList> {
      * Para agregar un usuario.
      *
      * @param user que se quiere agregar
-     * @return true si se agregó el usuario, si no, false
+     * @return true si el usuario fue agregado, si no, false
      */
     @Override
     public boolean add(User user) {
@@ -55,7 +55,7 @@ public class UserService implements Service<User, UserLinkedList> {
      *
      * @param oldUser usuario que se quiere editar
      * @param newUser usuario editado
-     * @return true si el usuario se editó, si no, false
+     * @return true si el usuario fue editado, si no, false
      */
     @Override
     public boolean edit(User oldUser, User newUser) {
@@ -73,7 +73,7 @@ public class UserService implements Service<User, UserLinkedList> {
      * Para remover un usuario.
      *
      * @param user que se quiere remover
-     * @return true si el usuario se removió, si no, false
+     * @return true si el usuario fue removido, si no, false
      */
     @Override
     public boolean remove(User user) {
@@ -119,7 +119,7 @@ public class UserService implements Service<User, UserLinkedList> {
     }
 
     /**
-     * Refresca la lista de usuarios
+     * Refresca la lista de usuarios.
      */
     private void refresh() {
         userPersistence = new UserPersistence();
