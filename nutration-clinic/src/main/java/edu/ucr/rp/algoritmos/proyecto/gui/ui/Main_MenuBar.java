@@ -6,6 +6,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddUserForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ChangePassword;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -20,6 +21,7 @@ import java.awt.Desktop;
 
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 
 public class Main_MenuBar implements PaneViewer {
 
@@ -67,14 +69,19 @@ public class Main_MenuBar implements PaneViewer {
         ImageView exit_ImageView = new ImageView(new Image("exit3.png"));
         MenuItem exit_MenuItem = new MenuItem("Exit", exit_ImageView);
 
-        changePassword_MenuItem.setOnAction((event) -> {
-            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.CHANGE_PASSWORD));
+        changePassword_MenuItem.setOnAction((e) -> {
+             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.CHANGEP));
+            //MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.CHANGE_PASSWORD));
+            ///JOptionPane.showMessageDialog(null, "holaaa");
         });
 
         generateReport_MenuItem.setOnAction((event) -> {
         });
 
         personalProgress_MenuItem.setOnAction((event) -> {
+             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.GRAPHIC));
+             JOptionPane.showMessageDialog(null, "hols");
+            
         });
 
         guide_MenuItem.setOnAction((event) -> {
@@ -147,8 +154,8 @@ public class Main_MenuBar implements PaneViewer {
         MenuItem viewCustomer_MenuItem = new MenuItem("View", viewCustomer_ImageView);
 
         addCustomer_MenuItem.setOnAction((event) -> {
-            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_USER_FORM));
-            AddUserForm.visible();
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_USER_FROM_SUPERADMIN));
+            //AddUserForm.visible();
             //AddUserForm.setUserRol(3);
             //ModifyUserForm.setUserRol(3);
             //ViewUserForm.setUserRol(3);

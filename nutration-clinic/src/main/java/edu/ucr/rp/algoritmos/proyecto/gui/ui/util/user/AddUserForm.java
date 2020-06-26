@@ -207,6 +207,10 @@ public class AddUserForm implements PaneViewer {
             phoneNumberTextField.setPromptText("Obligatory field");
             phoneNumberTextField.setStyle("-fx-background-color: #FDC7C7");
         }
+//        if (valiteNumber(phoneNumberTextField.getText())){
+//         phoneNumberTextField.setPromptText("Only Numbers");
+        
+        
         if (iDTextField.getText().isEmpty()) {
             iDTextField.setPromptText("Obligatory field");
             iDTextField.setStyle("-fx-background-color: #FDC7C7");
@@ -228,5 +232,8 @@ public class AddUserForm implements PaneViewer {
     public Pane getPane() {
         return addUserForm();
     }
+public boolean valiteNumber(String datos){
+return datos.matches("[0-9]");
 
+}
 }

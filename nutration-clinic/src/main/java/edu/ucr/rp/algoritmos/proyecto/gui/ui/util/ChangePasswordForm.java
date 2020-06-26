@@ -22,7 +22,7 @@ public class ChangePasswordForm implements PaneViewer {
     private static Label newPassword1Label;
     private static Label newPassword2Label;
 
-    public GridPane addDatesForm() {
+    public GridPane changePassword() {
         pane = PaneUtil.buildPane();
         setupControls();
         addHandlers();
@@ -50,6 +50,6 @@ public class ChangePasswordForm implements PaneViewer {
 
     @Override
     public Pane getPane() {
-        return null;
+        return changePassword();
     }
 }
