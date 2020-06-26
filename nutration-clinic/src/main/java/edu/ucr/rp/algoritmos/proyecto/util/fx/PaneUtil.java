@@ -47,7 +47,8 @@ public class PaneUtil {
         pane.add(passwordField, column, row);
         return passwordField;
     }
-      public static DatePicker buildDatePicker(GridPane pane, int column, int row) {
+
+    public static DatePicker buildDatePicker(GridPane pane, int column, int row) {
         DatePicker datePicker = new DatePicker();
         pane.add(datePicker, column, row);
         return datePicker;
@@ -61,6 +62,15 @@ public class PaneUtil {
         alert.show();
     }
 
+    public static TableView buildTableView(GridPane pane,int column,int row) {
+        TableView tableview = new TableView();
+        tableview.setPrefWidth(10000000);
+        tableview.setPrefHeight(5000);
+        tableview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        pane.add(tableview, column, row);
+        return tableview;
+    }
+ 
     public static Button buildButton(String text, GridPane pane, int column, int row) {
         Button button = new Button(text);
         pane.setHalignment(button, HPos.LEFT);
@@ -103,7 +113,6 @@ public class PaneUtil {
             return true;
         }
     }
-
 
     public static Label buildLabel(GridPane pane, String text, int column, int row) {
         Label label = new Label(text);
