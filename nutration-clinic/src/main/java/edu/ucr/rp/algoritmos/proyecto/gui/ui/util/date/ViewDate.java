@@ -29,7 +29,8 @@ public class ViewDate implements PaneViewer {
 
     private static GridPane pane;
     private static Button cancelButton;
-    private static Button ViewButton;
+    private static Button viewButton;
+    private static Button deleteButton;
     private static Label dateLabel;
     private static Label hourLabel;
     private static Label customerLabel;
@@ -68,18 +69,23 @@ public class ViewDate implements PaneViewer {
         doctorLabel = PaneUtil.buildLabel(pane, " Doctor ID ", 0, 4);
         doctorTextField = PaneUtil.buildTextField(pane, 4);
         doctorTextField.setDisable(true);
+        viewButton = PaneUtil.buildButtonImage(new Image("seeIcon.png"), pane, 0, 0);
         cancelButton = PaneUtil.buildButtonImage(new Image("logout.png"), pane, 1, 0);
-        ViewButton = PaneUtil.buildButtonImage(new Image("seeIcon.png"), pane, 0, 0);
+        deleteButton = PaneUtil.buildButtonImage(new Image("remove.png"), pane, 2, 0);
     }
 
     private void addHandlers() {
         cancelButton.setOnAction(e -> MainManagePane.clearPane());
-        ViewButton.setOnAction(e -> {
+        viewButton.setOnAction(e -> {
             dateTextField.setText(dateService.getByID(LogIn.getUser().getID()).getDate());
             hourTextField.setText(dateService.getByID(LogIn.getUser().getID()).getHour());
             customerTextField.setText(dateService.getByID(LogIn.getUser().getID()).getCustomerID() + " ");
             doctorTextField.setText(dateService.getByID(LogIn.getUser().getID()).getAdminID() + " ");
             serviceInstance();
+        });
+
+        deleteButton.setOnAction(e -> {
+            dateService.remove(dateService.getByID(LogIn.getUser().getID()));
         });
     }
 
