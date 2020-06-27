@@ -4,6 +4,8 @@ import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.AnnotationPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService2;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnotationQueue;
+import edu.ucr.rp.algoritmos.proyecto.util.test.NewService;
+import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
 /**
  * Esta clase maneja en conjunto con la persistencia, los TDA (AdminAnnotationQueue) y los objetos tipo AdminAnnotation
@@ -15,6 +17,9 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
     public AdminAnnotationQueue queue;
     private AnnotationPersistence annotationPersistence;
     private static AnnotationService instance;
+    private Utility utility;
+    private DateService dateService;
+    private NewService historyCustomerDateService;
 
     /**
      * Constructor
@@ -22,6 +27,9 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
     private AnnotationService() {
         queue = new AdminAnnotationQueue();
         annotationPersistence = new AnnotationPersistence();
+        utility = new Utility();
+        dateService = DateService.getInstance();
+        historyCustomerDateService = NewService.getInstance();
         refresh();
     }
 
@@ -45,13 +53,15 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
         refresh();
         if (validateAddition(adminAnnotation)) {
             queue.enqueue(adminAnnotation);
+            historyCustomerDateService.add(dateService.getByID(adminAnnotation.getCustomerID()));
+            dateService.remove(dateService.getByID(adminAnnotation.getCustomerID()));
+            utility.historyApp("Anotaciones agregadas para el usuario " + adminAnnotation.getCustomerID() + " en la fecha " + adminAnnotation.getDate());
             return annotationPersistence.write(queue);
         }
         return false;
     }
 
     /**
-     *
      * @param oldAdminAnnotation
      * @param newAdminAnnotation
      * @return
@@ -63,6 +73,7 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
             queue.dequeue(oldAdminAnnotation);
             queue.enqueue(newAdminAnnotation);
             annotationPersistence.write(queue);
+            utility.historyApp("Anotaciones editadas para el usuario " + oldAdminAnnotation.getCustomerID() + " en la fecha " + oldAdminAnnotation.getDate());
             refresh();
         }
         return queue.contains(newAdminAnnotation);
@@ -79,6 +90,7 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
         refresh();
         if (queue.contains(adminAnnotation)) {
             queue.dequeue(adminAnnotation);
+            utility.historyApp("Anotaciones eliminadas para el usuario " + adminAnnotation.getCustomerID() + " en la fecha " + adminAnnotation.getDate());
             return annotationPersistence.write(queue);
         }
         return false;
@@ -109,7 +121,8 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
 
     /**
      * Para obtener las anotaciones realizadas en una fecha específica a un usuario en específico.
-     * @param date que se quiere buscar
+     *
+     * @param date       que se quiere buscar
      * @param customerID que se quiere buscar
      * @return las anotaciones realizadas a un cliente si los datos son válidos, si no, null
      */
@@ -119,9 +132,9 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
         AdminAnnotation adminAnnotation;
         for (int i = 0; i < queue.size(); i++) {
             adminAnnotation = queue.get(i);
-            if(adminAnnotation != null){
-                if(adminAnnotation.getCustomerID() == customerID){
-                    if(adminAnnotation.getDate().equals(date)){
+            if (adminAnnotation != null) {
+                if (adminAnnotation.getCustomerID() == customerID) {
+                    if (adminAnnotation.getDate().equals(date)) {
                         return adminAnnotation;
                     }
                 }
@@ -144,6 +157,7 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
 
     /**
      * Valida si se puede agregar las anotaciones a un cliente.
+     *
      * @param adminAnnotation que se quiere agregar
      * @return true si se puede agregar, si no, false
      */

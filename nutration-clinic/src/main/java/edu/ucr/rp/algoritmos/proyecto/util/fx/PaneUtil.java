@@ -12,6 +12,10 @@ import javafx.scene.layout.*;
 import org.controlsfx.control.CheckComboBox;
 
 import static edu.ucr.rp.algoritmos.proyecto.util.fx.UIConstants.*;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 
 public class PaneUtil {
 
@@ -130,5 +134,48 @@ public class PaneUtil {
         TextField textField = new TextField();
         pane.add(textField, 1, row);
         return textField;
+    }
+
+    public static TextArea builTextArea(GridPane pane) {
+        TextArea textArea = new TextArea();
+        textArea.setEditable(false);
+        pane.add(textArea, 1, 10);
+        return textArea;
+    }
+
+    public static CategoryAxis buildGraphic(GridPane pane) {
+
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String, Number> bc
+                = new BarChart<String, Number>(xAxis, yAxis);
+        bc.setTitle("Advabces");
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("2003");
+        series1.getData().add(new XYChart.Data("Fat", 25601.34));
+//        series1.getData().add(new XYChart.Data(brazil, 20148.82));
+//        series1.getData().add(new XYChart.Data(france, 10000));
+//        series1.getData().add(new XYChart.Data(italy, 35407.15));
+//        series1.getData().add(new XYChart.Data(usa, 12000));
+
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("");
+        series2.getData().add(new XYChart.Data("Hidration", 57401.85));
+//        series2.getData().add(new XYChart.Data(brazil, 41941.19));
+//        series2.getData().add(new XYChart.Data(france, 45263.37));
+//        series2.getData().add(new XYChart.Data(italy, 117320.16));
+//        series2.getData().add(new XYChart.Data(usa, 14845.27));
+
+        XYChart.Series series3 = new XYChart.Series();
+        series3.setName("");
+        series3.getData().add(new XYChart.Data("Muscle", 45000.65));
+//        series3.getData().add(new XYChart.Data(brazil, 44835.76));
+//        series3.getData().add(new XYChart.Data(france, 18722.18));
+//        series3.getData().add(new XYChart.Data(italy, 17557.31));
+//        series3.getData().add(new XYChart.Data(usa, 92633.68));
+        //bc.getData().addAll(series1, series2, series3);
+         
+return xAxis;
     }
 }

@@ -148,6 +148,10 @@ public class AddDatesForm implements PaneViewer {
             customerDate.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
             customerDateOLD = customerDate;
             customerDate.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
+
+            //customerDate.setDate(checkInDatePicker.g);
+            //customerDate.setHour(horasComboBox.getSelectionModel().getSelectedItem().toString());
+
             if (dateService.add(customerDate)) {
                 PaneUtil.showAlert(Alert.AlertType.CONFIRMATION, "Date added", "The date was added correctly");
 

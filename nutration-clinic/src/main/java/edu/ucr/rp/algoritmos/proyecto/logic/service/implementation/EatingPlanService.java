@@ -22,7 +22,7 @@ public class EatingPlanService implements AuxService3<EatingPlan, List> {
      * Constructor
      */
     private EatingPlanService() {
-        list = new ArrayList();
+        list = new ArrayList<>();
         eatingPlanPersistence = new EatingPlanPersistence();
         refresh();
     }
@@ -74,9 +74,23 @@ public class EatingPlanService implements AuxService3<EatingPlan, List> {
      * @return lista de planes de comidas
      */
     @Override
-    public List getAll() {
+    public List<EatingPlan> getAll() {
         refresh();
         return list;
+    }
+
+    /**
+     * Para obtener un plane de comida a partir de una cantidad de grasa.
+     *
+     * @return plan de comida
+     */
+    public EatingPlan getByID(int planID) {
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getID() == planID){
+                return list.get(i);
+            }
+        }
+        return null;
     }
 
     /**

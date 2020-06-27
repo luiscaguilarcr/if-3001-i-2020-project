@@ -2,7 +2,7 @@ package logic;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
-import edu.ucr.rp.algoritmos.proyecto.util.TestUtility;
+import edu.ucr.rp.algoritmos.proyecto.util.test.TestUtility;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import edu.ucr.rp.algoritmos.proyecto.util.files.IOUtility;
 import logic.interfaces.TestService;
@@ -26,7 +26,6 @@ public class UserServiceTest implements TestService {
                 System.out.println("No se creó");
             }
         }
-
     }
 
     @Test
@@ -41,7 +40,7 @@ public class UserServiceTest implements TestService {
         }
     }
 
-    @Test //SI FUNCIONA
+    @Test
     public void testEdit() {
         testUtility = new TestUtility();
         userService = UserService.getInstance();
@@ -58,8 +57,8 @@ public class UserServiceTest implements TestService {
         }
     }
 
-    @Test //SI FUNCIONA
-    public void getByID() {
+    @Test
+    public void getByCustomerID() {
         userService = UserService.getInstance();
         User user = userService.getByID(123);
         System.out.println(user.getName());

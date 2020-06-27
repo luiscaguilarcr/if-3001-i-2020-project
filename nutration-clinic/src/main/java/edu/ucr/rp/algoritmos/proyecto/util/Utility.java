@@ -1,5 +1,11 @@
 package edu.ucr.rp.algoritmos.proyecto.util;
 
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.HistoryAppService;
+
+import java.time.LocalDateTime;
+
 public class Utility {
     /**
      * Encripta una contraseña
@@ -18,6 +24,28 @@ public class Utility {
             return sb.toString();
         } catch (java.security.NoSuchAlgorithmException me) {
             return null;
+        }
+    }
+
+    public void historyApp(String action) { //TODO test
+        HistoryAppService historyAppService = HistoryAppService.getInstance();
+        LocalDateTime now = LocalDateTime.now();
+        //int userActionID = LogIn.getUser().getID();
+        int userActionID = 777;
+        HistoryApp historyApp = new HistoryApp();
+        historyApp.setInfo(action);
+        historyApp.setDate(now.getDayOfMonth() + "/" + now.getMonth() + "/" + now.getYear());
+        historyApp.setHour(now.getHour() + ":" + now.getMinute() + ":" + now.getSecond());
+        historyApp.setUserID(userActionID);
+        historyAppService.add(historyApp);
+    }
+
+    public void removeCustomerDate(int iD) { //TODO test
+        DateService dateService = DateService.getInstance();
+        if (iD == 3) {
+            if (dateService.getByID(iD) != null) {
+                dateService.remove(dateService.getByID(iD));
+            }
         }
     }
 }

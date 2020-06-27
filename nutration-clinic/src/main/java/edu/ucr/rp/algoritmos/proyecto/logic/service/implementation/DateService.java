@@ -5,14 +5,16 @@
  */
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.DatePersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
-import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnotationQueue;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
+import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Esta clase maneja en conjunto con la persistencia, los TDA(stack) y los objetos tipo CustomerDate las citas
@@ -23,7 +25,9 @@ import java.util.List;
 public class DateService implements Service<CustomerDate, CustomerDateStack> {
     public CustomerDateStack stack;
     private DatePersistence datePersistence;
+    private AdminAvailabilityService adminAvailabilityService;
     private static DateService instance;
+    private Utility utility;
 
     /**
      * Constructor
@@ -31,6 +35,8 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
     private DateService() {
         stack = new CustomerDateStack();
         datePersistence = new DatePersistence();
+        adminAvailabilityService = AdminAvailabilityService.getInstance();
+        utility = new Utility();
         refresh();
     }
 
@@ -53,7 +59,9 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
     public boolean add(CustomerDate customerDate) {
         refresh();
         if (!stack.contains(customerDate)) {
+            //updateAvailability(customerDate); //TODO revisar
             stack.push(customerDate);
+            //utility.historyApp("Cita agregada para el usuario " + customerDate.getCustomerID());
             return datePersistence.write(stack);
         }
         return false;
@@ -73,6 +81,7 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
             stack.pop(oldCustomerDate);
             stack.push(newCustomerDate);
             datePersistence.write(stack);
+            utility.historyApp("Cita editada para el usuario " + oldCustomerDate.getCustomerID());
             refresh();
         }
         return stack.contains(newCustomerDate);
@@ -89,6 +98,9 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
         refresh();
         if (stack.contains(customerDate)) {
             stack.pop(customerDate);
+            utility.historyApp("Cita removida para el usuario " + customerDate.getCustomerID());
+            CustomerReportService customerReportService = CustomerReportService.getInstance();
+            customerReportService.add(customerDate);
             return datePersistence.write(stack);
         }
         return false;
@@ -103,7 +115,7 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
     @Override
     public CustomerDate getByID(int iD) {
         refresh();
-        for (int i = 0; i < stack.size()-1; i++) {
+        for (int i = 0; i < stack.size() - 1; i++) {
             if (stack.getByAcc(i).getCustomerID() == iD) {
                 return stack.getByAcc(i);
             }
@@ -116,6 +128,7 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
 
     /**
      * Obtiene una pila de citas que estén a nombre de un administrador.
+     *
      * @param adminID
      * @return
      */
@@ -135,6 +148,7 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
 
     /**
      * Obtiene todas las citas registradas en el sistema.
+     *
      * @return pila de citas.
      */
     @Override
@@ -143,7 +157,7 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
         return stack;
     }
 
-    public List getNamesOfCustomersByDates(CustomerDateStack customerDateStack){
+    public List getNamesOfCustomersByDates(CustomerDateStack customerDateStack) {
         List customerNamesByDates = new ArrayList();
         UserService userService = UserService.getInstance();
         for (int i = 0; i < customerDateStack.size(); i++) {
@@ -151,6 +165,18 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
             customerNamesByDates.add(name);
         }
         return customerNamesByDates;
+    }
+
+    /**
+     * Actualiza la lista de horas disponibles para los administradores.
+     *
+     * @param customerDate que se quiere agregar
+     */
+    private void updateAvailability(CustomerDate customerDate) {
+        if (adminAvailabilityService.getByDayAndID(customerDate.getDate(), customerDate.getAdminID()) != null) {
+            CustomerDate newCustomerDate = customerDate;
+
+        }
     }
 
     /**

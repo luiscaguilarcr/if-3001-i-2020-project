@@ -4,6 +4,56 @@
       "nextNode" : {
         "nextNode" : {
           "nextNode" : {
+<<<<<<< Updated upstream
+            "user" : {
+              "name" : "pamela",
+              "email" : "ss",
+              "password" : "c4ca4238a0b923820dcc509a6f75849b",
+              "address" : "ss",
+              "phoneNumber" : 3456,
+              "rol" : 3,
+              "id" : 44
+            }
+          },
+          "user" : {
+            "name" : "Juan",
+            "email" : "22",
+            "password" : "c4ca4238a0b923820dcc509a6f75849b",
+            "address" : "www",
+            "phoneNumber" : 444,
+            "rol" : 2,
+            "id" : 22
+          }
+        },
+        "user" : {
+          "name" : "ccc",
+          "email" : "555",
+          "password" : "87fc947c2df7cd4d364d6a674f8cdb81",
+          "address" : "ffff",
+          "phoneNumber" : 45,
+          "rol" : 2,
+          "id" : 58
+        }
+      },
+      "user" : {
+        "name" : "maria",
+        "email" : "22",
+        "password" : "c20ad4d76fe97759aa27a0c99bff6710",
+        "address" : "222",
+        "phoneNumber" : 222,
+        "rol" : 3,
+        "id" : 1212
+      }
+    },
+    "user" : {
+      "name" : "ddd",
+      "email" : "xx",
+      "password" : "c20ad4d76fe97759aa27a0c99bff6710",
+      "address" : "xxx",
+      "phoneNumber" : 848,
+      "rol" : 1,
+      "id" : 11
+=======
             "nextNode" : {
               "nextNode" : {
                 "nextNode" : {
@@ -18,203 +68,339 @@
                                   "nextNode" : {
                                     "nextNode" : {
                                       "nextNode" : {
+                                        "nextNode" : {
+                                          "nextNode" : {
+                                            "nextNode" : {
+                                              "nextNode" : {
+                                                "nextNode" : {
+                                                  "nextNode" : {
+                                                    "nextNode" : {
+                                                      "nextNode" : {
+                                                        "nextNode" : {
+                                                          "nextNode" : {
+                                                            "nextNode" : {
+                                                              "nextNode" : null,
+                                                              "user" : {
+                                                                "name" : "Hern Olivar",
+                                                                "email" : "Hern Olivar123@gmail.com",
+                                                                "password" : "fa23827c4e680b13b29a7dd47751f138",
+                                                                "address" : "25 mts al O, casa #77 a nombre de Hern Olivar",
+                                                                "phoneNumber" : 170,
+                                                                "rol" : 3,
+                                                                "id" : 171
+                                                              }
+                                                            },
+                                                            "user" : {
+                                                              "name" : "Lolo Quesada",
+                                                              "email" : "Lolo Quesada123@gmail.com",
+                                                              "password" : "30c37e25dcd4d46dad5c56016728455c",
+                                                              "address" : "25 mts al O, casa #29 a nombre de Lolo Quesada",
+                                                              "phoneNumber" : 231,
+                                                              "rol" : 2,
+                                                              "id" : 184
+                                                            }
+                                                          },
+                                                          "user" : {
+                                                            "name" : "Rosa Marquez",
+                                                            "email" : "Rosa Marquez123@gmail.com",
+                                                            "password" : "4932d2d58ecf6813a8c0843ca53d6253",
+                                                            "address" : "25 mts al O, casa #12 a nombre de Rosa Marquez",
+                                                            "phoneNumber" : 102,
+                                                            "rol" : 2,
+                                                            "id" : 98
+                                                          }
+                                                        },
+                                                        "user" : {
+                                                          "name" : "Fran Mars",
+                                                          "email" : "Fran Mars123@gmail.com",
+                                                          "password" : "f664dbaf8d452e86703490da2b5635fe",
+                                                          "address" : "25 mts al O, casa #72 a nombre de Fran Mars",
+                                                          "phoneNumber" : 250,
+                                                          "rol" : 2,
+                                                          "id" : 243
+                                                        }
+                                                      },
+                                                      "user" : {
+                                                        "name" : "Rosa Marquez",
+                                                        "email" : "Rosa Marquez123@gmail.com",
+                                                        "password" : "4932d2d58ecf6813a8c0843ca53d6253",
+                                                        "address" : "25 mts al O, casa #53 a nombre de Rosa Marquez",
+                                                        "phoneNumber" : 154,
+                                                        "rol" : 2,
+                                                        "id" : 326
+                                                      }
+                                                    },
+                                                    "user" : {
+                                                      "name" : "Hern Olivar",
+                                                      "email" : "Hern Olivar123@gmail.com",
+                                                      "password" : "fa23827c4e680b13b29a7dd47751f138",
+                                                      "address" : "25 mts al O, casa #9 a nombre de Hern Olivar",
+                                                      "phoneNumber" : 229,
+                                                      "rol" : 2,
+                                                      "id" : 213
+                                                    }
+                                                  },
+                                                  "user" : {
+                                                    "name" : "Hern Olivar",
+                                                    "email" : "Hern Olivar123@gmail.com",
+                                                    "password" : "fa23827c4e680b13b29a7dd47751f138",
+                                                    "address" : "25 mts al O, casa #45 a nombre de Hern Olivar",
+                                                    "phoneNumber" : 244,
+                                                    "rol" : 2,
+                                                    "id" : 295
+                                                  }
+                                                },
+                                                "user" : {
+                                                  "name" : "Lolo Quesada",
+                                                  "email" : "Lolo Quesada123@gmail.com",
+                                                  "password" : "30c37e25dcd4d46dad5c56016728455c",
+                                                  "address" : "25 mts al O, casa #39 a nombre de Lolo Quesada",
+                                                  "phoneNumber" : 117,
+                                                  "rol" : 3,
+                                                  "id" : 208
+                                                }
+                                              },
+                                              "user" : {
+                                                "name" : "Andre Turrio",
+                                                "email" : "Andre Turrio123@gmail.com",
+                                                "password" : "b5adc4bcf98d636d6d1438d095ab8f16",
+                                                "address" : "25 mts al O, casa #32 a nombre de Andre Turrio",
+                                                "phoneNumber" : 240,
+                                                "rol" : 3,
+                                                "id" : 198
+                                              }
+                                            },
+                                            "user" : {
+                                              "name" : "Hern Olivar",
+                                              "email" : "Hern Olivar123@gmail.com",
+                                              "password" : "fa23827c4e680b13b29a7dd47751f138",
+                                              "address" : "25 mts al O, casa #16 a nombre de Hern Olivar",
+                                              "phoneNumber" : 253,
+                                              "rol" : 2,
+                                              "id" : 303
+                                            }
+                                          },
+                                          "user" : {
+                                            "name" : "Braulio Carrillo",
+                                            "email" : "Braulio Carrillo123@gmail.com",
+                                            "password" : "ab2b8adefced4c26a11d2dd424148b5f",
+                                            "address" : "25 mts al O, casa #41 a nombre de Braulio Carrillo",
+                                            "phoneNumber" : 166,
+                                            "rol" : 3,
+                                            "id" : 212
+                                          }
+                                        },
                                         "user" : {
-                                          "name" : "Carlitos Aguilar",
-                                          "email" : "Carlitos Aguilar123@gmail.com",
-                                          "password" : "2d6144d55f6611e9692028482e741bff",
-                                          "address" : "25 mts al O, casa #66 a nombre de Carlitos Aguilar",
-                                          "phoneNumber" : 149,
+                                          "name" : "Fran Mars",
+                                          "email" : "Fran Mars123@gmail.com",
+                                          "password" : "f664dbaf8d452e86703490da2b5635fe",
+                                          "address" : "25 mts al O, casa #93 a nombre de Fran Mars",
+                                          "phoneNumber" : 187,
                                           "rol" : 3,
                                           "id" : 155
                                         }
                                       },
                                       "user" : {
-                                        "name" : "Rosa Marquez",
-                                        "email" : "Rosa Marquez123@gmail.com",
-                                        "password" : "4932d2d58ecf6813a8c0843ca53d6253",
-                                        "address" : "25 mts al O, casa #55 a nombre de Rosa Marquez",
-                                        "phoneNumber" : 305,
-                                        "rol" : 2,
-                                        "id" : 217
+                                        "name" : "Fran Mars",
+                                        "email" : "Fran Mars123@gmail.com",
+                                        "password" : "f664dbaf8d452e86703490da2b5635fe",
+                                        "address" : "25 mts al O, casa #18 a nombre de Fran Mars",
+                                        "phoneNumber" : 276,
+                                        "rol" : 3,
+                                        "id" : 161
                                       }
                                     },
                                     "user" : {
-                                      "name" : "Rosa Marquez",
-                                      "email" : "Rosa Marquez123@gmail.com",
-                                      "password" : "4932d2d58ecf6813a8c0843ca53d6253",
-                                      "address" : "25 mts al O, casa #68 a nombre de Rosa Marquez",
-                                      "phoneNumber" : 138,
-                                      "rol" : 3,
-                                      "id" : 300
+                                      "name" : "Braulio Carrillo",
+                                      "email" : "Braulio Carrillo123@gmail.com",
+                                      "password" : "ab2b8adefced4c26a11d2dd424148b5f",
+                                      "address" : "25 mts al O, casa #42 a nombre de Braulio Carrillo",
+                                      "phoneNumber" : 135,
+                                      "rol" : 2,
+                                      "id" : 95
                                     }
                                   },
                                   "user" : {
-                                    "name" : "Andrés Turrio",
-                                    "email" : "Andrés Turrio123@gmail.com",
-                                    "password" : "bd5cf188473da965c75b79a6e6b7e0db",
-                                    "address" : "25 mts al O, casa #23 a nombre de Andrés Turrio",
-                                    "phoneNumber" : 163,
-                                    "rol" : 3,
-                                    "id" : 231
+                                    "name" : "Carlitos Aguilar",
+                                    "email" : "Carlitos Aguilar123@gmail.com",
+                                    "password" : "2d6144d55f6611e9692028482e741bff",
+                                    "address" : "25 mts al O, casa #44 a nombre de Carlitos Aguilar",
+                                    "phoneNumber" : 303,
+                                    "rol" : 2,
+                                    "id" : 138
                                   }
                                 },
                                 "user" : {
-                                  "name" : "Hernán Olivar",
-                                  "email" : "Hernán Olivar123@gmail.com",
-                                  "password" : "da3ddb9124c17110c628091717d56af1",
-                                  "address" : "25 mts al O, casa #98 a nombre de Hernán Olivar",
-                                  "phoneNumber" : 190,
+                                  "name" : "Yeiny Misun",
+                                  "email" : "Yeiny Misun123@gmail.com",
+                                  "password" : "915ed6c903e2ab2d32840abc1919899a",
+                                  "address" : "25 mts al O, casa #68 a nombre de Yeiny Misun",
+                                  "phoneNumber" : 230,
                                   "rol" : 3,
-                                  "id" : 287
+                                  "id" : 154
                                 }
                               },
                               "user" : {
-                                "name" : "Rosa Marquez",
-                                "email" : "Rosa Marquez123@gmail.com",
-                                "password" : "4932d2d58ecf6813a8c0843ca53d6253",
-                                "address" : "25 mts al O, casa #74 a nombre de Rosa Marquez",
-                                "phoneNumber" : 149,
-                                "rol" : 3,
-                                "id" : 121
+                                "name" : "Fran Mars",
+                                "email" : "Fran Mars123@gmail.com",
+                                "password" : "f664dbaf8d452e86703490da2b5635fe",
+                                "address" : "25 mts al O, casa #52 a nombre de Fran Mars",
+                                "phoneNumber" : 222,
+                                "rol" : 2,
+                                "id" : 143
                               }
                             },
                             "user" : {
-                              "name" : "Andrés Turrio",
-                              "email" : "Andrés Turrio123@gmail.com",
-                              "password" : "bd5cf188473da965c75b79a6e6b7e0db",
-                              "address" : "25 mts al O, casa #51 a nombre de Andrés Turrio",
-                              "phoneNumber" : 208,
+                              "name" : "Braulio Carrillo",
+                              "email" : "Braulio Carrillo123@gmail.com",
+                              "password" : "ab2b8adefced4c26a11d2dd424148b5f",
+                              "address" : "25 mts al O, casa #73 a nombre de Braulio Carrillo",
+                              "phoneNumber" : 192,
                               "rol" : 3,
-                              "id" : 281
+                              "id" : 160
                             }
                           },
                           "user" : {
-                            "name" : "Rosa Marquez",
-                            "email" : "Rosa Marquez123@gmail.com",
-                            "password" : "4932d2d58ecf6813a8c0843ca53d6253",
-                            "address" : "25 mts al O, casa #86 a nombre de Rosa Marquez",
-                            "phoneNumber" : 193,
+                            "name" : "Andre Turrio",
+                            "email" : "Andre Turrio123@gmail.com",
+                            "password" : "b5adc4bcf98d636d6d1438d095ab8f16",
+                            "address" : "25 mts al O, casa #5 a nombre de Andre Turrio",
+                            "phoneNumber" : 113,
                             "rol" : 3,
-                            "id" : 244
+                            "id" : 157
                           }
                         },
                         "user" : {
-                          "name" : "Hernán Olivar",
-                          "email" : "Hernán Olivar123@gmail.com",
-                          "password" : "da3ddb9124c17110c628091717d56af1",
-                          "address" : "25 mts al O, casa #47 a nombre de Hernán Olivar",
-                          "phoneNumber" : 82,
-                          "rol" : 3,
-                          "id" : 181
+                          "name" : "Fran Mars",
+                          "email" : "Fran Mars123@gmail.com",
+                          "password" : "f664dbaf8d452e86703490da2b5635fe",
+                          "address" : "25 mts al O, casa #62 a nombre de Fran Mars",
+                          "phoneNumber" : 254,
+                          "rol" : 2,
+                          "id" : 302
                         }
                       },
                       "user" : {
-                        "name" : "Hernán Olivar",
-                        "email" : "Hernán Olivar123@gmail.com",
-                        "password" : "da3ddb9124c17110c628091717d56af1",
-                        "address" : "25 mts al O, casa #12 a nombre de Hernán Olivar",
-                        "phoneNumber" : 193,
+                        "name" : "Hern Olivar",
+                        "email" : "Hern Olivar123@gmail.com",
+                        "password" : "fa23827c4e680b13b29a7dd47751f138",
+                        "address" : "25 mts al O, casa #57 a nombre de Hern Olivar",
+                        "phoneNumber" : 164,
                         "rol" : 3,
-                        "id" : 261
+                        "id" : 263
                       }
                     },
                     "user" : {
-                      "name" : "Rosa Marquez",
-                      "email" : "Rosa Marquez123@gmail.com",
-                      "password" : "4932d2d58ecf6813a8c0843ca53d6253",
-                      "address" : "25 mts al O, casa #94 a nombre de Rosa Marquez",
-                      "phoneNumber" : 298,
+                      "name" : "Lolo Quesada",
+                      "email" : "Lolo Quesada123@gmail.com",
+                      "password" : "30c37e25dcd4d46dad5c56016728455c",
+                      "address" : "25 mts al O, casa #57 a nombre de Lolo Quesada",
+                      "phoneNumber" : 80,
                       "rol" : 2,
-                      "id" : 148
+                      "id" : 170
                     }
                   },
                   "user" : {
-                    "name" : "Andrés Turrio",
-                    "email" : "Andrés Turrio123@gmail.com",
-                    "password" : "bd5cf188473da965c75b79a6e6b7e0db",
-                    "address" : "25 mts al O, casa #65 a nombre de Andrés Turrio",
-                    "phoneNumber" : 174,
-                    "rol" : 2,
-                    "id" : 173
+                    "name" : "Braulio Carrillo",
+                    "email" : "Braulio Carrillo123@gmail.com",
+                    "password" : "ab2b8adefced4c26a11d2dd424148b5f",
+                    "address" : "25 mts al O, casa #57 a nombre de Braulio Carrillo",
+                    "phoneNumber" : 241,
+                    "rol" : 3,
+                    "id" : 310
                   }
                 },
                 "user" : {
-                  "name" : "Carlitos Aguilar",
-                  "email" : "Carlitos Aguilar123@gmail.com",
-                  "password" : "2d6144d55f6611e9692028482e741bff",
-                  "address" : "25 mts al O, casa #75 a nombre de Carlitos Aguilar",
-                  "phoneNumber" : 228,
+                  "name" : "Lolo Quesada",
+                  "email" : "Lolo Quesada123@gmail.com",
+                  "password" : "30c37e25dcd4d46dad5c56016728455c",
+                  "address" : "25 mts al O, casa #11 a nombre de Lolo Quesada",
+                  "phoneNumber" : 241,
                   "rol" : 2,
-                  "id" : 114
+                  "id" : 93
                 }
               },
               "user" : {
-                "name" : "Braulio Carrillo",
-                "email" : "Braulio Carrillo123@gmail.com",
-                "password" : "ab2b8adefced4c26a11d2dd424148b5f",
-                "address" : "25 mts al O, casa #75 a nombre de Braulio Carrillo",
-                "phoneNumber" : 213,
+                "name" : "Yeiny Misun",
+                "email" : "Yeiny Misun123@gmail.com",
+                "password" : "915ed6c903e2ab2d32840abc1919899a",
+                "address" : "25 mts al O, casa #78 a nombre de Yeiny Misun",
+                "phoneNumber" : 105,
                 "rol" : 2,
-                "id" : 164
+                "id" : 237
               }
             },
             "user" : {
-              "name" : "Andrés Turrio",
-              "email" : "Andrés Turrio123@gmail.com",
-              "password" : "bd5cf188473da965c75b79a6e6b7e0db",
-              "address" : "25 mts al O, casa #18 a nombre de Andrés Turrio",
-              "phoneNumber" : 262,
+              "name" : "Carlitos Aguilar",
+              "email" : "Carlitos Aguilar123@gmail.com",
+              "password" : "2d6144d55f6611e9692028482e741bff",
+              "address" : "25 mts al O, casa #6 a nombre de Carlitos Aguilar",
+              "phoneNumber" : 234,
               "rol" : 2,
-              "id" : 138
+              "id" : 123
             }
           },
           "user" : {
-            "name" : "Rosa Marquez",
-            "email" : "Rosa Marquez123@gmail.com",
-            "password" : "4932d2d58ecf6813a8c0843ca53d6253",
-            "address" : "25 mts al O, casa #29 a nombre de Rosa Marquez",
-            "phoneNumber" : 152,
+            "name" : "Carlitos Aguilar",
+            "email" : "Carlitos Aguilar123@gmail.com",
+            "password" : "2d6144d55f6611e9692028482e741bff",
+            "address" : "25 mts al O, casa #33 a nombre de Carlitos Aguilar",
+            "phoneNumber" : 187,
             "rol" : 2,
-            "id" : 187
+            "id" : 104
           }
         },
         "user" : {
           "name" : "Braulio Carrillo",
           "email" : "Braulio Carrillo123@gmail.com",
           "password" : "ab2b8adefced4c26a11d2dd424148b5f",
-          "address" : "25 mts al O, casa #32 a nombre de Braulio Carrillo",
-          "phoneNumber" : 133,
+          "address" : "25 mts al O, casa #47 a nombre de Braulio Carrillo",
+          "phoneNumber" : 134,
           "rol" : 2,
-          "id" : 220
+          "id" : 215
         }
       },
       "user" : {
-        "name" : "Andrés Turrio",
-        "email" : "Andrés Turrio123@gmail.com",
-        "password" : "bd5cf188473da965c75b79a6e6b7e0db",
-        "address" : "25 mts al O, casa #26 a nombre de Andrés Turrio",
-        "phoneNumber" : 157,
+        "name" : "Fran Mars",
+        "email" : "Fran Mars123@gmail.com",
+        "password" : "f664dbaf8d452e86703490da2b5635fe",
+        "address" : "25 mts al O, casa #57 a nombre de Fran Mars",
+        "phoneNumber" : 240,
         "rol" : 2,
-        "id" : 169
+        "id" : 180
       }
     },
     "user" : {
-      "name" : "super-admin",
-      "password" : "super-admin",
-      "phoneNumber" : 0,
-      "rol" : 1,
-      "id" : 1234567890
+      "name" : "Rosa Marquez",
+      "email" : "Rosa Marquez123@gmail.com",
+      "password" : "4932d2d58ecf6813a8c0843ca53d6253",
+      "address" : "25 mts al O, casa #33 a nombre de Rosa Marquez",
+      "phoneNumber" : 181,
+      "rol" : 2,
+      "id" : 271
+>>>>>>> Stashed changes
     }
   },
   "node" : {
+    "nextNode" : null,
     "user" : {
-      "name" : "Carlitos Aguilar",
-      "email" : "Carlitos Aguilar123@gmail.com",
-      "password" : "2d6144d55f6611e9692028482e741bff",
-      "address" : "25 mts al O, casa #66 a nombre de Carlitos Aguilar",
-      "phoneNumber" : 149,
+<<<<<<< Updated upstream
+      "name" : "pamela",
+      "email" : "ss",
+      "password" : "c4ca4238a0b923820dcc509a6f75849b",
+      "address" : "ss",
+      "phoneNumber" : 3456,
       "rol" : 3,
-      "id" : 155
+      "id" : 44
+=======
+      "name" : "Hern Olivar",
+      "email" : "Hern Olivar123@gmail.com",
+      "password" : "fa23827c4e680b13b29a7dd47751f138",
+      "address" : "25 mts al O, casa #77 a nombre de Hern Olivar",
+      "phoneNumber" : 170,
+      "rol" : 3,
+      "id" : 171
+>>>>>>> Stashed changes
     }
   }
 }
