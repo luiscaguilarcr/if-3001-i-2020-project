@@ -2,7 +2,7 @@ package edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.interfaces.Persistence;
-import edu.ucr.rp.algoritmos.proyecto.util.JsonUtil;
+import edu.ucr.rp.algoritmos.proyecto.util.files.JsonUtil;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -25,7 +25,7 @@ public class AdminAvailabilityPersistence implements Persistence<AdminAvailabili
         return saveDoctorAvailability(list);
     }
 
-    private boolean saveDoctorAvailability(List list) {
+    private boolean saveDoctorAvailability(List<AdminAvailability> list) {
         jsonUtil.toFile(new File(path), list);
         return true;
     }
@@ -51,6 +51,15 @@ public class AdminAvailabilityPersistence implements Persistence<AdminAvailabili
         return null;
     }
 
+    public List<AdminAvailability> convert(List<AdminAvailability> list){
+        try {
+            return jsonUtil.jsonArrayToObjectList(jsonUtil.asJson(list), AdminAvailability.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * Elimina toda la lista de disponibilidad de doctores.
      * @return true si se eliminaron todos los usuarios, si no, false
@@ -64,4 +73,5 @@ public class AdminAvailabilityPersistence implements Persistence<AdminAvailabili
             return false;
         }
     }
+
 }

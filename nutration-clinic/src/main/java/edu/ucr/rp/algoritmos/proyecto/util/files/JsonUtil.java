@@ -1,16 +1,21 @@
-package edu.ucr.rp.algoritmos.proyecto.util;
+package edu.ucr.rp.algoritmos.proyecto.util.files;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.type.CollectionType;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JsonUtil {
-    private ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    //private ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    private ObjectMapper mapper = new ObjectMapper();
 
     public <T> String asJson(T value) {
         try {
@@ -48,13 +53,6 @@ public class JsonUtil {
         }
     }
 
-
-    /**
-     *
-     * @param file
-     * @param value
-     * @param <T>
-     */
     public <T> void toFile(File file,T value) {
         try {
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, value);
@@ -62,4 +60,12 @@ public class JsonUtil {
             System.out.println(e.getMessage());
         }
     }
+
+    public <T> List<T> jsonArrayToObjectList(String json, Class<T> tClass) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, tClass);
+        List<T> ts = mapper.readValue(json, listType);
+        return ts;
+    }
+
 }

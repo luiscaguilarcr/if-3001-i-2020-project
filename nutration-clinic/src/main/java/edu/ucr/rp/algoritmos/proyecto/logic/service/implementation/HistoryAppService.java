@@ -1,8 +1,10 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.HistoryAppPersistence;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService3;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.HistoryAppAVL;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
+import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
 /**
  * Esta clase maneja en conjunto con la persistencia, los TDA(AVL) y los objetos tipo HistoryApp
@@ -10,29 +12,83 @@ import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
  *
  * @author Luis Carlos Aguilar
  */
-public class HistoryAppService implements Service<HistoryApp, HistoryAppAVL> {
+public class HistoryAppService implements AuxService3<HistoryApp, HistoryAppAVL> {
+    public HistoryAppAVL avl;
+    private HistoryAppPersistence datePersistence;
+    private static HistoryAppService instance;
+    private Utility utility;
+
+    /**
+     * Constructor
+     */
+    private HistoryAppService() {
+        avl = new HistoryAppAVL();
+        datePersistence = new HistoryAppPersistence();
+        utility = new Utility();
+        refresh();
+    }
+
+    /**
+     * Singleton Pattern
+     */
+    public static HistoryAppService getInstance() {
+        if (instance == null)
+            instance = new HistoryAppService();
+        return instance;
+    }
+
+    /**
+     * Para agregar una cita.
+     *
+     * @param historyApp que se quiere agregar
+     * @return true si la cita fue agregada, si no, false
+     */
     @Override
-    public boolean add(HistoryApp element) {
+    public boolean add(HistoryApp historyApp) {
+        refresh();
+        if (!avl.contains(historyApp)) {
+            avl.insert(historyApp);
+            return datePersistence.write(avl);
+        }
         return false;
     }
 
+    /**
+     * Para remover una cita.
+     *
+     * @param historyApp que se quiere remover
+     * @return true si la cita fue removida, si no, false
+     */
     @Override
-    public boolean edit(HistoryApp oldElement, HistoryApp newElement) {
+    public boolean remove(HistoryApp historyApp) {
+        refresh();
+        if (avl.contains(historyApp)) {
+            avl.delete(historyApp);
+            return datePersistence.write(avl);
+        }
         return false;
     }
 
-    @Override
-    public boolean remove(HistoryApp element) {
-        return false;
-    }
-
-    @Override
-    public HistoryApp getByID(int iD) {
-        return null;
-    }
-
+    /**
+     * Obtiene todas las citas registradas en el sistema.
+     *
+     * @return pila de citas.
+     */
     @Override
     public HistoryAppAVL getAll() {
-        return null;
+        refresh();
+        return avl;
+    }
+
+    /**
+     * Refresca la lista de citas
+     */
+    private void refresh() {
+        //Lee el archivo
+        Object object = datePersistence.read();
+        //Valida que existe y lo sustituye por la lista en memoria
+        if (object != null) {
+            avl = (HistoryAppAVL) object;
+        }
     }
 }

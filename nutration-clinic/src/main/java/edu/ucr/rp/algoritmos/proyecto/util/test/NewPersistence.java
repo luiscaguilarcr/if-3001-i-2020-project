@@ -1,15 +1,16 @@
-package edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation;
+package edu.ucr.rp.algoritmos.proyecto.util.test;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.interfaces.Persistence;
-import edu.ucr.rp.algoritmos.proyecto.util.JsonUtil;
+import edu.ucr.rp.algoritmos.proyecto.util.files.JsonUtil;
 import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
-public class HistoryDatesByCustomerPersistence implements Persistence<CustomerDate, List> {
+public class NewPersistence implements Persistence<CustomerDate, List> {
     private final String path = "files/historyUserDate.json";
     private final JsonUtil jsonUtil = new JsonUtil();
 

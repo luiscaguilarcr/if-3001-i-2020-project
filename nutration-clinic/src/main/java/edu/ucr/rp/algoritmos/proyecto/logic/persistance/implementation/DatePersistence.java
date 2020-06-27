@@ -3,7 +3,7 @@ package edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.interfaces.Persistence;
-import edu.ucr.rp.algoritmos.proyecto.util.JsonUtil;
+import edu.ucr.rp.algoritmos.proyecto.util.files.JsonUtil;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

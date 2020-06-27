@@ -1,9 +1,15 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.UserPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
+import edu.ucr.rp.algoritmos.proyecto.util.test.TestUtility;
+import edu.ucr.rp.algoritmos.proyecto.util.Utility;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Esta clase maneja en conjunto con la persistencia, los TDA(linked list) y los objetos tipo User
@@ -14,6 +20,7 @@ import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinked
 public class UserService implements Service<User, UserLinkedList> {
     public UserLinkedList userLinkedList;
     private UserPersistence userPersistence;
+    private Utility utility;
     private static UserService instance;
 
     /**
@@ -22,6 +29,7 @@ public class UserService implements Service<User, UserLinkedList> {
     private UserService() {
         userLinkedList = new UserLinkedList();
         userPersistence = new UserPersistence();
+        utility = new Utility();
         refresh();
     }
 
@@ -45,7 +53,13 @@ public class UserService implements Service<User, UserLinkedList> {
         refresh();
         if (validateAddition(user)) {
             userLinkedList.add(user);
-            return userPersistence.write(userLinkedList);
+            userPersistence.write(userLinkedList);
+            refresh();
+            if (user.getRol() == 2) {
+                addAdminAvailability(user.getID());
+            }
+            //utility.historyApp("El usuario con ID: "+user.getID()+" fue agregado");
+            return true;
         }
         return false;
     }
@@ -64,6 +78,7 @@ public class UserService implements Service<User, UserLinkedList> {
             userLinkedList.remove(oldUser);
             userLinkedList.add(newUser);
             userPersistence.write(userLinkedList);
+            utility.historyApp("El usuario con ID: " + oldUser.getID() + " fue editado");
             refresh();
         }
         return userLinkedList.containsByID(newUser);
@@ -80,6 +95,11 @@ public class UserService implements Service<User, UserLinkedList> {
         refresh();
         if (userLinkedList.containsByID(user)) {
             userLinkedList.remove(user);
+            utility.removeCustomerDate(user.getID());
+            //utility.historyApp("El usuario con ID: "+user.getID()+" fue removido");
+            if (user.getRol() == 2) {
+                deleteAdminAvailability(user.getID());
+            }
             return userPersistence.write(userLinkedList);
         }
         return false;
@@ -112,6 +132,28 @@ public class UserService implements Service<User, UserLinkedList> {
         return null;
     }
 
+    public List<String> getAdminNames(){
+        refresh();
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < userLinkedList.size(); i++) {
+            if(userLinkedList.get(i).getRol() == 2){
+                list.add(userLinkedList.get(i).getName());
+            }
+        }
+        return list;
+    }
+
+    public List<String> getCustomerNames(){
+        refresh();
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < userLinkedList.size(); i++) {
+            if(userLinkedList.get(i).getRol() == 3){
+                list.add(userLinkedList.get(i).getName());
+            }
+        }
+        return list;
+    }
+
     @Override
     public UserLinkedList getAll() {
         refresh();
@@ -134,9 +176,29 @@ public class UserService implements Service<User, UserLinkedList> {
         userLinkedList = tempUserLinkedList;
     }
 
-    private boolean validateAddition(User user){
-        if(userLinkedList.containsByID(user)) return false;
-        if(userLinkedList.containsByName(user)) return false;
+    /**
+     * Valida si un usuario puede ser agregado.
+     *
+     * @param user que se quiere agregar
+     * @return true si se puede agregar el usuario, si no, fase
+     */
+    private boolean validateAddition(User user) {
+        if (userLinkedList.containsByID(user)) return false;
+        if (userLinkedList.containsByName(user)) return false;
         return true;
     }
+
+    private void addAdminAvailability(int iD) { //TODO test
+        AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
+        TestUtility testUtility = new TestUtility();
+        AdminAvailability adminAvailability = testUtility.generateAdminAvailability(iD);
+        adminAvailabilityService.add(adminAvailability);
+    }
+
+    private void deleteAdminAvailability(int iD) { //TODO test
+        AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
+        AdminAvailability adminAvailability = adminAvailabilityService.getByID(iD);
+        adminAvailabilityService.remove(adminAvailability);
+    }
+
 }

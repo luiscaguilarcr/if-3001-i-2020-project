@@ -1,14 +1,12 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
-import edu.ucr.rp.algoritmos.proyecto.logic.domain.EatingPlan;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.AdminAvailabilityPersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.EatingPlanPersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService4;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Esta clase maneja en conjunto con la persistencia y los objetos tipo AdminAvailability la disponibilidad de
@@ -16,26 +14,26 @@ import java.util.List;
  *
  * @author Luis Carlos Aguilar
  */
-public class AdminAvailableService implements AuxService4 <AdminAvailability, List> {
+public class AdminAvailabilityService implements Service<AdminAvailability, List> {
     public List<AdminAvailability> list;
     private AdminAvailabilityPersistence adminAvailabilityPersistence;
-    private static AdminAvailableService instance;
+    private static AdminAvailabilityService instance;
 
     /**
      * Constructor
      */
-    private AdminAvailableService() {
-        list = new ArrayList();
+    private AdminAvailabilityService() {
         adminAvailabilityPersistence = new AdminAvailabilityPersistence();
+        list = new ArrayList();
         refresh();
     }
 
     /**
      * Singleton Pattern
      */
-    public static AdminAvailableService getInstance() {
+    public static AdminAvailabilityService getInstance() {
         if (instance == null)
-            instance = new AdminAvailableService();
+            instance = new AdminAvailabilityService();
         return instance;
     }
 
@@ -65,13 +63,13 @@ public class AdminAvailableService implements AuxService4 <AdminAvailability, Li
     @Override
     public boolean edit(AdminAvailability oldAdminAvailability, AdminAvailability newAdminAvailability) {
         refresh();
-        if (list.contains(oldAdminAvailability)) {
-            list.remove(oldAdminAvailability);
-            list.add(newAdminAvailability);
+        int index = containsIndexOf(oldAdminAvailability.getAdminID());
+        if (index != -1) {
+            list.add(index, newAdminAvailability);
             adminAvailabilityPersistence.write(list);
-            refresh();
+            return true;
         }
-        return list.contains(newAdminAvailability);
+        return false;
     }
 
     /**
@@ -83,8 +81,12 @@ public class AdminAvailableService implements AuxService4 <AdminAvailability, Li
     @Override
     public boolean remove(AdminAvailability adminAvailability) {
         refresh();
-        if (list.contains(adminAvailability)) {
-            list.remove(adminAvailability);
+        if (!list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getAdminID() == adminAvailability.getAdminID()) {
+                    list.remove(i);
+                }
+            }
             return adminAvailabilityPersistence.write(list);
         }
         return false;
@@ -92,33 +94,95 @@ public class AdminAvailableService implements AuxService4 <AdminAvailability, Li
 
     /**
      * Obtiene toda la disponibilidad de un administrador.
+     *
      * @return lista con la disponibilidad de todos los administradores
      */
     @Override
-    public List getAll() {
+    public List<AdminAvailability> getAll() {
         refresh();
         return list;
     }
 
-    /**
-     * Refresca la lista de disponibilidad de los administrador ya ingresados en el sistema.
-     */
+    public AdminAvailability getByID(int iD) {
+        refresh();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getAdminID() == iD) {
+                return list.get(i);
+            }
+        }
+        return null;
+    }
+
+    public AdminAvailability getByDayAndID(String date, int iD) {
+        refresh();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getAdminID() == iD && list.get(i).getAdminAvailability().get(date) != null) {
+                return list.get(i);
+            }
+        }
+        return null;
+    }
+
+    public boolean addHourByDate(String date, String hour, AdminAvailability adminAvailability) {
+        if (contains(adminAvailability.getAdminID())) {
+            AdminAvailability adminAvailability1 = adminAvailability;
+            List list = adminAvailability1.getAdminAvailability().get(date);
+            list.add(hour);
+            edit(adminAvailability, adminAvailability1);
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean deleteHourByDate(String date, String hour, AdminAvailability adminAvailability) {
+        if (contains(adminAvailability.getAdminID())) {
+            AdminAvailability adminAvailability1 = adminAvailability;
+            List list = adminAvailability1.getAdminAvailability().get(date);
+            list.remove(hour);
+            edit(adminAvailability, adminAvailability1);
+            return true;
+        }
+        return false;
+    }
+
     private void refresh() {
         //Lee el archivo
         Object object = adminAvailabilityPersistence.read();
         //Valida que existe y lo sustituye por la lista en memoria
         if (object != null) {
-            list = (List<AdminAvailability>) object;
+            ArrayList<AdminAvailability> arrayList = (ArrayList<AdminAvailability>) object;
+            list = adminAvailabilityPersistence.convert(arrayList);
         }
+
     }
 
     /**
      * Valida si se puede agregar la disponibilidad de un administrador.
+     *
      * @param adminAvailability que se quiere validar
      * @return true si se puede agregar, si no, false
      */
     private boolean validateAddition(AdminAvailability adminAvailability) {
         if (list.contains(adminAvailability)) return false;
         return true;
+    }
+
+    public int containsIndexOf(int iD) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getAdminID() == iD) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean contains(int iD) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getAdminID() == iD) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -1,7 +1,6 @@
-package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
+package edu.ucr.rp.algoritmos.proyecto.util.test;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.HistoryDatesByCustomerPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService;
 
 import java.util.ArrayList;
@@ -13,26 +12,26 @@ import java.util.List;
  *
  * @author Luis Carlos Aguilar
  */
-public class HistoryCustomerDateService implements AuxService<CustomerDate> {
+public class NewService {
     public List<CustomerDate> list;
-    private HistoryDatesByCustomerPersistence historyDatesByCustomerPersistence;
-    private static HistoryCustomerDateService instance;
+    private NewService historyDatesByCustomerPersistence;
+    private static NewService instance;
 
     /**
      * Constructor
      */
-    private HistoryCustomerDateService() {
+    private NewService() {
         list = new ArrayList();
-        historyDatesByCustomerPersistence = new HistoryDatesByCustomerPersistence();
+        historyDatesByCustomerPersistence = new NewService();
         refresh();
     }
 
     /**
      * Singleton Pattern
      */
-    public static HistoryCustomerDateService getInstance() {
+    public static NewService getInstance() {
         if (instance == null)
-            instance = new HistoryCustomerDateService();
+            instance = new NewService();
         return instance;
     }
 
@@ -42,12 +41,11 @@ public class HistoryCustomerDateService implements AuxService<CustomerDate> {
      * @param customerDate que se quiere agregar
      * @return true si la cita fue agregada, si no, false
      */
-    @Override
     public boolean add(CustomerDate customerDate) {
         refresh();
         if (validateAddition(customerDate)) {
             list.add(customerDate);
-            return historyDatesByCustomerPersistence.write(list);
+            //return historyDatesByCustomerPersistence.write(list);
         }
         return false;
     }
@@ -58,12 +56,11 @@ public class HistoryCustomerDateService implements AuxService<CustomerDate> {
      * @param customerDate que se quiere remover
      * @return true si la cita ya realizada se removió, si no, false
      */
-    @Override
     public boolean remove(CustomerDate customerDate) {
         refresh();
         if (list.contains(customerDate)) {
             list.remove(customerDate);
-            return historyDatesByCustomerPersistence.write(list);
+            //return historyDatesByCustomerPersistence.write(list);
         }
         return false;
     }
@@ -74,7 +71,6 @@ public class HistoryCustomerDateService implements AuxService<CustomerDate> {
      * @param iD de un usuario
      * @return lista de las citas ya realizada a partir de un ID, si el iD no corresponde a algún usuario, null
      */
-    @Override
     public List getByID(int iD) {
         refresh();
         List datesByID = new ArrayList();
@@ -93,12 +89,12 @@ public class HistoryCustomerDateService implements AuxService<CustomerDate> {
      * Refresca la lista de citas ya realizadas en el sistema.
      */
     private void refresh() {
-        //Lee el archivo
+        /*//Lee el archivo
         Object object = historyDatesByCustomerPersistence.read();
         //Valida que existe y lo sustituye por la lista en memoria
         if (object != null) {
             list = (List<CustomerDate>) object;
-        }
+        }*/
     }
 
     private boolean validateAddition(CustomerDate customerDate) {

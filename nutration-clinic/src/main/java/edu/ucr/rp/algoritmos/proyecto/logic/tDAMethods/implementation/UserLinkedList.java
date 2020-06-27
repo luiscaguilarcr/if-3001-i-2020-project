@@ -4,13 +4,16 @@ import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.LinkedListInterface;
 
 /**
- * @author Noel
+ * @author Noel y Luis Carlos
  */
 //@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserLinkedList implements LinkedListInterface {
     public Node firstNode, node;
+
+    public UserLinkedList() {
+    }
+
     //To generate a node object
-    public UserLinkedList(){}
     public static class Node {
         public Node nextNode;
         public User user;
@@ -179,7 +182,7 @@ public class UserLinkedList implements LinkedListInterface {
         return firstNode == null;
     }
 
-    public void clear(){
+    public void clear() {
         firstNode = null;
     }
 

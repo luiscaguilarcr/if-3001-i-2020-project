@@ -1,11 +1,9 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.domain;
 
-import java.util.Date;
-
 public class CustomerDate {
     private String date;
     private String hour;
-    private int customerID, adminID;
+    private int customerID, adminID, targetID;
 
     public String getDate() {
         return date;
@@ -40,6 +38,15 @@ public class CustomerDate {
 
     public CustomerDate setAdminID(int adminID) {
         this.adminID = adminID;
+        return this;
+    }
+
+    public int getTargetID() {
+        return targetID;
+    }
+
+    public CustomerDate setTargetID(int targetID) {
+        this.targetID = targetID;
         return this;
     }
 }

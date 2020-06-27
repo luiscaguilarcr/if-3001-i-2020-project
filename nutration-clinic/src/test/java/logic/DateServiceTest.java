@@ -2,7 +2,7 @@ package logic;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
-import edu.ucr.rp.algoritmos.proyecto.util.TestUtility;
+import edu.ucr.rp.algoritmos.proyecto.util.test.TestUtility;
 import logic.interfaces.TestService;
 import org.junit.Test;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
@@ -61,7 +61,7 @@ public class DateServiceTest implements TestService {
 
     @Test
     @Override
-    public void getByID() {
+    public void getByCustomerID() {
         dateService = DateService.getInstance();
         if (dateService.getByID(231) != null) {
             CustomerDate customerDate = dateService.getByID(231);

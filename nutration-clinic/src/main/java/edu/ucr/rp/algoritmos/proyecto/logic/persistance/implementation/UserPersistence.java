@@ -1,10 +1,9 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.interfaces.Persistence;
-import edu.ucr.rp.algoritmos.proyecto.util.JsonUtil;
+import edu.ucr.rp.algoritmos.proyecto.util.files.JsonUtil;
 import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;

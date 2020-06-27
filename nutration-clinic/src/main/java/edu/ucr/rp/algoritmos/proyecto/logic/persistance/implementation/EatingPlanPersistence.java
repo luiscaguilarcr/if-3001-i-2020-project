@@ -2,7 +2,7 @@ package edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.EatingPlan;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.interfaces.Persistence;
-import edu.ucr.rp.algoritmos.proyecto.util.JsonUtil;
+import edu.ucr.rp.algoritmos.proyecto.util.files.JsonUtil;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -36,11 +36,11 @@ public class EatingPlanPersistence implements Persistence<EatingPlan, List> {
      * @return lista de planes de comidas
      */
     @Override
-    public List read() {
+    public List<EatingPlan> read() {
         return readEatingPlan();
     }
 
-    private List readEatingPlan(){
+    private List<EatingPlan> readEatingPlan(){
         File file = new File(path);
         if(file.exists()){
             try {

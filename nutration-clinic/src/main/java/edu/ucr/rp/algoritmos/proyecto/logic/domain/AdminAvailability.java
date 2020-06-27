@@ -1,36 +1,30 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.domain;
 
 import java.util.List;
+import java.util.Map;
 
 public class AdminAvailability {
-    private User doctor;
-    private List availableHour;
-    private List<String> notAvailableDay;
+    private int adminID;
+    private Map<String, List> adminAvailability;
 
-    public User getDoctor() {
-        return doctor;
+    public AdminAvailability() {
     }
 
-    public AdminAvailability setDoctor(User doctor) {
-        this.doctor = doctor;
+    public int getAdminID() {
+        return adminID;
+    }
+
+    public AdminAvailability setAdminID(int adminID) {
+        this.adminID = adminID;
         return this;
     }
 
-    public List getAvailableHour() {
-        return availableHour;
+    public Map<String, List> getAdminAvailability() {
+        return adminAvailability;
     }
 
-    public AdminAvailability setAvailableHour(List availableHour) {
-        this.availableHour = availableHour;
-        return this;
-    }
-
-    public List<String> getAvailableDay() {
-        return notAvailableDay;
-    }
-
-    public AdminAvailability setAvailableDay(List<String> notAvailableDay) {
-        this.notAvailableDay = notAvailableDay;
+    public AdminAvailability setAdminAvailability(Map<String, List> adminAvailability) {
+        this.adminAvailability = adminAvailability;
         return this;
     }
 }

@@ -4,7 +4,7 @@ public interface TestService {
     void testAddition();
     void testDelete();
     void testEdit();
-    void getByID();
+    void getByCustomerID();
     void getByDoctorID();
     void test();
 }
