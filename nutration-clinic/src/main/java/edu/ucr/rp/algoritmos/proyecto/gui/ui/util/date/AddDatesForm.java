@@ -147,13 +147,10 @@ public class AddDatesForm implements PaneViewer {
             customerDate.setDate(checkInDatePicker.getEditor().getText());
             customerDate.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
             customerDateOLD = customerDate;
-
-            //customerDate.setDate(checkInDatePicker.g);
             customerDate.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
-
             if (dateService.add(customerDate)) {
                 PaneUtil.showAlert(Alert.AlertType.CONFIRMATION, "Date added", "The date was added correctly");
-                
+
             } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error when adding the date", "The date was not added");
             }
@@ -161,6 +158,7 @@ public class AddDatesForm implements PaneViewer {
         }
 
     }
+  
 
     /**
      * Valida que el usuario no tenga agregada una cita

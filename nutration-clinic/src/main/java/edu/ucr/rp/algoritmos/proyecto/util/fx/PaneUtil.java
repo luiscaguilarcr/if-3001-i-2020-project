@@ -62,12 +62,12 @@ public class PaneUtil {
         alert.show();
     }
 
-    public static TableView buildTableView(GridPane pane,int column,int row) {
+    public static TableView buildTableView(GridPane pane,int column, int row) {
         TableView tableview = new TableView();
         tableview.setPrefWidth(10000000);
         tableview.setPrefHeight(5000);
         tableview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        pane.add(tableview, column, row);
+        pane.add(tableview,column, row);
         return tableview;
     }
  
