@@ -5,7 +5,7 @@ import java.util.Date;
 public class CustomerDate {
     private String date;
     private String hour;
-    private int customerID, adminID, eatingPlanID;
+    private int customerID, adminID;
 
     public String getDate() {
         return date;
@@ -41,17 +41,5 @@ public class CustomerDate {
     public CustomerDate setAdminID(int adminID) {
         this.adminID = adminID;
         return this;
-    }
-
-    public int getEatingPlanID() {
-        return eatingPlanID;
-    }
-
-    public CustomerDate setEatingPlanID(int eatingPlanID) {
-        if(eatingPlanID == 1){
-            this.eatingPlanID = eatingPlanID;
-            return this;
-        }
-        return null;
     }
 }

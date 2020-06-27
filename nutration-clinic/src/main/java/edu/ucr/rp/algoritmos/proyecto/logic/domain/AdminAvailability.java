@@ -1,12 +1,11 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.domain;
 
-import java.util.Date;
 import java.util.List;
 
 public class AdminAvailability {
     private User doctor;
     private List availableHour;
-    private List<Date> availableDay;
+    private List<String> notAvailableDay;
 
     public User getDoctor() {
         return doctor;
@@ -26,12 +25,12 @@ public class AdminAvailability {
         return this;
     }
 
-    public List<Date> getAvailableDay() {
-        return availableDay;
+    public List<String> getAvailableDay() {
+        return notAvailableDay;
     }
 
-    public AdminAvailability setAvailableDay(List<Date> availableDay) {
-        this.availableDay = availableDay;
+    public AdminAvailability setAvailableDay(List<String> notAvailableDay) {
+        this.notAvailableDay = notAvailableDay;
         return this;
     }
 }

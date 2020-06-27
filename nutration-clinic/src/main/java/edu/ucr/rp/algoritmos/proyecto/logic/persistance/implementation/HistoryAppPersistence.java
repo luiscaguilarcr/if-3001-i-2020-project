@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-public class HistoryPersistence implements Persistence<HistoryApp, HistoryAppAVL> {
+public class HistoryAppPersistence implements Persistence<HistoryApp, HistoryAppAVL> {
     private final String path = "files/historyApp.json";
     private final JsonUtil jsonUtil = new JsonUtil();
 

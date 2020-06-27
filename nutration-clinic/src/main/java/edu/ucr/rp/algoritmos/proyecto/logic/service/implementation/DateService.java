@@ -1,17 +1,27 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.DatePersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.UserPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnotationQueue;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
-import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
-import edu.ucr.rp.algoritmos.proyecto.util.files.IOUtility;
 
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Esta clase maneja en conjunto con la persistencia, los TDA(stack) y los objetos tipo CustomerDate las citas
+ * registradas en del sistema.
+ *
+ * @author Luis Carlos Aguilar
+ */
 public class DateService implements Service<CustomerDate, CustomerDateStack> {
-    public CustomerDateStack customerDateStack;
+    public CustomerDateStack stack;
     private DatePersistence datePersistence;
     private static DateService instance;
 
@@ -19,7 +29,7 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
      * Constructor
      */
     private DateService() {
-        customerDateStack = new CustomerDateStack();
+        stack = new CustomerDateStack();
         datePersistence = new DatePersistence();
         refresh();
     }
@@ -37,14 +47,14 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
      * Para agregar una cita.
      *
      * @param customerDate que se quiere agregar
-     * @return true si se agregó la cita, si no, false
+     * @return true si la cita fue agregada, si no, false
      */
     @Override
     public boolean add(CustomerDate customerDate) {
         refresh();
-        if (!customerDateStack.contains(customerDate)) {
-            customerDateStack.push(customerDate);
-            return datePersistence.write(customerDateStack);
+        if (!stack.contains(customerDate)) {
+            stack.push(customerDate);
+            return datePersistence.write(stack);
         }
         return false;
     }
@@ -54,32 +64,32 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
      *
      * @param oldCustomerDate cita que se quiere editar
      * @param newCustomerDate cita editada
-     * @return true si la cita se editó, si no, false
+     * @return true si la cita fue editada, si no, false
      */
     @Override
     public boolean edit(CustomerDate oldCustomerDate, CustomerDate newCustomerDate) {
         refresh();
-        if (customerDateStack.contains(oldCustomerDate)) {
-            customerDateStack.pop(oldCustomerDate);
-            customerDateStack.push(newCustomerDate);
-            datePersistence.write(customerDateStack);
+        if (stack.contains(oldCustomerDate)) {
+            stack.pop(oldCustomerDate);
+            stack.push(newCustomerDate);
+            datePersistence.write(stack);
             refresh();
         }
-        return customerDateStack.contains(newCustomerDate);
+        return stack.contains(newCustomerDate);
     }
 
     /**
      * Para remover una cita.
      *
      * @param customerDate que se quiere remover
-     * @return true si la cita se removió, si no, false
+     * @return true si la cita fue removida, si no, false
      */
     @Override
     public boolean remove(CustomerDate customerDate) {
         refresh();
-        if (customerDateStack.contains(customerDate)) {
-            customerDateStack.pop(customerDate);
-            return datePersistence.write(customerDateStack);
+        if (stack.contains(customerDate)) {
+            stack.pop(customerDate);
+            return datePersistence.write(stack);
         }
         return false;
     }
@@ -93,11 +103,11 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
     @Override
     public CustomerDate getByID(int iD) {
         refresh();
-        for (int i = 0; i < customerDateStack.size()-1; i++) {
-            if (customerDateStack.getByAcc(i).getCustomerID() == iD) {
-                return customerDateStack.getByAcc(i);
+        for (int i = 0; i < stack.size()-1; i++) {
+            if (stack.getByAcc(i).getCustomerID() == iD) {
+                return stack.getByAcc(i);
             }
-            if (customerDateStack.getByAcc(i).getAdminID() == iD) {
+            if (stack.getByAcc(i).getAdminID() == iD) {
                 return null;
             }
         }
@@ -112,12 +122,12 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
     public CustomerDateStack getDatesByAdminID(int adminID) {
         refresh();
         CustomerDateStack tempCustomerDateStack = new CustomerDateStack();
-        for (int i = 0; i < customerDateStack.size(); i++) {
-            if (customerDateStack.getByAcc(i).getCustomerID() == adminID) {
+        for (int i = 0; i < stack.size(); i++) {
+            if (stack.getByAcc(i).getCustomerID() == adminID) {
                 return null;
             }
-            if (customerDateStack.getByAcc(i).getAdminID() == adminID) {
-                tempCustomerDateStack.push(customerDateStack.getByAcc(i));
+            if (stack.getByAcc(i).getAdminID() == adminID) {
+                tempCustomerDateStack.push(stack.getByAcc(i));
             }
         }
         return tempCustomerDateStack;
@@ -130,24 +140,28 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
     @Override
     public CustomerDateStack getAll() {
         refresh();
-        return customerDateStack;
+        return stack;
+    }
+
+    public List getNamesOfCustomersByDates(CustomerDateStack customerDateStack){
+        List customerNamesByDates = new ArrayList();
+        UserService userService = UserService.getInstance();
+        for (int i = 0; i < customerDateStack.size(); i++) {
+            String name = userService.getByID(customerDateStack.getByAcc(i).getCustomerID()).getName();
+            customerNamesByDates.add(name);
+        }
+        return customerNamesByDates;
     }
 
     /**
      * Refresca la lista de citas
      */
     private void refresh() {
-        datePersistence = new DatePersistence();
-        /*CustomerDateStack tempCustomerDateStack = new CustomerDateStack();
-        if (datePersistence.read() != null) {
-            customerDateStack = datePersistence.read();
-            for (int i = 0; i < customerDateStack.size(); i++) {
-                tempCustomerDateStack.push(customerDateStack.get(i));
-            }
-        }
-        customerDateStack = tempCustomerDateStack;*/
-        if (datePersistence.read() != null) {
-            customerDateStack = datePersistence.read();
+        //Lee el archivo
+        Object object = datePersistence.read();
+        //Valida que existe y lo sustituye por la lista en memoria
+        if (object != null) {
+            stack = (CustomerDateStack) object;
         }
     }
 }

@@ -4,6 +4,7 @@ import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.EatingPlan;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.EatingPlanService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 
@@ -28,7 +29,7 @@ public class TestUtility {
     }
 
     public void generateUserName() {
-        String[] list = {"Carlitos Aguilar", "Braulio Carrillo", "Andrés Turrio", "Hernán Olivar", "Rosa Marquez"};
+        String[] list = {"Carlitos Aguilar", "Braulio Carrillo", "Andre Turrio", "Hern Olivar", "Rosa Marquez", "Lolo Quesada", "Fran Mars", "Yeiny Misun"};
         user.setName(list[random(list.length)]);
     }
 
@@ -108,7 +109,6 @@ public class TestUtility {
         if (validate()) {
             customerDate = new CustomerDate();
             setID();
-            //customerDate.setEatingPlanID();
             setDateAndHour();
 
             return customerDate;
@@ -168,7 +168,8 @@ public class TestUtility {
     public void generateEatingPlan() {
         initializeService();
         EatingPlan eatingPlan = new EatingPlan();
-        eatingPlan.setID(customerSetID);
+        EatingPlanService eatingPlanService = EatingPlanService.getInstance();
+        eatingPlan.setID(eatingPlanService.getAll().size()+1);
 
         for (int i = 0; i < 3; i++) {
             if (i == 2) {

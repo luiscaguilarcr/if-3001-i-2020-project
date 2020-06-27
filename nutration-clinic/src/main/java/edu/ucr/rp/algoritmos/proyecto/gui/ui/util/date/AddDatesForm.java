@@ -5,13 +5,22 @@
  */
 package edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date;
 
+import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.*;
+
 import static java.util.Collections.list;
+
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -22,6 +31,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.collections.ObservableList;
 import javafx.collections.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import javax.swing.JOptionPane;
 
 /**
  * @author Alvaro Miranda Cort
@@ -31,25 +43,30 @@ public class AddDatesForm implements PaneViewer {
     private static GridPane pane;
     private static Label AddDateTitleLabel;
     private static Label DateFieldLabel;
-    private static Button modifyButton;
-    private static Button exitButton;
+    private static Button cancelButton;
     private static Button addDateButton;
     private DatePicker checkInDatePicker;
-    private ComboBox horasComboBox;
+    private ComboBox hoursComboBox;
     private ComboBox doctorsComboBox;
     private static Label SelecthoursLabel;
     private static Label SelectdoctorLabel;
     private static DateService dateService;
+    private static UserService userService;
+    private ObservableList<String> observableDoctor;
+    public static CustomerDate customerDateOLD;
+    private Calendar calendar;
 
     public GridPane addDatesForm() {
         pane = PaneUtil.buildPane();
         setupControls();
         addHandlers();
+        serviceInstance();
         return pane;
     }
 
-    public static void dateServiceInstance() {
-        //dateService = DateService.getInstance();
+    public static void serviceInstance() {
+        dateService = DateService.getInstance();
+        userService = UserService.getInstance();
     }
 
     /**
@@ -70,20 +87,30 @@ public class AddDatesForm implements PaneViewer {
         list.add("5:00pm");
         ObservableList<String> observableList = FXCollections.observableList(list);
         List<String> listdoctor = new ArrayList<String>();
-        listdoctor.add("Doctor 296");
-        ObservableList<String> observableDoctor = FXCollections.observableList(listdoctor);
+        listdoctor.add("217");
+        listdoctor.add("219");
+        listdoctor.add("218");
+//        CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
+//        List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
+//        observableDoctor = FXCollections.observableArrayList(namesList);
+        observableDoctor = FXCollections.observableArrayList(listdoctor);
+        //CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
+        //List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
+        //observableDoctor = FXCollections.observableArrayList(namesList);
+//        observableDoctor = FXCollections.observableArrayList("");
+
+
         AddDateTitleLabel = PaneUtil.buildLabel(pane, "Book appointment", 0, 0);
         DateFieldLabel = PaneUtil.buildLabel(pane, "Date Field", 0, 1);
         checkInDatePicker = PaneUtil.buildDatePicker(pane, 1, 1);
         checkInDatePicker.setValue(LocalDate.now());//establece la fecha actual
         checkInDatePicker.setShowWeekNumbers(true);//habilita numeros de la semana
         SelecthoursLabel = PaneUtil.buildLabel(pane, " Select time ", 0, 2);
-        horasComboBox = PaneUtil.buildComboBox(pane, observableList, 1, 2);
+        hoursComboBox = PaneUtil.buildComboBox(pane, observableList, 1, 2);
         SelectdoctorLabel = PaneUtil.buildLabel(pane, " Select doctor ", 0, 3);
         doctorsComboBox = PaneUtil.buildComboBox(pane, observableDoctor, 1, 3);
-        addDateButton = PaneUtil.buildButton("Add Date", pane, 0, 5);
-        modifyButton = PaneUtil.buildButton("Modify Date", pane, 1, 5);
-        exitButton = PaneUtil.buildButtonImage(new Image("exit.png"), pane, 2, 5);
+        addDateButton = PaneUtil.buildButton("Add Date", pane, 1, 5);
+        cancelButton = PaneUtil.buildButtonImage(new Image("logout.png"), pane, 2, 5);
 
     }
 
@@ -91,17 +118,72 @@ public class AddDatesForm implements PaneViewer {
      * Agregar accion de evento
      */
     private void addHandlers() {
-        exitButton.setOnAction(e -> Platform.exit());
+        cancelButton.setOnAction(e -> MainManagePane.clearPane());
         addDateButton.setOnAction(e -> {
-        });
+            addDate();
+            serviceInstance();
 
-        modifyButton.setOnAction(e -> {
         });
 
     }
 
+    private void addDate() {
+        boolean verify = true;
+        if (doctorsComboBox == null) {
+            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You must to select a doctor to add a new date");
+            verify = false;
+        }
+        if (hoursComboBox == null) {
+            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You must to select a valid hour to add a new date");
+            verify = false;
+        }
+
+        if (verify) {
+            CustomerDate customerDate = new CustomerDate();
+//            int doctorID = userService.getByName(doctorsComboBox.getSelectionModel().getSelectedItem().toString()).getID();
+            customerDate.setAdminID(217);
+            customerDate.setCustomerID(LogIn.getUser().getID());
+
+            customerDate.setDate(checkInDatePicker.getEditor().getText());
+            customerDate.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
+            customerDateOLD = customerDate;
+
+            //customerDate.setDate(checkInDatePicker.g);
+            customerDate.setHour(horasComboBox.getSelectionModel().getSelectedItem().toString());
+
+            if (dateService.add(customerDate)) {
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Date added", "The date was added correctly");
+            } else {
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error when adding the date", "The date was not added");
+            }
+
+        }
+
+    }
+
+    /**
+     * Valida que el usuario no tenga agregada una cita
+     */
     public static void refresh() {
-        dateServiceInstance();
+
+//        if(dateService.getByID(LogIn.getUser().getID()) != null){
+//            MainManagePane.clearPane();
+//            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You can't add another date");
+//        }else{
+//            CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
+//            List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
+//            observableDoctor = FXCollections.observableArrayList(namesList);
+//        }
+//         CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
+//            List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
+//            observableDoctor = FXCollections.observableArrayList(namesList);
+//         serviceInstance();
+        serviceInstance();
+        if (dateService.getDatesByAdminID(LogIn.getUser().getID()) == null) {
+            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You can't add another date");
+            MainManagePane.clearPane();
+        }
+
     }
 
     @Override

@@ -1,11 +1,11 @@
 package logic;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.util.TestUtility;
 import logic.interfaces.TestService;
 import org.junit.Test;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
 
 public class DateServiceTest implements TestService {
     private static DateService dateService = DateService.getInstance();
@@ -15,11 +15,13 @@ public class DateServiceTest implements TestService {
     @Override
     public void testAddition() {
         if (testUtility.randomDate() != null) {
-            CustomerDate customerDate = testUtility.randomDate();
-            if(dateService.add(customerDate)){
-                System.out.println("DATE ADDED");
-            }else {
-                System.out.println("ERROR WHEN ADDING");
+            for (int i = 0; i < 20; i++) {
+                CustomerDate customerDate = testUtility.randomDate();
+                if(dateService.add(customerDate)){
+                    System.out.println("DATE ADDED");
+                }else {
+                    System.out.println("ERROR WHEN ADDING");
+                }
             }
         } else {
             System.out.println("ERROR");
@@ -31,7 +33,7 @@ public class DateServiceTest implements TestService {
     public void testDelete() {
         DateService dateService = DateService.getInstance();
         if (dateService.getAll() != null) {
-            CustomerDate customerDate = dateService.getByID(155);
+            CustomerDate customerDate = dateService.getByID(261);
             if(dateService.remove(customerDate)){
                 System.out.println("DATE DELETED");
             }else {

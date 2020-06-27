@@ -1,14 +1,14 @@
 {
   "firstNode" : {
     "date" : {
-      "date" : "21/JUNE/2020",
-      "hour" : "10:00am",
-      "customerID" : 244,
-      "adminID" : 217,
-      "eatingPlanID" : 0
+      "date" : "30/6/2020",
+      "hour" : "4:00pm",
+      "customerID" : 155,
+      "adminID" : 217
     },
     "nextNode" : {
       "date" : {
+
         "date" : "25/JUNE/2020",
         "hour" : "23:6:21",
         "customerID" : 12,
@@ -90,4 +90,14 @@
     }
   },
   "accountant" : 10
+
+        "date" : "30/6/2020",
+        "hour" : "12:00pm",
+        "customerID" : 217,
+        "adminID" : 217
+      }
+    }
+  },
+  "accountant" : 2
+
 }

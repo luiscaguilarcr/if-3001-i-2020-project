@@ -36,6 +36,7 @@ public class LogIn implements PaneViewer {
     public LogIn(Stage stage) {
         this.stage = stage;
     }
+    public static User userLog;
 
     public GridPane LogIn() {
         pane = PaneUtil.buildPane();
@@ -101,12 +102,12 @@ public class LogIn implements PaneViewer {
 
     public User logInUser() {
         if (userService.getByID(Integer.parseInt(iDTextField.getText())) != null) {
-            User user = userService.getByID(Integer.parseInt(iDTextField.getText()));
-            if ((user.getPassword()).equals(utility.encrypt(passwordTextField.getText()))) {
+            userLog = userService.getByID(Integer.parseInt(iDTextField.getText()));
+            if ((userLog.getPassword()).equals(utility.encrypt(passwordTextField.getText()))) {
                 validUser = true;
                 App app = new App();
                 app.start(stage);
-                return user;
+                return userLog;
             }
         }
         return null;
@@ -142,7 +143,7 @@ public class LogIn implements PaneViewer {
 
     public static User getUser() {
         if (validUser) {
-            return userService.getByID(Integer.parseInt(iDTextField.getText()));
+            return userLog;
         }
         return null;
     }
