@@ -8,6 +8,89 @@
     },
     "nextNode" : {
       "date" : {
+
+        "date" : "25/JUNE/2020",
+        "hour" : "23:6:21",
+        "customerID" : 12,
+        "adminID" : 1244,
+        "eatingPlanID" : 0
+      },
+      "nextNode" : {
+        "date" : {
+          "date" : "25/JUNE/2020",
+          "hour" : "10:29:25",
+          "customerID" : 281,
+          "adminID" : 187,
+          "eatingPlanID" : 0
+        },
+        "nextNode" : {
+          "date" : {
+            "date" : "24/JUNE/2020",
+            "hour" : "21:59:35",
+            "customerID" : 1234,
+            "adminID" : 226,
+            "eatingPlanID" : 0
+          },
+          "nextNode" : {
+            "date" : {
+              "date" : "21/JUNE/2020",
+              "hour" : "7:00am",
+              "customerID" : 181,
+              "adminID" : 217,
+              "eatingPlanID" : 0
+            },
+            "nextNode" : {
+              "date" : {
+                "date" : "21/JUNE/2020",
+                "hour" : "4:00am",
+                "customerID" : 287,
+                "adminID" : 217,
+                "eatingPlanID" : 0
+              },
+              "nextNode" : {
+                "date" : {
+                  "date" : "21/JUNE/2020",
+                  "hour" : "4:00pm",
+                  "customerID" : 231,
+                  "adminID" : 164,
+                  "eatingPlanID" : 0
+                },
+                "nextNode" : {
+                  "date" : {
+                    "date" : "21/JUNE/2020",
+                    "hour" : "6:00pm",
+                    "customerID" : 121,
+                    "adminID" : 220,
+                    "eatingPlanID" : 0
+                  },
+                  "nextNode" : {
+                    "date" : {
+                      "date" : "21/JUNE/2020",
+                      "hour" : "13:9:52",
+                      "customerID" : 300,
+                      "adminID" : 148,
+                      "eatingPlanID" : 0
+                    },
+                    "nextNode" : {
+                      "date" : {
+                        "date" : "21/JUNE/2020",
+                        "hour" : "13:9:45",
+                        "customerID" : 261,
+                        "adminID" : 114,
+                        "eatingPlanID" : 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "accountant" : 10
+
         "date" : "30/6/2020",
         "hour" : "12:00pm",
         "customerID" : 217,
@@ -16,4 +99,5 @@
     }
   },
   "accountant" : 2
+
 }

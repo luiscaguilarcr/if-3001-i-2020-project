@@ -4,9 +4,15 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.Main_MenuBar;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.ChangePasswordForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ViewDate;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddAdmin;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddUserForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddUserFromSuper_Admin;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ChangePassword;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.Graphic;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -16,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainManagePane implements PaneViewer {
+
     // Contains all the Panes.
     private static Map<PaneName, Pane> panes = new HashMap<>();
     private Stage stage;
@@ -30,20 +37,22 @@ public class MainManagePane implements PaneViewer {
     }
 
     /**
-     * Create and store all the scenes.
-     * Set up the main pane.
+     * Create and store all the scenes. Set up the main pane.
      */
     private void initializePanes(Stage stage, Pane basePane) {
         panes.put(PaneName.BASE, basePane);
         panes.put(PaneName.LOG_IN, new Main_MenuBar(stage).getPane());
+        panes.put(PaneName.GRAPHIC, new Graphic().getPane());
         //panes.put(PaneName.CHANGE_PASSWORD), new ChangePassword().getPane());
         //panes.put(PaneName.GENERATE_REPORT), new GenerateReport().getPane());
         //panes.put(PaneName.PERSONAL_PROGRESS), new PersonalProgress().getPane());
-
-        //panes.put(PaneName.ADD_USER_FORM), new AddUserForm().getPane());
+       // panes.put(PaneName.CHANGE_PASSWORD, new ChangePasswordForm().getPane());
+        panes.put(PaneName.ADD_USER_FROM_SUPERADMIN, new AddUserFromSuper_Admin().getPane());
+        panes.put(PaneName.ADD_USER_FORM, new AddUserForm().getPane());
+        panes.put(PaneName.ADD_ADMIN, new AddAdmin().getPane());
         //panes.put(PaneName.MODIFY_USER_FORM), new ModifyUserForm().getPane());
         //panes.put(PaneName.VIEW_USER_FORM), new ViewUserForm().getPane());
-
+        panes.put(PaneName.CHANGEP, new ChangePassword().getPane());
         panes.put(PaneName.ADD_DATE_FORM, new AddDatesForm().getPane());
         panes.put(PaneName.MODIFY_DATE_FORM, new ModifyDate().getPane());
          panes.put(PaneName.VIEW_DATES, new ViewDate().getPane());
@@ -56,8 +65,7 @@ public class MainManagePane implements PaneViewer {
     }
 
     /**
-     * Just inizialize the pane without children.
-     * Build the base pane.
+     * Just inizialize the pane without children. Build the base pane.
      *
      * @return the base pane.
      */

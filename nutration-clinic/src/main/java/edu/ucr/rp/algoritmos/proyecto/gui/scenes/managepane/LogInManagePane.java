@@ -3,6 +3,7 @@ package edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddUserForm;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -27,12 +28,13 @@ public class LogInManagePane implements PaneViewer {
     }
 
     /**
-     * Create and store all the scenes.
+     * Create and store all the panes.
      * Set up the main pane.
      */
     private void initializePanes(Stage stage, Pane basePane) {
         panes.put(PaneName.BASE, basePane);
-        panes.put(PaneName.LOG_IN, new LogIn(stage).getPane()); //TODO confirmar
+        panes.put(PaneName.LOG_IN, new LogIn(stage).getPane()); 
+        panes.put(PaneName.ADD_USER_FORM, new AddUserForm().getPane()); ////TODO confirmar
     }
 
     @Override
@@ -69,7 +71,7 @@ public class LogInManagePane implements PaneViewer {
      */
     public static void setCenterPane(Pane pane) {
         hbox.getChildren().clear();
-        hbox.getChildren().add(pane);
+     hbox.getChildren().add(pane);   
     }
 
     /**
