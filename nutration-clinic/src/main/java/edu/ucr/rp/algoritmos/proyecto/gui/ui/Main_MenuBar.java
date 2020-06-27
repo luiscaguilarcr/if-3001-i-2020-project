@@ -199,7 +199,7 @@ public class Main_MenuBar implements PaneViewer {
 
         modifyDate_MenuItem.setOnAction((event) -> {
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.MODIFY_DATE_FORM));
-//            ModifyDate.refresh();
+            ModifyDate.refresh();
         });
 
         viewDate_MenuItem.setOnAction((event) -> {

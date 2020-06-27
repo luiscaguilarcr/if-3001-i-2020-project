@@ -10,13 +10,19 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -40,12 +46,15 @@ public class ViewDate implements PaneViewer {
     private static TextField customerTextField;
     private static TextField doctorTextField;
     private static DateService dateService;
-    private static ModifyDate modifyDate = new ModifyDate();
-    private static AddDatesForm addDate = new AddDatesForm();
+    private static ObservableList<CustomerDate> dates;
+    private static TableColumn tC_name;
+    private static TableView<CustomerDate> dateTable;
+    private static Button taavButton;
 
     private Pane viewDate() {
         pane = PaneUtil.buildPane();
         setupControls();
+        setupControls2();
         addHandlers();
         serviceInstance();
         return pane;
@@ -72,24 +81,79 @@ public class ViewDate implements PaneViewer {
         viewButton = PaneUtil.buildButtonImage(new Image("seeIcon.png"), pane, 0, 0);
         cancelButton = PaneUtil.buildButtonImage(new Image("logout.png"), pane, 1, 0);
         deleteButton = PaneUtil.buildButtonImage(new Image("remove.png"), pane, 2, 0);
+        taavButton = PaneUtil.buildButton("tavba", pane, 3, 0);
+    }
+
+    private void setupControls2() {
+
+        dateTable = PaneUtil.buildTableView(pane, 1, 1);
+
+//   
+//    tC_name.setCellValueFactory(new PropertyValueFactory<CustomerDate,String>("Date"));
+//    
+//    
+//     dates.add(dateService.getByID(LogIn.getUser().getID()));
+//    dates =FXCollections.observableArrayList();
+//    dateTable.setItems(dates);
+//    
+//     
+//    final ObservableList<CustomerDate> tabladates = dateTable.getSelectionModel().getSelectedItems();
     }
 
     private void addHandlers() {
         cancelButton.setOnAction(e -> MainManagePane.clearPane());
         viewButton.setOnAction(e -> {
-            dateTextField.setText(dateService.getByID(LogIn.getUser().getID()).getDate());
-            hourTextField.setText(dateService.getByID(LogIn.getUser().getID()).getHour());
-            customerTextField.setText(dateService.getByID(LogIn.getUser().getID()).getCustomerID() + " ");
-            doctorTextField.setText(dateService.getByID(LogIn.getUser().getID()).getAdminID() + " ");
-            serviceInstance();
+            if (dateService.getByID(LogIn.getUser().getID()) != null) {
+                dateTextField.setText(dateService.getByID(LogIn.getUser().getID()).getDate());
+                hourTextField.setText(dateService.getByID(LogIn.getUser().getID()).getHour());
+                customerTextField.setText(dateService.getByID(LogIn.getUser().getID()).getCustomerID() + " ");
+                doctorTextField.setText(dateService.getByID(LogIn.getUser().getID()).getAdminID() + " ");
+                serviceInstance();
+            } else {
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot view a date, you must add a date");
+            }
         });
 
         deleteButton.setOnAction(e -> {
-            dateService.remove(dateService.getByID(LogIn.getUser().getID()));
+            if (dateService.getByID(LogIn.getUser().getID()) != null) {
+                dateService.remove(dateService.getByID(LogIn.getUser().getID()));
+                dateTextField.clear();
+                hourTextField.clear();
+                customerTextField.clear();
+                doctorTextField.clear();
+                PaneUtil.showAlert(Alert.AlertType.CONFIRMATION, "Date Delete", "The date was deleted correctly");
+            } else {
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot delete a date, you must add a date");
+            }
+        });
+
+        taavButton.setOnAction(e -> {
+
+            tC_name.setCellValueFactory(new PropertyValueFactory<CustomerDate, String>("Date"));
+
+            dates.add(dateService.getByID(LogIn.getUser().getID()));
+            dates = FXCollections.observableArrayList();
+            dateTable.setItems(dates);
+            final ObservableList<CustomerDate> tabladates = dateTable.getSelectionModel().getSelectedItems();
         });
     }
-
-    @Override
+//private final ListChangeListener<CustomerDate> selectortablacustomer =
+//        new ListChangeListener<CustomerDate>() {
+//       
+//      @Override
+//        public void onChanged(ListChangeListener.Change<? extends CustomerDate> change) {
+//         ponerdate();g
+//        }
+//        
+//        };
+//        
+//        
+//        private void ponerdate(){
+//            final CustomerDate dates = gettabla();
+//            posi
+//            
+//        }
+   @Override
     public Pane getPane() {
         return viewDate();
     }
