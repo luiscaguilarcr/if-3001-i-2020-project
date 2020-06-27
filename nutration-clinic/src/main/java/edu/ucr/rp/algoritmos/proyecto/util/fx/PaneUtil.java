@@ -165,7 +165,7 @@ public class PaneUtil {
 //        series3.getData().add(new XYChart.Data(france, 18722.18));
 //        series3.getData().add(new XYChart.Data(italy, 17557.31));
 //        series3.getData().add(new XYChart.Data(usa, 92633.68));
-        bc.getData().addAll(series1, series2, series3);
+        //bc.getData().addAll(series1, series2, series3);
          
 return xAxis;
     }
