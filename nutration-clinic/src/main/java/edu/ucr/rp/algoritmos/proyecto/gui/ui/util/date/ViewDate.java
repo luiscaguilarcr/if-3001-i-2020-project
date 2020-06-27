@@ -12,6 +12,7 @@ import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -40,8 +41,7 @@ public class ViewDate implements PaneViewer {
     private static TextField customerTextField;
     private static TextField doctorTextField;
     private static DateService dateService;
-    private static ModifyDate modifyDate = new ModifyDate();
-    private static AddDatesForm addDate = new AddDatesForm();
+    
 
     private Pane viewDate() {
         pane = PaneUtil.buildPane();
@@ -77,15 +77,26 @@ public class ViewDate implements PaneViewer {
     private void addHandlers() {
         cancelButton.setOnAction(e -> MainManagePane.clearPane());
         viewButton.setOnAction(e -> {
+            if(dateService.getByID(LogIn.getUser().getID()) != null){
             dateTextField.setText(dateService.getByID(LogIn.getUser().getID()).getDate());
             hourTextField.setText(dateService.getByID(LogIn.getUser().getID()).getHour());
             customerTextField.setText(dateService.getByID(LogIn.getUser().getID()).getCustomerID() + " ");
             doctorTextField.setText(dateService.getByID(LogIn.getUser().getID()).getAdminID() + " ");
             serviceInstance();
+            }else
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot view a date, you must add a date");
         });
 
         deleteButton.setOnAction(e -> {
-            dateService.remove(dateService.getByID(LogIn.getUser().getID()));
+             if(dateService.getByID(LogIn.getUser().getID()) != null){
+            dateService.remove(dateService.getByID(LogIn.getUser().getID()));            
+             dateTextField.clear();
+             hourTextField.clear();
+             customerTextField.clear();
+             doctorTextField.clear();
+             PaneUtil.showAlert(Alert.AlertType.CONFIRMATION, "Date Delete", "The date was deleted correctly");
+             }else
+                  PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot delete a date, you must add a date");
         });
     }
 

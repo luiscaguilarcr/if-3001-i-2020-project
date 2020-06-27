@@ -45,8 +45,7 @@ public class ModifyDate implements PaneViewer {
     private static Label SelecthoursLabel;
     private static Label SelectdoctorLabel;
     private static DateService dateService;
-    private ObservableList<String> observableDoctor;
-    private static AddDatesForm addDate = new AddDatesForm();
+    private ObservableList<Integer> observableDoctor;
     public static CustomerDate customerFinal;
     
     public GridPane modifyDate() {
@@ -75,15 +74,18 @@ public class ModifyDate implements PaneViewer {
         list.add("4:00pm");
         list.add("5:00pm");
         ObservableList<String> observableList = FXCollections.observableList(list);
-        List<String> listdoctor = new ArrayList<String>();
-        listdoctor.add("doctor 217");
-        listdoctor.add("doctor 219");
-        listdoctor.add("doctor 218");
+        //************************************************************************************++
+        List<Integer> listdoctor = new ArrayList<Integer>();
+//        if(LogIn.getUser().getRol() == 2){
+        listdoctor.add(222);
+//        }     
+        observableDoctor = FXCollections.observableArrayList(listdoctor);
+           //************************************************************************************++
 //        CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
 //        List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
 //        observableDoctor = FXCollections.observableArrayList(namesList);
 
-        observableDoctor = FXCollections.observableArrayList(listdoctor);
+        
         modifyDateTitleLabel = PaneUtil.buildLabel(pane, "Modify appointment", 0, 0);
         DateFieldLabel = PaneUtil.buildLabel(pane, "Date Field", 0, 1);
         checkInDatePicker = PaneUtil.buildDatePicker(pane, 1, 1);
@@ -123,12 +125,12 @@ public class ModifyDate implements PaneViewer {
         if (verify) {
             CustomerDate customerNew = new CustomerDate();
             customerNew.setCustomerID(LogIn.getUser().getID());
-            customerNew.setAdminID(217);
+            customerNew.setAdminID(222);
             customerNew.setDate(checkInDatePicker.getEditor().getText());
             customerNew.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
                customerFinal = customerNew;
             if (dateService.edit(dateService.getByID(LogIn.getUser().getID()), customerNew)) {              
-                PaneUtil.showAlert(Alert.AlertType.ERROR, "Date modified", "The date was modified correctly");
+                PaneUtil.showAlert(Alert.AlertType.CONFIRMATION, "Date modified", "The date was modified correctly");
             } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error when modified the date", "The date was not modified");
             }
@@ -138,7 +140,7 @@ public class ModifyDate implements PaneViewer {
     public static void refresh() {
         serviceInstance();
         if (dateService.getByID(LogIn.getUser().getID()) == null) {
-            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot change a date, you must add a date");
+            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot modify a date, you must add a date");
             MainManagePane.clearPane();
         }
     }

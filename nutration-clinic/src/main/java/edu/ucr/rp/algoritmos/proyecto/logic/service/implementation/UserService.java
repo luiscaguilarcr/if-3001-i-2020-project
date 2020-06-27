@@ -111,6 +111,7 @@ public class UserService implements Service<User, UserLinkedList> {
         }
         return null;
     }
+   
 
     @Override
     public UserLinkedList getAll() {

@@ -2,18 +2,26 @@
   "firstNode" : {
     "date" : {
       "date" : "30/6/2020",
-      "hour" : "4:00pm",
+      "hour" : "3:00pm",
       "customerID" : 155,
-      "adminID" : 217
+      "adminID" : 222
     },
     "nextNode" : {
       "date" : {
-        "date" : "30/6/2020",
-        "hour" : "12:00pm",
+        "date" : "10/6/2020",
+        "hour" : "9:00am",
         "customerID" : 217,
-        "adminID" : 217
+        "adminID" : 222
+      },
+      "nextNode" : {
+        "date" : {
+          "date" : "23/6/2020",
+          "hour" : "9:00am",
+          "customerID" : 300,
+          "adminID" : 222
+        }
       }
     }
   },
-  "accountant" : 2
+  "accountant" : 3
 }

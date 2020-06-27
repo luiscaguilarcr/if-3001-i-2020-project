@@ -52,7 +52,7 @@ public class AddDatesForm implements PaneViewer {
     private static Label SelectdoctorLabel;
     private static DateService dateService;
     private static UserService userService;
-    private ObservableList<String> observableDoctor;
+    private ObservableList<Integer> observableDoctor;
     public static CustomerDate customerDateOLD;
     private Calendar calendar;
 
@@ -86,14 +86,15 @@ public class AddDatesForm implements PaneViewer {
         list.add("4:00pm");
         list.add("5:00pm");
         ObservableList<String> observableList = FXCollections.observableList(list);
-        List<String> listdoctor = new ArrayList<String>();
-        listdoctor.add("217");
-        listdoctor.add("219");
-        listdoctor.add("218");
+        List<Integer> listdoctor = new ArrayList<Integer>();
+//        if(LogIn.getUser().getRol() == 2){
+        listdoctor.add(222);
+//        }     
+        observableDoctor = FXCollections.observableArrayList(listdoctor);
 //        CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
 //        List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
 //        observableDoctor = FXCollections.observableArrayList(namesList);
-        observableDoctor = FXCollections.observableArrayList(listdoctor);
+     
         //CustomerDateStack customerDateStack = dateService.getDatesByAdminID(LogIn.getUser().getID());
         //List namesList = dateService.getNamesOfCustomersByDates(customerDateStack);
         //observableDoctor = FXCollections.observableArrayList(namesList);
@@ -141,18 +142,18 @@ public class AddDatesForm implements PaneViewer {
         if (verify) {
             CustomerDate customerDate = new CustomerDate();
 //            int doctorID = userService.getByName(doctorsComboBox.getSelectionModel().getSelectedItem().toString()).getID();
-            customerDate.setAdminID(217);
+            customerDate.setAdminID(222);
             customerDate.setCustomerID(LogIn.getUser().getID());
-
             customerDate.setDate(checkInDatePicker.getEditor().getText());
             customerDate.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
             customerDateOLD = customerDate;
 
             //customerDate.setDate(checkInDatePicker.g);
-            customerDate.setHour(horasComboBox.getSelectionModel().getSelectedItem().toString());
+            customerDate.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
 
             if (dateService.add(customerDate)) {
-                PaneUtil.showAlert(Alert.AlertType.ERROR, "Date added", "The date was added correctly");
+                PaneUtil.showAlert(Alert.AlertType.CONFIRMATION, "Date added", "The date was added correctly");
+                
             } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error when adding the date", "The date was not added");
             }
