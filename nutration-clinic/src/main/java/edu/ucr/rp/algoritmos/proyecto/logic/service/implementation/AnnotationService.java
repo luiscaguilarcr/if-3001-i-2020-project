@@ -54,7 +54,7 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
             queue.enqueue(adminAnnotation);
             customerDatesHistoryService.add(customerDateService.getByID(adminAnnotation.getCustomerID()));
             customerDateService.remove(customerDateService.getByID(adminAnnotation.getCustomerID()));
-            utility.historyApp("Anotaciones agregadas para el usuario " + adminAnnotation.getCustomerID() + " en la fecha " + adminAnnotation.getDate());
+            //utility.historyApp("Anotaciones agregadas para el usuario " + adminAnnotation.getCustomerID() + " en la fecha " + adminAnnotation.getDate());
             return annotationPersistence.write(queue);
         }
         return false;
@@ -72,7 +72,7 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
             queue.dequeue(oldAdminAnnotation);
             queue.enqueue(newAdminAnnotation);
             annotationPersistence.write(queue);
-            utility.historyApp("Anotaciones editadas para el usuario " + oldAdminAnnotation.getCustomerID() + " en la fecha " + oldAdminAnnotation.getDate());
+            //utility.historyApp("Anotaciones editadas para el usuario " + oldAdminAnnotation.getCustomerID() + " en la fecha " + oldAdminAnnotation.getDate());
             refresh();
         }
         return queue.contains(newAdminAnnotation);
@@ -89,7 +89,7 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
         refresh();
         if (queue.contains(adminAnnotation)) {
             queue.dequeue(adminAnnotation);
-            utility.historyApp("Anotaciones eliminadas para el usuario " + adminAnnotation.getCustomerID() + " en la fecha " + adminAnnotation.getDate());
+            //utility.historyApp("Anotaciones eliminadas para el usuario " + adminAnnotation.getCustomerID() + " en la fecha " + adminAnnotation.getDate());
             return annotationPersistence.write(queue);
         }
         return false;

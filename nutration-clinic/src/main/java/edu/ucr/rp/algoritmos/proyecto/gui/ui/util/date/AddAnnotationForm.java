@@ -52,10 +52,11 @@ public class AddAnnotationForm implements PaneViewer {
     private static TextField fatTextField;
     private static TextField heightTextField;
     private static TextField dateTextField;
-    private static ComboBox customerIDComboBox;
+    private ComboBox customerIDComboBox;
     private static TextField doctorIDTextField;
     private static Button addAnnotationButton;
     private static Button cancelButton;
+    private static Button refreshButton;
     private ObservableList<String> selectCustomerObservableList;
 
     public GridPane addAnnotationForm() {
@@ -73,10 +74,10 @@ public class AddAnnotationForm implements PaneViewer {
     }
 
     private void setupControls() {
-
         customerIDLabel = PaneUtil.buildLabel(pane, " Select Customer ", 0, 0);
-        selectCustomerObservableList = FXCollections.observableArrayList(userService.getCustomerNames());
+        selectCustomerObservableList = FXCollections.observableArrayList();
         customerIDComboBox = PaneUtil.buildComboBox(pane, selectCustomerObservableList, 1, 0);
+        refreshButton = PaneUtil.buildButtonImage(new Image("refresh.png"), pane, 2, 0);
         weightLabel = PaneUtil.buildLabel(pane, " Insert weight ", 0, 1);
         weightKgLabel = PaneUtil.buildLabel(pane, "KG", 2, 1);
         weightTextField = PaneUtil.buildTextField(pane, 1);
@@ -94,7 +95,6 @@ public class AddAnnotationForm implements PaneViewer {
         doctorIDTextField.setDisable(true);
         addAnnotationButton = PaneUtil.buildButton("Annotate", pane, 1, 6);
         cancelButton = PaneUtil.buildButtonImage(new Image("logout.png"), pane, 2, 6);
-
     }
 
     private void addHandlers() {
@@ -104,6 +104,10 @@ public class AddAnnotationForm implements PaneViewer {
         });
         addAnnotationButton.setOnAction(e -> {
             addAnnotation();
+        });
+        refreshButton.setOnAction(event -> {
+            selectCustomerObservableList.clear();
+            selectCustomerObservableList = FXCollections.observableArrayList(dateService.getDatesByAdminID(LogIn.getUser().getID()));
         });
     }
 
@@ -138,6 +142,7 @@ public class AddAnnotationForm implements PaneViewer {
             adminAnnotation.setDocID(LogIn.getUser().getID());
             EatingPlanService eatingPlanService = EatingPlanService.getInstance();
             adminAnnotation.setEatingPlan(eatingPlanService.getPlanByID(fat));
+
             if (annotationService.add(adminAnnotation)) {
                 MainManagePane.clearPane();
                 refreshItems();

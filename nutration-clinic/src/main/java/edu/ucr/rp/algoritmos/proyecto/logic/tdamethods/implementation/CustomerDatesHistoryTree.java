@@ -7,7 +7,7 @@ import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
  */
 
 public class CustomerDatesHistoryTree {
-    public Integer targetID = 0;
+    public int targetID = 0;
     public Node topNode;
 
     public CustomerDatesHistoryTree() {
