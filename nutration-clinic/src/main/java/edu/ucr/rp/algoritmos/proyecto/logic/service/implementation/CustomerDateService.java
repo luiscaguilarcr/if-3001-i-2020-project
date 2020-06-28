@@ -57,7 +57,7 @@ public class CustomerDateService implements DateService<CustomerDate> {
         if (customerDate != null) {
             deleteAdminAvailability(customerDate); //TODO revisar
             stack.push(customerDate);
-            //utility.historyApp("Cita agregada para el usuario " + customerDate.getCustomerID());
+            utility.historyApp("Cita agregada para el usuario " + customerDate.getCustomerID());
             return customerDatePersistence.write(stack);
         }
         return false;
@@ -76,7 +76,7 @@ public class CustomerDateService implements DateService<CustomerDate> {
         if (!stack.isEmpty()) {
             stack = editCustomerDate(newCustomerDate);
             editAdminAvailability(oldCustomerDate, newCustomerDate);
-            //utility.historyApp("Cita editada para el usuario " + oldCustomerDate.getCustomerID());
+            utility.historyApp("Cita editada para el usuario " + oldCustomerDate.getCustomerID());
             refresh();
             return customerDatePersistence.write(stack);
         }
@@ -95,7 +95,7 @@ public class CustomerDateService implements DateService<CustomerDate> {
         if (!stack.isEmpty() && customerDate != null) {
             stack = removeCustomerDate(customerDate);
             addAdminAvailability(customerDate);
-            //utility.historyApp("Cita removida para el usuario " + customerDate.getCustomerID());
+            utility.historyApp("Cita removida para el usuario " + customerDate.getCustomerID());
             CustomerDatesHistoryService customerDatesHistoryService = CustomerDatesHistoryService.getInstance();
             customerDatesHistoryService.add(customerDate);
             return customerDatePersistence.write(stack);

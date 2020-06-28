@@ -58,7 +58,7 @@ public class UserService implements UserControlService<User> {
             if (user.getRol() == 2) {
                 addAdminAvailability(user.getID());
             }
-            //utility.historyApp("El usuario con ID: "+user.getID()+" fue agregado");
+            utility.historyApp("El usuario con ID: "+user.getID()+" fue agregado");
             return true;
         }
         return false;
@@ -96,7 +96,7 @@ public class UserService implements UserControlService<User> {
         if (userLinkedList.containsByID(user)) {
             userLinkedList.remove(user);
             utility.removeCustomerDate(user.getID());
-            //utility.historyApp("El usuario con ID: "+user.getID()+" fue removido");
+            utility.historyApp("El usuario con ID: "+user.getID()+" fue removido");
             if (user.getRol() == 2) {
                 deleteAdminAvailability(user.getID());
             }
