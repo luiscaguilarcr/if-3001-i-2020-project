@@ -3,10 +3,9 @@ package edu.ucr.rp.algoritmos.proyecto.gui.ui;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.gui.App;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.LogInManagePane;
-import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddUserForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddCustomerForm;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
@@ -36,6 +35,7 @@ public class LogIn implements PaneViewer {
     public LogIn(Stage stage) {
         this.stage = stage;
     }
+
     public static User userLog;
 
     public GridPane LogIn() {
@@ -43,7 +43,7 @@ public class LogIn implements PaneViewer {
         setupControls();
         addHandlers();
         //visible();
-        
+
         return pane;
     }
 
@@ -56,7 +56,7 @@ public class LogIn implements PaneViewer {
         logInButton.setAlignment(Pos.CENTER);
         exitButton = PaneUtil.buildButtonImage(new Image("exit2.png"), pane, 1, 2);
         registerButton = PaneUtil.buildButton("Register", pane, 1, 5);
-       
+
     }
 
     private void addHandlers() {
@@ -71,13 +71,13 @@ public class LogIn implements PaneViewer {
             }
         });
         registerButton.setOnAction(e -> {
-            
-           //notVisible();
-          LogInManagePane.clearPane();
-            LogInManagePane.setCenterPane(LogInManagePane.getPanes().get(PaneName.ADD_USER_FORM));
-            
-      AddUserForm.visible();
-    
+
+            //notVisible();
+            LogInManagePane.clearPane();
+            LogInManagePane.setCenterPane(LogInManagePane.getPanes().get(PaneName.ADD_CUSTOMER_FORM));
+
+            AddCustomerForm.visible();
+
         });
     }
 

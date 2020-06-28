@@ -8,6 +8,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.system.CleanApp;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddAdminForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ChangePasswordForm;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -78,8 +79,7 @@ public class Main_MenuBar implements PaneViewer {
         MenuItem exit_MenuItem = new MenuItem("Exit", exit_ImageView);
 
         changePassword_MenuItem.setOnAction((e) -> {
-            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.CHANGEP));
-            //MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.CHANGE_PASSWORD));
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.CHANGE_PASSWORD));
         });
 
         generateReport_MenuItem.setOnAction((event) -> {
@@ -164,11 +164,7 @@ public class Main_MenuBar implements PaneViewer {
         MenuItem viewCustomer_MenuItem = new MenuItem("View", viewCustomer_ImageView);
 
         addCustomer_MenuItem.setOnAction((event) -> {
-            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_USER_FROM_SUPERADMIN));
-            //AddUserForm.visible();
-            //AddUserForm.setUserRol(3);
-            //ModifyUserForm.setUserRol(3);
-            //ViewUserForm.setUserRol(3);
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_CUSTOMER_FORM));
         });
 
         modifyCustomer_MenuItem.setOnAction((event) -> {
@@ -176,6 +172,7 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         viewCustomer_MenuItem.setOnAction((event) -> {
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_USER_FORM));
         });
 
         customer_Menu.getItems().addAll(addCustomer_MenuItem, modifyCustomer_MenuItem, viewCustomer_MenuItem);

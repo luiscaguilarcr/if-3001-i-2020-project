@@ -59,15 +59,15 @@ public class ModifyDate implements PaneViewer {
 
     public GridPane modifyDate() {
         pane = PaneUtil.buildPane();
+        serviceInstance();
         setupControls();
         addHandlers();
-        serviceInstance();
         return pane;
     }
 
     public static void serviceInstance() {
         dateService = DateService.getInstance();
-
+        userService = UserService.getInstance();
     }
 
     private void setupControls() {

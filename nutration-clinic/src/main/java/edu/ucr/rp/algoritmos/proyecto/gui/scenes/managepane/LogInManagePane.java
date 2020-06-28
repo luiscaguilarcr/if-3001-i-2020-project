@@ -3,7 +3,7 @@ package edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddUserForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddCustomerForm;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -34,7 +34,7 @@ public class LogInManagePane implements PaneViewer {
     private void initializePanes(Stage stage, Pane basePane) {
         panes.put(PaneName.BASE, basePane);
         panes.put(PaneName.LOG_IN, new LogIn(stage).getPane()); 
-        panes.put(PaneName.ADD_USER_FORM, new AddUserForm().getPane()); ////TODO confirmar
+        panes.put(PaneName.ADD_CUSTOMER_FORM, new AddCustomerForm().getPane()); ////TODO confirmar
     }
 
     @Override

@@ -32,7 +32,7 @@ import javafx.scene.layout.Pane;
 /**
  * @author Noel
  */
-public class AddUserForm implements PaneViewer {
+public class AddCustomerForm implements PaneViewer {
 
     private static UserService userService;
     public static Service service;
@@ -81,11 +81,10 @@ public class AddUserForm implements PaneViewer {
         phoneNumberTextField = PaneUtil.buildTextInput(pane, 1, 10);
         iDLabel = PaneUtil.buildLabel(pane, "Id", 1, 11);
         iDTextField = PaneUtil.buildTextInput(pane, 1, 12);
+        rolLabel = PaneUtil.buildLabel(pane, "Rol", 1, 13);
         rolTextField = PaneUtil.buildTextField(pane, 14);
         rolTextField.setText("3");
         rolTextField.setDisable(true);
-        rolLabel = PaneUtil.buildLabel(pane, "Rol", 1, 13);
-        //rolTextField = PaneUtil.buildTextInput(pane, 1, 14);
         exitButton = PaneUtil.buildButtonImage(new Image("exit.png"), pane, 2, 15);
         addButton = PaneUtil.buildButton("Add", pane, 4, 15);
     }
@@ -121,10 +120,7 @@ public class AddUserForm implements PaneViewer {
                     PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The user was not added correctly");
                 }
             }
-
         });
-        //            
-        //        }
     }
 
     private void notVisible() {
