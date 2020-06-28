@@ -7,6 +7,8 @@ import logic.interfaces.TestService;
 import org.junit.Test;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
 
+import java.util.List;
+
 public class DateServiceTest implements TestService {
     private static DateService dateService = DateService.getInstance();
     TestUtility testUtility = new TestUtility();
@@ -51,7 +53,7 @@ public class DateServiceTest implements TestService {
         CustomerDate newCustomerDate = new CustomerDate();
         newCustomerDate.setAdminID(184);
         newCustomerDate.setCustomerID(oldCustomerDate.getCustomerID());
-        newCustomerDate.setDate("32/6/2020");
+        newCustomerDate.setDate("27/6/2020");
         newCustomerDate.setHour("17:00");
 
         if (dateService.edit(oldCustomerDate, newCustomerDate)) {
@@ -84,10 +86,10 @@ public class DateServiceTest implements TestService {
     @Test
     @Override
     public void getByDoctorID() {
-        if (dateService.getDatesByAdminID(217) != null) {
-            CustomerDateStack customerDateStack = dateService.getDatesByAdminID(217);
+        if (dateService.getDatesByAdminID(184) != null) {
+            List customerDateStack = dateService.getDatesByAdminID(184);
             for (int i = 0; i < customerDateStack.size(); i++) {
-                System.out.println(customerDateStack.getByAcc(i).getCustomerID());
+                System.out.println(customerDateStack.get(i));
             }
         } else {
             System.out.println("ERROR");
@@ -97,6 +99,5 @@ public class DateServiceTest implements TestService {
     @Override
     @Test
     public void test() {
-        //testUtility.setDateAndHour();
     }
 }

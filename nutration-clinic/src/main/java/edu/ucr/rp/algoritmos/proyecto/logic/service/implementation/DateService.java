@@ -167,9 +167,10 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
             if (customerDate.getCustomerID() == adminID) {
                 return null;
             }
+
             if (customerDate.getAdminID() == adminID) {
                 if (date.equals(customerDate.getDate())) {
-                    list.add(customerDate.getCustomerID() +" : "+customerDate.getHour());
+                    list.add(customerDate.getHour());
                 }
             }
         }
