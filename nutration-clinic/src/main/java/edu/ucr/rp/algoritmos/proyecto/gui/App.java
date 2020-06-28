@@ -21,14 +21,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
+        IOUtility ioUtility = new IOUtility();
+        ioUtility.verifyAppDir(); //TODO test
+
         // Start with the main scene
         scenes.put(SceneName.MAIN_S, new MainScene(stage).getScene());
         stage.setScene(scenes.get(SceneName.MAIN_S));
-
-        IOUtility ioUtility = new IOUtility();
-        ioUtility.verifyAppDir(); //TODO test
         
-        stage.setTitle("Inventory System");
+        stage.setTitle("Nutration Clinic");
         stage.getIcons().add(new Image("naturaleza.png"));
         stage.show();
     }

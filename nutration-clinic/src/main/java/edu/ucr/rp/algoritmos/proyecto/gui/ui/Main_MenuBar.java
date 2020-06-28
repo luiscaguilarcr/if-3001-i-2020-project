@@ -5,8 +5,8 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddUserForm;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ChangePassword;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.system.CleanApp;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddAdminForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
@@ -18,6 +18,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import java.awt.Desktop;
 
 import java.io.File;
@@ -33,6 +34,8 @@ public class Main_MenuBar implements PaneViewer {
     private MenuItem generateReport_MenuItem;
     private MenuItem personalProgress_MenuItem;
     private MenuItem annotationsDate_MenuItem;
+    private MenuItem cleanApp_MenuItem;
+
     public Main_MenuBar(Stage stage) {
         this.stage = stage;
     }
@@ -62,34 +65,37 @@ public class Main_MenuBar implements PaneViewer {
         ImageView logOut_ImageView = new ImageView(new Image("logout3.png"));
         MenuItem logOut_MenuItem = new MenuItem("Log out", logOut_ImageView);
 
-        // exit_MenuItem
+        // guide_MenuItem
         ImageView guide_ImageView = new ImageView(new Image("manual1.png"));
         MenuItem guide_MenuItem = new MenuItem("User's guide", guide_ImageView);
+
+        // exit_MenuItem
+        ImageView cleanApp_ImageView = new ImageView(new Image("cleanApp.png"));
+        cleanApp_MenuItem = new MenuItem("Clean app", cleanApp_ImageView);
 
         // exit_MenuItem
         ImageView exit_ImageView = new ImageView(new Image("exit3.png"));
         MenuItem exit_MenuItem = new MenuItem("Exit", exit_ImageView);
 
         changePassword_MenuItem.setOnAction((e) -> {
-             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.CHANGEP));
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.CHANGEP));
             //MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.CHANGE_PASSWORD));
-            ///JOptionPane.showMessageDialog(null, "holaaa");
         });
 
         generateReport_MenuItem.setOnAction((event) -> {
         });
 
         personalProgress_MenuItem.setOnAction((event) -> {
-             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.GRAPHIC));
-             JOptionPane.showMessageDialog(null, "hols");
-            
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.GRAPHIC));
+            JOptionPane.showMessageDialog(null, "hols");
+
         });
 
         guide_MenuItem.setOnAction((event) -> {
             try {
-                File path = new File ("manual.pdf");
+                File path = new File("manual.pdf");
                 Desktop.getDesktop().open(path);
-            }catch (IOException ex) {
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
@@ -100,11 +106,18 @@ public class Main_MenuBar implements PaneViewer {
             app.start(stage);
         });
 
+        cleanApp_MenuItem.setOnAction((event -> {
+            CleanApp.cleanApp();
+
+            LogIn.refresh();
+            App app = new App();
+            app.start(stage);
+        }));
 
         exit_MenuItem.setOnAction((event) -> Platform.exit());
         exit_MenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 
-        config_Menu.getItems().addAll(changePassword_MenuItem, generateReport_MenuItem, personalProgress_MenuItem, guide_MenuItem, logOut_MenuItem, exit_MenuItem);
+        config_Menu.getItems().addAll(changePassword_MenuItem, generateReport_MenuItem, personalProgress_MenuItem, guide_MenuItem, logOut_MenuItem, cleanApp_MenuItem, exit_MenuItem);
 
         ////////////////////////////////////////////////////////////////////////// Menu "ADMIN"
         admin_Menu = new Menu("ADMIN");
@@ -123,11 +136,7 @@ public class Main_MenuBar implements PaneViewer {
         MenuItem viewAdmin_MenuItem = new MenuItem("View", viewAdmin_ImageView);
 
         addAdmin_MenuItem.setOnAction((event) -> {
-               MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_ADMIN));
-            //MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_USER_FORM));
-            //AddUserForm.setUserRol(2);
-            //ModifyUserForm.setUserRol(2);
-            //ViewUserForm.setUserRol(2);
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_ADMIN));
         });
 
         modifyAdmin_MenuItem.setOnAction((event) -> {
@@ -203,7 +212,7 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         viewDate_MenuItem.setOnAction((event) -> {
-             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_DATES));
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_DATES));
         });
 
         annotationsDate_MenuItem.setOnAction((event) -> {
@@ -237,10 +246,12 @@ public class Main_MenuBar implements PaneViewer {
                 annotationsDate_MenuItem.setVisible(false);
             } else if (rol == 2) {
                 personalProgress_MenuItem.setVisible(false);
+                cleanApp_MenuItem.setVisible(false);
                 admin_Menu.setVisible(false);
             } else if (rol == 3) {
                 generateReport_MenuItem.setVisible(false);
                 admin_Menu.setVisible(false);
+                cleanApp_MenuItem.setVisible(false);
                 customer_Menu.setVisible(false);
                 annotationsDate_MenuItem.setVisible(false);
             }

@@ -1,11 +1,13 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.AdminAvailabilityPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -17,6 +19,7 @@ import java.util.List;
 public class AdminAvailabilityService implements Service<AdminAvailability, List> {
     public List<AdminAvailability> list;
     private AdminAvailabilityPersistence adminAvailabilityPersistence;
+    private UserService userService;
     private static AdminAvailabilityService instance;
 
     /**
@@ -24,6 +27,7 @@ public class AdminAvailabilityService implements Service<AdminAvailability, List
      */
     private AdminAvailabilityService() {
         adminAvailabilityPersistence = new AdminAvailabilityPersistence();
+        userService = UserService.getInstance();
         list = new ArrayList();
         refresh();
     }
@@ -113,11 +117,11 @@ public class AdminAvailabilityService implements Service<AdminAvailability, List
         return null;
     }
 
-    public AdminAvailability getByDayAndID(String date, int iD) {
+    public Map<String, List> getByID2(int iD) {
         refresh();
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getAdminID() == iD && list.get(i).getAdminAvailability().get(date) != null) {
-                return list.get(i);
+            if (list.get(i).getAdminID() == iD) {
+                return list.get(i).getAdminAvailability();
             }
         }
         return null;
@@ -144,6 +148,19 @@ public class AdminAvailabilityService implements Service<AdminAvailability, List
             return true;
         }
         return false;
+    }
+
+    public List<String> getNamesListByDate(String date) {
+        refresh();
+        List<String> tempList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, List> map = list.get(i).getAdminAvailability();
+            if(map.containsKey(date)){
+                User user = userService.getByID(list.get(i).getAdminID());
+                tempList.add(user.getName());
+            }
+        }
+        return tempList;
     }
 
     private void refresh() {

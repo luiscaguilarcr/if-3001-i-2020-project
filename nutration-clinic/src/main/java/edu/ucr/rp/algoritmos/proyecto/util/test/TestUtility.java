@@ -30,8 +30,8 @@ public class TestUtility {
     }
 
     public void generateUserName() {
-        String[] list = {"Carlitos Aguilar", "Braulio Carrillo", "Andre Turrio", "Hern Olivar", "Rosa Marquez", "Lolo Quesada", "Fran Mars", "Yeiny Misun"};
-        user.setName(list[random(list.length)]);
+        String[] name = {"Carlitos Aguilar", "Braulio Carrillo", "Andre Turrio", "Hern Olivar", "Rosa Marquez", "Lolo Quesada", "Fran Mars", "Yeiny Misun"};
+        user.setName(name[random(name.length)]+random(10000000));
     }
 
     public void generateEmail() {
@@ -205,7 +205,7 @@ public class TestUtility {
         LocalDate localDate = LocalDate.now();
 
         for (int i = 0; i < 6; i++) {
-            availability.put(localDate.getDayOfMonth() + i + "/" + localDate.getMonth() + "/" + localDate.getYear(), hours);
+            availability.put(localDate.getDayOfMonth() + i + "/" + localDate.getMonthValue() + "/" + localDate.getYear(), hours);
         }
 
         adminAvailability.setAdminAvailability(availability);

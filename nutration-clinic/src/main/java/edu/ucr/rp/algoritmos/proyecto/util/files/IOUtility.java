@@ -4,6 +4,7 @@ import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.UserPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
+import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -43,13 +44,13 @@ public class IOUtility {
         // Validate files/
         UserService userService = UserService.getInstance();
         File root = new File("files/");
-        UserPersistence userPersistence = new UserPersistence();
+        Utility utility = new Utility();
         if(!root.exists()) {
             root.mkdir();
             User superAdmin = new User();
             superAdmin.setID(1234567890);
             superAdmin.setName("super-admin");
-            superAdmin.setPassword("super-admin");
+            superAdmin.setPassword(utility.encrypt("super-admin"));
             superAdmin.setRol(1);
             userService.add(superAdmin);
         }

@@ -59,7 +59,7 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
     public boolean add(CustomerDate customerDate) {
         refresh();
         if (!stack.contains(customerDate)) {
-            //updateAvailability(customerDate); //TODO revisar
+            updateAvailability(customerDate); //TODO revisar
             stack.push(customerDate);
             //utility.historyApp("Cita agregada para el usuario " + customerDate.getCustomerID());
             return datePersistence.write(stack);
@@ -173,9 +173,20 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
      * @param customerDate que se quiere agregar
      */
     private void updateAvailability(CustomerDate customerDate) {
-        if (adminAvailabilityService.getByDayAndID(customerDate.getDate(), customerDate.getAdminID()) != null) {
+        if (adminAvailabilityService.getByID2(customerDate.getAdminID()) != null) {
             CustomerDate newCustomerDate = customerDate;
 
+            AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
+            AdminAvailability adminAvailability = adminAvailabilityService.getByID(customerDate.getAdminID());
+
+            AdminAvailability adminAvailability1 = adminAvailability;
+            String date = customerDate.getDate();
+            String hour = customerDate.getHour();
+
+            List hourList = adminAvailability1.getAdminAvailability().get(date);
+            hourList.remove(hour);
+
+            adminAvailabilityService.edit(adminAvailability, adminAvailability1);
         }
     }
 

@@ -29,12 +29,17 @@ public class AdminAvailabilityServiceTest implements TestService {
             UserLinkedList userLinkedList = userService.getAll();
             for (int i = 0; i < userLinkedList.size(); i++) {
                 User user = userLinkedList.get(i);
-                if (user.getRol() == 3){
-                    AdminAvailability adminAvailability = testUtility.generateAdminAvailability(user.getID());
-                    if(adminAvailabilityService.add(adminAvailability)){
-                        System.out.println("Se agregó la disponibilidad de "+userLinkedList.get(i).getID());
+                AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
+                if (user.getRol() == 3) {
+                    if (adminAvailabilityService.getByID(user.getID()) == null) {
+                        AdminAvailability adminAvailability = testUtility.generateAdminAvailability(user.getID());
+                        if (adminAvailabilityService.add(adminAvailability)) {
+                            System.out.println("Se agregó la disponibilidad de " + userLinkedList.get(i).getID());
+                        } else {
+                            System.out.println("ERROR, no se agregó la disponibilidad de " + userLinkedList.get(i).getID());
+                        }
                     }else {
-                        System.out.println("ERROR, no se agregó la disponibilidad de "+userLinkedList.get(i).getID());
+                        System.out.println("ERROR, YA EXISTE");
                     }
                 }
             }
@@ -49,9 +54,9 @@ public class AdminAvailabilityServiceTest implements TestService {
         AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
         AdminAvailability adminAvailability = adminAvailabilityService.getAll().get(0);
 
-        if(adminAvailabilityService.remove(adminAvailability)){
+        if (adminAvailabilityService.remove(adminAvailability)) {
             System.out.println("Se removió");
-        }else {
+        } else {
             System.out.println("No se removió");
         }
     }
@@ -61,17 +66,16 @@ public class AdminAvailabilityServiceTest implements TestService {
     public void testEdit() {
         AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
         AdminAvailability adminAvailability = adminAvailabilityService.getAll().get(0);
-        AdminAvailability adminAvailability1 = new AdminAvailability();
-        adminAvailability1 = adminAvailability;
+        AdminAvailability adminAvailability1 = adminAvailability;
         String date = "32/JUNE/2020";
         String hour = "10:00";
         List list = adminAvailability1.getAdminAvailability().get(date);
         //list.remove(hour);
         list.add(hour);
         System.out.println(list.contains(hour));
-        if(adminAvailabilityService.edit(adminAvailability, adminAvailability1)){
+        if (adminAvailabilityService.edit(adminAvailability, adminAvailability1)) {
             System.out.println("Se editó");
-        }else {
+        } else {
             System.out.println("NO se editó");
         }
     }

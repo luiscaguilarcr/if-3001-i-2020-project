@@ -163,7 +163,7 @@ public class UserLinkedList implements LinkedListInterface {
         //Loops through the list of nodes
         while (tempNode != null) {
             //When the item to find is found, enter it in the if
-            if (user.getName() == tempNode.user.getName()) {
+            if (user.getName().equals(tempNode.user.getName())) {
                 return true;
             }
             //Advance one position in the node list

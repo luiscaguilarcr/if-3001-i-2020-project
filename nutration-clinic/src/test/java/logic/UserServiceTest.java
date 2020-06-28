@@ -17,7 +17,7 @@ public class UserServiceTest implements TestService {
     public void testAddition() {
         IOUtility ioUtility = new IOUtility();
         ioUtility.verifyAppDir();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             userService = UserService.getInstance();
             User user = testUtility.randomUser();
             if (userService.add(user)) {

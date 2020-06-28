@@ -125,13 +125,12 @@ public class UserService implements Service<User, UserLinkedList> {
     public User getByName(String name) {
         refresh();
         for (int i = 0; i < userLinkedList.size(); i++) {
-            if (userLinkedList.get(i).getName() == name) {
+            if (userLinkedList.get(i).getName().equals(name)) {
                 return userLinkedList.get(i);
             }
         }
         return null;
     }
-   
 
     public List<String> getAdminNames(){
         refresh();
