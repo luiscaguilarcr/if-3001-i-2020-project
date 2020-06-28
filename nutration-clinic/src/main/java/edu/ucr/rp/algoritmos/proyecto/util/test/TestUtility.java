@@ -211,9 +211,9 @@ public class TestUtility {
     }
 
     public void generateRandomAnnotations() {
-        Object[] fat = {"16%", "17%", "18%", "19%", "20%", "21%", "22%", "23%", "24%"};
-        Object[] weight = {"50 kg", "55 kg", "60 kg", "65 kg", "70 kg", "75 kg", "80 kg", "85 kg", "90 kg"};
-        Object[] height = {"110 cm", "115 cm", "120 cm", "125 cm", "130 cm", "135 cm", "140 cm", "145 cm", "150 cm"};
+        int[] fat = {16, 17, 18, 19, 20, 21, 22, 23, 24};
+        int[] weight = {50, 55, 60, 65, 70, 75, 80, 85, 90};
+        int[] height = {110, 115, 120, 125, 130, 135, 140, 145, 150};
         int randomNumber = random(fat.length);
         adminAnnotation.setFat(fat[randomNumber]);
         adminAnnotation.setWeight(weight[randomNumber]);

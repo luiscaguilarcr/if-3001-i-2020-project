@@ -1,5 +1,6 @@
 package logic;
 
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ChangePasswordForm;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.test.TestUtility;
@@ -71,6 +72,8 @@ public class UserServiceTest implements TestService {
 
     @Override
     public void test() {
+        ChangePasswordForm changePasswordForm = new ChangePasswordForm();
+        changePasswordForm.changePassword();
     }
 
 }
