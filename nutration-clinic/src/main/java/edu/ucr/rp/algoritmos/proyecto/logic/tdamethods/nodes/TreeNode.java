@@ -8,7 +8,7 @@ import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
  */
 public class TreeNode {
     public CustomerDate customerDate;
-    public HistoryApp historyApp;
+
     public TreeNode left, right;
     //BTree
     public String label; //root/left/right
@@ -30,13 +30,6 @@ public class TreeNode {
         this.customerDate = customerDate;
         this.label = label;
         this.level = level;
-        this.left = this.right = null;
-    }
-
-    //Constructor #3
-    public TreeNode(HistoryApp historyApp, String sequence) {
-        this.historyApp = historyApp;
-        this.sequence = sequence;
         this.left = this.right = null;
     }
 
@@ -63,5 +56,4 @@ public class TreeNode {
     public void setRight(TreeNode right) {
         this.right = right;
     }
-
 }

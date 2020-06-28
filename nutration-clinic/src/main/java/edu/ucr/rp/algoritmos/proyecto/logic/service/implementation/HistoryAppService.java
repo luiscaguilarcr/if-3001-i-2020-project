@@ -1,8 +1,10 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.CustomerDatePersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.HistoryAppPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.HistoryService;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.HistoryAppAVL;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
@@ -14,7 +16,7 @@ import edu.ucr.rp.algoritmos.proyecto.util.Utility;
  */
 public class HistoryAppService implements HistoryService<HistoryApp> {
     public HistoryAppAVL avl;
-    private HistoryAppPersistence datePersistence;
+    private HistoryAppPersistence historyAppPersistence;
     private static HistoryAppService instance;
     private Utility utility;
 
@@ -23,7 +25,7 @@ public class HistoryAppService implements HistoryService<HistoryApp> {
      */
     private HistoryAppService() {
         avl = new HistoryAppAVL();
-        datePersistence = new HistoryAppPersistence();
+        historyAppPersistence = new HistoryAppPersistence();
         utility = new Utility();
         refresh();
     }
@@ -47,9 +49,11 @@ public class HistoryAppService implements HistoryService<HistoryApp> {
     public boolean add(HistoryApp historyApp) {
         refresh();
         if (historyApp != null) {
+            historyApp.setTargetID(avl.size());
             avl.add(historyApp);
-            return datePersistence.write(avl);
+            return historyAppPersistence.write(avl);
         }
+        refresh();
         return false;
     }
 
@@ -64,7 +68,7 @@ public class HistoryAppService implements HistoryService<HistoryApp> {
         refresh();
         if (historyApp != null) {
             avl.remove(historyApp);
-            return datePersistence.write(avl);
+            return historyAppPersistence.write(avl);
         }
         return false;
     }
@@ -85,11 +89,16 @@ public class HistoryAppService implements HistoryService<HistoryApp> {
      */
     @Override
     public void refresh() {
-        //Lee el archivo
-        Object object = datePersistence.read();
-        //Valida que existe y lo sustituye por la lista en memoria
-        if (object != null) {
-            avl = (HistoryAppAVL) object;
+        historyAppPersistence = new HistoryAppPersistence();
+        HistoryAppAVL historyAppAVL = new HistoryAppAVL();
+
+        avl = historyAppPersistence.read();
+        if (avl != null) {
+            int size = avl.size();
+            for (int i = 0; i < size; i++) {
+                historyAppAVL.add(avl.get(i));
+            }
         }
+        avl = historyAppAVL;
     }
 }

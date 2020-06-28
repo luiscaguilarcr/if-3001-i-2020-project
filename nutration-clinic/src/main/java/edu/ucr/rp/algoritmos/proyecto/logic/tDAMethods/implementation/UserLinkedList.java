@@ -1,12 +1,13 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.LinkedListInterface;
 
 /**
  * @author Noel y Luis Carlos
  */
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserLinkedList implements LinkedListInterface {
     public Node firstNode, node;
 

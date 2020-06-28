@@ -3,7 +3,8 @@ package edu.ucr.rp.algoritmos.proyecto.logic.domain;
 public class CustomerDate {
     private String date;
     private String hour;
-    private int customerID, adminID, targetID;
+    private int customerID, adminID;
+    private Integer targetID;
 
     public String getDate() {
         return date;
@@ -41,11 +42,11 @@ public class CustomerDate {
         return this;
     }
 
-    public int getTargetID() {
+    public Integer getTargetID() {
         return targetID;
     }
 
-    public CustomerDate setTargetID(int targetID) {
+    public CustomerDate setTargetID(Integer targetID) {
         this.targetID = targetID;
         return this;
     }
