@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javax.swing.JOptionPane;
 
 /**
  * @author Noel
@@ -64,16 +65,25 @@ public class ChangePasswordForm implements PaneViewer {
         modifyButton.setOnAction(e -> {
             Utility utility = new Utility();
             String encrypted = utility.encrypt(newPassword1TextField.getText());
+            
+                if (validateAdd()) {
+                     if (valiteFill()) {
+                    
+                    if (utility.encrypt(currentPasswordTextField.getText()).equals(LogIn.getUser().getPassword())) {
 
-            if (validateAdd()) {
-                if (utility.encrypt(currentPasswordTextField.getText()).equals(LogIn.getUser().getPassword())) {
-                    if (changePassword(encrypted, LogIn.getUser())) {
-                        refreshItems();
-                        PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Password changed", "The new password has been changed");
-                    } else {
-                        PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The new password cannot be the same as the old one");
+                        if (changePassword(encrypted, LogIn.getUser())) {
+                            refreshItems();
+                            PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Password changed", "The new password has been changed");
+                        } else {
+                            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", " Added a password diferent of the original");
+                        }
+                    } else{
+                     PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The new password cannot be the same as the old one");
                     }
-                }
+                }else {
+                      PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "New password are diferent");
+                     
+                     }
             }
         });
     }
@@ -94,11 +104,31 @@ public class ChangePasswordForm implements PaneViewer {
         return false;
     }
 
+    private boolean valiteFill() {
+        if (newPassword1TextField.getText().equals(newPassword2TextField.getText())) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     private boolean validateAdd() {
         if (currentPasswordTextField.getText().isEmpty()) {
             currentPasswordTextField.setPromptText("Obligatory field");
             currentPasswordTextField.setStyle("-fx-background-color: #FDC7C7");
             return false;
+        }
+        if (newPassword1TextField.getText().isEmpty()) {
+            newPassword1TextField.setPromptText("Obligatory field");
+            newPassword1TextField.setStyle("-fx-background-color: #FDC7C7");
+            return false;
+        }
+        if (newPassword2TextField.getText().isEmpty()) {
+            newPassword2TextField.setPromptText("Obligatory field");
+            newPassword2TextField.setStyle("-fx-background-color: #FDC7C7");
+            return false;
+
         }
         return true;
     }

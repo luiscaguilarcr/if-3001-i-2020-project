@@ -144,6 +144,9 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         viewAdmin_MenuItem.setOnAction((event) -> {
+             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.TABLEVIEW));
+            
+            
         });
 
         admin_Menu.getItems().addAll(addAdmin_MenuItem, modifyAdmin_MenuItem, viewAdmin_MenuItem);
@@ -173,7 +176,7 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         viewCustomer_MenuItem.setOnAction((event) -> {
-            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_USER_FORM));
+          
         });
 
         customer_Menu.getItems().addAll(addCustomer_MenuItem, modifyCustomer_MenuItem, viewCustomer_MenuItem);

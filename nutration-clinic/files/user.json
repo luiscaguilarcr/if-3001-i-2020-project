@@ -200,13 +200,13 @@
       }
     },
     "user" : {
-      "name" : "super-admin",
-      "email" : null,
-      "password" : "29811c6070379dd69bb820487301189e",
-      "address" : null,
-      "phoneNumber" : 0,
-      "rol" : 1,
-      "id" : 1234567890
+      "name" : "6",
+      "email" : "6",
+      "password" : "1679091c5a880faf6fb5e6087eb1b2dc",
+      "address" : "6",
+      "phoneNumber" : 6,
+      "rol" : 3,
+      "id" : 6
     }
   },
   "node" : {
@@ -218,7 +218,7 @@
       "address" : "50mts ",
       "phoneNumber" : 5555555,
       "rol" : 2,
-      "id" : 6
+
     }
   }
 }
