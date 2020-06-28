@@ -9,8 +9,10 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import java.time.LocalDate;
@@ -32,7 +34,7 @@ import javafx.scene.image.Image;
 public class AddAnnotationForm implements PaneViewer {
 
     private static GridPane pane;
-    private static DateService dateService;
+    private static CustomerDateService dateService;
     private static UserService userService;
     private static Label customerIDLabel;
     private static Label weightLabel;
@@ -65,7 +67,7 @@ public class AddAnnotationForm implements PaneViewer {
     }
 
     public static void serviceInstance() {
-        dateService = DateService.getInstance();
+        dateService = CustomerDateService.getInstance();
         userService = UserService.getInstance();
     }
 
