@@ -11,7 +11,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityService;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 
@@ -34,7 +34,7 @@ import javafx.scene.control.Alert;
  */
 public class AddDatesForm implements PaneViewer {
     private static AdminAvailabilityService adminAvailabilityService;
-    private static DateService dateService;
+    private static CustomerDateService customerDateService;
     private static UserService userService;
     public static CustomerDate customerDateOLD;
     private static GridPane pane;
@@ -63,7 +63,7 @@ public class AddDatesForm implements PaneViewer {
     }
 
     public static void serviceInstance() {
-        dateService = DateService.getInstance();
+        customerDateService = CustomerDateService.getInstance();
         userService = UserService.getInstance();
         adminAvailabilityService = AdminAvailabilityService.getInstance();
     }
@@ -128,7 +128,7 @@ public class AddDatesForm implements PaneViewer {
 
         selectCustomerButton.setOnAction(event -> {
             User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
-            if (dateService.getDatesByAdminID(user.getID()) == null) {
+            if (customerDateService.getDatesByAdminID(user.getID()) == null) {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "This user can't add another date");
                 MainManagePane.clearPane();
             } else {
@@ -164,7 +164,7 @@ public class AddDatesForm implements PaneViewer {
             customerDateOLD = customerDate;
             customerDate.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
 
-            if (dateService.add(customerDate)) {
+            if (customerDateService.add(customerDate)) {
                 PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Date added", "The date was added correctly");
 
             } else {
@@ -183,7 +183,7 @@ public class AddDatesForm implements PaneViewer {
         if (rol == 1 || rol == 2) {
             unShow();
         } else {
-            if (dateService.getDatesByAdminID(LogIn.getUser().getID()) == null) {
+            if (customerDateService.getDatesByAdminID(LogIn.getUser().getID()) == null) {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You can't add another date");
                 MainManagePane.clearPane();
             } else {

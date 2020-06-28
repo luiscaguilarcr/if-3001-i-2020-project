@@ -1,7 +1,7 @@
 package edu.ucr.rp.algoritmos.proyecto.util;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.HistoryAppService;
 
 import java.time.LocalDateTime;
@@ -41,10 +41,10 @@ public class Utility {
     }
 
     public void removeCustomerDate(int iD) { //TODO test
-        DateService dateService = DateService.getInstance();
+        CustomerDateService customerDateService = CustomerDateService.getInstance();
         if (iD == 3) {
-            if (dateService.getByID(iD) != null) {
-                dateService.remove(dateService.getByID(iD));
+            if (customerDateService.getByID(iD) != null) {
+                customerDateService.remove(customerDateService.getByID(iD));
             }
         }
     }

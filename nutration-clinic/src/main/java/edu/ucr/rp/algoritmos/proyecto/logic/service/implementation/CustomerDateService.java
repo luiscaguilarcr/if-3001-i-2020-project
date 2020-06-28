@@ -7,17 +7,14 @@ package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
-import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.DatePersistence;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.CustomerDatePersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
-import edu.ucr.rp.algoritmos.proyecto.util.test.TestUtility;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Esta clase maneja en conjunto con la persistencia, los TDA(stack) y los objetos tipo CustomerDate las citas
@@ -25,19 +22,19 @@ import java.util.Map;
  *
  * @author Luis Carlos Aguilar
  */
-public class DateService implements Service<CustomerDate, CustomerDateStack> {
+public class CustomerDateService implements Service<CustomerDate, CustomerDateStack> {
     public CustomerDateStack stack;
-    private DatePersistence datePersistence;
+    private CustomerDatePersistence customerDatePersistence;
     private AdminAvailabilityService adminAvailabilityService;
-    private static DateService instance;
+    private static CustomerDateService instance;
     private Utility utility;
 
     /**
      * Constructor
      */
-    private DateService() {
+    private CustomerDateService() {
         stack = new CustomerDateStack();
-        datePersistence = new DatePersistence();
+        customerDatePersistence = new CustomerDatePersistence();
         adminAvailabilityService = AdminAvailabilityService.getInstance();
         utility = new Utility();
         refresh();
@@ -46,9 +43,9 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
     /**
      * Singleton Pattern
      */
-    public static DateService getInstance() {
+    public static CustomerDateService getInstance() {
         if (instance == null)
-            instance = new DateService();
+            instance = new CustomerDateService();
         return instance;
     }
 
@@ -65,7 +62,7 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
             deleteAdminAvailability(customerDate); //TODO revisar
             stack.push(customerDate);
             //utility.historyApp("Cita agregada para el usuario " + customerDate.getCustomerID());
-            return datePersistence.write(stack);
+            return customerDatePersistence.write(stack);
         }
         return false;
     }
@@ -83,7 +80,7 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
         if (stack.contains(oldCustomerDate)) {
             stack.pop(oldCustomerDate);
             stack.push(newCustomerDate);
-            datePersistence.write(stack);
+            customerDatePersistence.write(stack);
             editAdminAvailability(oldCustomerDate, newCustomerDate);
             //utility.historyApp("Cita editada para el usuario " + oldCustomerDate.getCustomerID());
             refresh();
@@ -104,9 +101,9 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
             stack.pop(customerDate);
             addAdminAvailability(customerDate);
             //utility.historyApp("Cita removida para el usuario " + customerDate.getCustomerID());
-            CustomerReportService customerReportService = CustomerReportService.getInstance();
-            customerReportService.add(customerDate);
-            return datePersistence.write(stack);
+            CustomerDatesHistoryService customerDatesHistoryService = CustomerDatesHistoryService.getInstance();
+            customerDatesHistoryService.add(customerDate);
+            return customerDatePersistence.write(stack);
         }
         return false;
     }
@@ -266,7 +263,7 @@ public class DateService implements Service<CustomerDate, CustomerDateStack> {
      */
     private void refresh() {
         //Lee el archivo
-        Object object = datePersistence.read();
+        Object object = customerDatePersistence.read();
         //Valida que existe y lo sustituye por la lista en memoria
         if (object != null) {
             stack = (CustomerDateStack) object;

@@ -1,34 +1,34 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.domain;
 
 public class AdminAnnotation {
-    private Object weight, fat, height;
+    private int weight, fat, height;//peso, grasa, altura
     private int customerID, docID;
-    private String date;
-    private EatingPlan eatingPlan;
+    private String date;// fecha anotacion 
+    private EatingPlan eatingPlan;//combo box 
 
-    public Object getWeight() {
+    public int  getWeight() {
         return weight;
     }
 
-    public AdminAnnotation setWeight(Object weight) {
+    public AdminAnnotation setWeight( int weight) {
         this.weight = weight;
         return this;
     }
 
-    public Object getFat() {
+    public int getFat() {
         return fat;
     }
 
-    public AdminAnnotation setFat(Object fat) {
+    public AdminAnnotation setFat(int  fat) {
         this.fat = fat;
         return this;
     }
 
-    public Object getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public AdminAnnotation setHeight(Object height) {
+    public AdminAnnotation setHeight(int height) {
         this.height = height;
         return this;
     }

@@ -1,5 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.EatingPlan;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.EatingPlanPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService3;
@@ -80,6 +81,27 @@ public class EatingPlanService implements AuxService3<EatingPlan, List> {
     }
 
     /**
+     * Obtiene un plan de comida a partir de una cantidad de grasa ingresada.
+     * @param fat del usuario
+     * @return plan de comida
+     */
+    public EatingPlan getPlanByID(int fat){
+        refresh();
+        for (int i = 0; i < list.size(); i++) {
+            int eatingPlanFat = list.get(i).getFat();
+            int quantityFat =  fat - eatingPlanFat;
+            if(quantityFat < 5 && quantityFat > 0){
+                return list.get(i);
+            }else if(quantityFat < 10 && quantityFat > 0){
+                return list.get(i);
+            }else if(quantityFat < 15 && quantityFat > 0){
+                return list.get(i);
+            }
+        }
+        return null;
+    }
+
+    /**
      * Para obtener un plane de comida a partir de una cantidad de grasa.
      *
      * @return plan de comida
@@ -101,12 +123,24 @@ public class EatingPlanService implements AuxService3<EatingPlan, List> {
         Object object = eatingPlanPersistence.read();
         //Valida que existe y lo sustituye por la lista en memoria
         if (object != null) {
-            list = (List<EatingPlan>) object;
+            ArrayList<AdminAvailability> arrayList = (ArrayList<AdminAvailability>) object;
+            list = eatingPlanPersistence.convert(arrayList);
         }
     }
 
     private boolean validateAddition(EatingPlan customerDate) {
         if (list.contains(customerDate)) return false;
+        if(containsFat(customerDate.getFat())) return false;
         return true;
+    }
+
+    private boolean containsFat(int fat){
+        refresh();
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getFat() == fat){
+                return true;
+            }
+        }
+        return false;
     }
 }
