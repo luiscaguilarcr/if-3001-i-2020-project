@@ -1,24 +1,23 @@
 package logic;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.util.test.TestUtility;
 import logic.interfaces.TestService;
 import org.junit.Test;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 
 import java.util.List;
 
-public class DateServiceTest implements TestService {
-    private static DateService dateService = DateService.getInstance();
+public class CustomerDateServiceTest implements TestService {
+    private static CustomerDateService customerDateService = CustomerDateService.getInstance();
     TestUtility testUtility = new TestUtility();
 
     @Test
     @Override
     public void testAddition() {
-        CustomerDate customerDate = testUtility.generateDate("30/6/2020", "11:00", 149);
+        CustomerDate customerDate = testUtility.generateDate("30/6/2020", "15:00", 149);
         if (customerDate != null) {
-            if (dateService.add(customerDate)) {
+            if (customerDateService.add(customerDate)) {
                 System.out.println("DATE ADDED");
             } else {
                 System.out.println("ERROR WHEN ADDING");
@@ -31,10 +30,10 @@ public class DateServiceTest implements TestService {
     @Test
     @Override
     public void testDelete() {
-        DateService dateService = DateService.getInstance();
-        if (dateService.getAll() != null) {
-            CustomerDate customerDate = dateService.getByID(261);
-            if (dateService.remove(customerDate)) {
+        CustomerDateService customerDateService = CustomerDateService.getInstance();
+        if (customerDateService.getAll() != null) {
+            CustomerDate customerDate = customerDateService.getByID(261);
+            if (customerDateService.remove(customerDate)) {
                 System.out.println("DATE DELETED");
             } else {
                 System.out.println("ERROR WHEN DELETING");
@@ -47,8 +46,8 @@ public class DateServiceTest implements TestService {
     @Test
     @Override
     public void testEdit() {
-        DateService dateService = DateService.getInstance();
-        CustomerDate oldCustomerDate = dateService.getByID(129);
+        CustomerDateService customerDateService = CustomerDateService.getInstance();
+        CustomerDate oldCustomerDate = customerDateService.getByID(129);
 
         CustomerDate newCustomerDate = new CustomerDate();
         newCustomerDate.setAdminID(184);
@@ -56,7 +55,7 @@ public class DateServiceTest implements TestService {
         newCustomerDate.setDate("27/6/2020");
         newCustomerDate.setHour("17:00");
 
-        if (dateService.edit(oldCustomerDate, newCustomerDate)) {
+        if (customerDateService.edit(oldCustomerDate, newCustomerDate)) {
             System.out.println("Old user:" + oldCustomerDate.getHour());
             System.out.println("Edited user: " + newCustomerDate.getHour());
         } else {
@@ -67,16 +66,16 @@ public class DateServiceTest implements TestService {
     @Test
     @Override
     public void getByCustomerID() {
-        dateService = DateService.getInstance();
-        if (dateService.getByID(231) != null) {
-            CustomerDate customerDate = dateService.getByID(231);
+        customerDateService = CustomerDateService.getInstance();
+        if (customerDateService.getByID(231) != null) {
+            CustomerDate customerDate = customerDateService.getByID(231);
             System.out.println(customerDate.getCustomerID());
         } else {
             System.out.println("ERROR");
         }
 
-        if (dateService.getByID(231) != null) {
-            CustomerDate customerDate = dateService.getByID(231);
+        if (customerDateService.getByID(231) != null) {
+            CustomerDate customerDate = customerDateService.getByID(231);
             System.out.println(customerDate.getCustomerID());
         } else {
             System.out.println("ERROR");
@@ -86,8 +85,8 @@ public class DateServiceTest implements TestService {
     @Test
     @Override
     public void getByDoctorID() {
-        if (dateService.getDatesByAdminID(184) != null) {
-            List customerDateStack = dateService.getDatesByAdminID(184);
+        if (customerDateService.getDatesByAdminID(184) != null) {
+            List customerDateStack = customerDateService.getDatesByAdminID(184);
             for (int i = 0; i < customerDateStack.size(); i++) {
                 System.out.println(customerDateStack.get(i));
             }

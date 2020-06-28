@@ -80,6 +80,27 @@ public class EatingPlanService implements AuxService3<EatingPlan, List> {
     }
 
     /**
+     * Obtiene un plan de comida a partir de una cantidad de grasa ingresada.
+     * @param fat del usuario
+     * @return plan de comida
+     */
+    public EatingPlan getPlanByID(int fat){
+        refresh();
+        for (int i = 0; i < list.size(); i++) {
+            int eatingPlanFat = list.get(i).getFat();
+            int quantityFat =  fat - eatingPlanFat;
+            if(quantityFat < 5 && quantityFat > 0){
+                return list.get(i);
+            }else if(quantityFat < 10 && quantityFat > 0){
+                return list.get(i);
+            }else if(quantityFat < 15 && quantityFat > 0){
+                return list.get(i);
+            }
+        }
+        return null;
+    }
+
+    /**
      * Para obtener un plane de comida a partir de una cantidad de grasa.
      *
      * @return plan de comida

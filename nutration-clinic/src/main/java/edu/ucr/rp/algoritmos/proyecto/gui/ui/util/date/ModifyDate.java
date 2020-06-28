@@ -11,9 +11,8 @@ import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityService;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
-import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 
 import java.time.LocalDate;
@@ -37,7 +36,7 @@ import javafx.scene.layout.Pane;
 public class ModifyDate implements PaneViewer {
 
     private static AdminAvailabilityService adminAvailabilityService;
-    private static DateService dateService;
+    private static CustomerDateService customerDateService;
     private static UserService userService;
     public static CustomerDate customerDateOLD;
     private static GridPane pane;
@@ -66,7 +65,7 @@ public class ModifyDate implements PaneViewer {
     }
 
     public static void serviceInstance() {
-        dateService = DateService.getInstance();
+        customerDateService = CustomerDateService.getInstance();
         userService = UserService.getInstance();
     }
 
@@ -98,7 +97,7 @@ public class ModifyDate implements PaneViewer {
         int rol = LogIn.getUser().getRol();
         if (rol == 1 || rol == 2) {
             User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
-            CustomerDate customerDate = dateService.getByID(user.getID());
+            CustomerDate customerDate = customerDateService.getByID(user.getID());
 
         } else {
 
@@ -139,7 +138,7 @@ public class ModifyDate implements PaneViewer {
 
         selectCustomerButton.setOnAction(event -> {
             User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
-            if (dateService.getDatesByAdminID(user.getID()) == null) {
+            if (customerDateService.getDatesByAdminID(user.getID()) == null) {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "This user can't add another date");
                 MainManagePane.clearPane();
             } else {
@@ -167,7 +166,7 @@ public class ModifyDate implements PaneViewer {
             customerNew.setDate(checkInDatePicker.getEditor().getText());
             customerNew.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
 
-            if (dateService.edit(dateService.getByID(LogIn.getUser().getID()), customerNew)) {
+            if (customerDateService.edit(customerDateService.getByID(LogIn.getUser().getID()), customerNew)) {
                 PaneUtil.showAlert(Alert.AlertType.CONFIRMATION, "Date modified", "The date was modified correctly");
             } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error when modified the date", "The date was not modified");
@@ -209,7 +208,7 @@ public class ModifyDate implements PaneViewer {
         if (rol == 1 || rol == 2) {
             unShow();
         } else {
-            if (dateService.getDatesByAdminID(LogIn.getUser().getID()) != null) {
+            if (customerDateService.getDatesByAdminID(LogIn.getUser().getID()) != null) {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You can't add another date");
                 MainManagePane.clearPane();
             } else {

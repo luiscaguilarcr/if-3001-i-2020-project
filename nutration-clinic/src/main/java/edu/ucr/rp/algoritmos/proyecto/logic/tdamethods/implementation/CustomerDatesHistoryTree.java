@@ -1,23 +1,24 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 
 /**
  * @author Luis Carlos
  */
 
-public class CustomerReportTree {
-    public int targetID = 0;
-    public Node topNode;     //puntero al nodo raiz del arbol sera nulo en un arbol vacio
+public class CustomerDatesHistoryTree {
+    public Integer targetID = 0;
+    public Node topNode;
 
-    public CustomerReportTree() {
+    public CustomerDatesHistoryTree() {
     }
 
     public static class Node {
         public CustomerDate customerDate;
         public Node leftNode, rightNode;
 
+        public Node() {
+        }
         /**
          * Agrega en un nuevo nodo el elemento
          *
@@ -30,10 +31,9 @@ public class CustomerReportTree {
         }
     }
 
-
-    // metodos publicos
     public void insert(CustomerDate customerDate) {
         topNode = insert(topNode, customerDate);
+        targetID++;
     }
 
     public boolean search(CustomerDate customerDate) {
@@ -50,6 +50,10 @@ public class CustomerReportTree {
 
     public CustomerDate minValue() {
         return minValue(topNode);
+    }
+
+    public int maxValue() {
+        return maxValue(topNode);
     }
 
     public void preOrder() {
@@ -72,7 +76,9 @@ public class CustomerReportTree {
      * @return árbol de nodos
      */
     private Node insert(Node node, CustomerDate customerDate) {
+        customerDate.setTargetID(size());
         Node newNode = new Node(customerDate);
+
         if (node == null) { //si el árbol está vacío
             node = newNode;
             topNode = node; //agrega el nuevo node en la raíz
@@ -173,17 +179,31 @@ public class CustomerReportTree {
     }
 
     /**
-     * Obtiene el menor número del árbol binario
+     * Obtiene el número menor del árbol binario
      *
-     * @param nodo objeto del árbol binario
+     * @param node objeto del árbol binario
      * @return el menor número o -1 si no existe
      */
-    private CustomerDate minValue(Node nodo) {
-        Node tempNode = nodo;
+    private CustomerDate minValue(Node node) {
+        Node tempNode = node;
         while (tempNode.leftNode != null) {
             tempNode = tempNode.leftNode;
         }
         return tempNode.customerDate;
+    }
+
+    /**
+     * Obtiene el número mayor del árbol binario
+     *
+     * @param node objeto del árbol binario
+     * @return el menor número o -1 si no existe
+     */
+    private int maxValue(Node node) {
+        Node tempNode = node;
+        while (tempNode.leftNode != null) {
+            tempNode = tempNode.rightNode;
+        }
+        return tempNode.customerDate.getTargetID();
     }
 
     /**

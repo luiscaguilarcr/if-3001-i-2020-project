@@ -6,7 +6,6 @@ import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinked
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class TestUtility {
@@ -84,13 +83,13 @@ public class TestUtility {
     private CustomerDate customerDate;
     private int customerSetID = 0;
     UserService userService;
-    DateService dateService;
+    CustomerDateService customerDateService;
     UserLinkedList userLinkedList;
     AdminAvailabilityService adminAvailabilityService;
 
     private void initializeService() {
         userService = UserService.getInstance();
-        dateService = DateService.getInstance();
+        customerDateService = CustomerDateService.getInstance();
         adminAvailabilityService = AdminAvailabilityService.getInstance();
         userLinkedList = userService.getAll();
     }

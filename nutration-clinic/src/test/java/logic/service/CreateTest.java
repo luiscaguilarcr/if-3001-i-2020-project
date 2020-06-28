@@ -19,8 +19,8 @@ public class CreateTest implements TestInterfaceService {
     @Test
     @Override
     public void AnnotationServiceTest() {
-        DateService dateService = DateService.getInstance();
-        AdminAnnotation adminAnnotation = testUtility.generateAnnotations(dateService.getByID(251));
+        CustomerDateService customerDateService = CustomerDateService.getInstance();
+        AdminAnnotation adminAnnotation = testUtility.generateAnnotations(customerDateService.getByID(251));
         AnnotationService annotationService = AnnotationService.getInstance();
         if(annotationService.add(adminAnnotation)){
             System.out.println("Se agregaron las anotaciones");
@@ -32,17 +32,17 @@ public class CreateTest implements TestInterfaceService {
     @Test
     @Override
     public void CustomerReportServiceTest() {
-        DateService dateService = DateService.getInstance();
-        dateService.remove(dateService.getByID(245));
+        CustomerDateService customerDateService = CustomerDateService.getInstance();
+        customerDateService.remove(customerDateService.getByID(245));
     }
 
     @Test
     @Override
     public void DateServiceTest() { // works
-        DateService dateService = DateService.getInstance();
+        CustomerDateService customerDateService = CustomerDateService.getInstance();
         for (int i = 0; i < 10; i++) {
             CustomerDate customerDate = testUtility.generateDate("32/6/2020", "8:00", 305290615);
-            if (dateService.add(customerDate)) {
+            if (customerDateService.add(customerDate)) {
                 System.out.println("Se agregó cita");
             } else {
                 System.out.println("NO se agregó cita");

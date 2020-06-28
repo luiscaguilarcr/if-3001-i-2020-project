@@ -9,12 +9,9 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
-import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -45,7 +42,7 @@ public class ViewDate implements PaneViewer {
     private static TextField hourTextField;
     private static TextField customerTextField;
     private static TextField doctorTextField;
-    private static DateService dateService;
+    private static CustomerDateService customerDateService;
     private static ObservableList<CustomerDate> dates;
     private static TableColumn tC_name;
     private static TableView<CustomerDate> dateTable;
@@ -61,7 +58,7 @@ public class ViewDate implements PaneViewer {
     }
 
     public static void serviceInstance() {
-        dateService = DateService.getInstance();
+        customerDateService = CustomerDateService.getInstance();
     }
 
     private void setupControls() {
@@ -103,11 +100,11 @@ public class ViewDate implements PaneViewer {
     private void addHandlers() {
         cancelButton.setOnAction(e -> MainManagePane.clearPane());
         viewButton.setOnAction(e -> {
-            if (dateService.getByID(LogIn.getUser().getID()) != null) {
-                dateTextField.setText(dateService.getByID(LogIn.getUser().getID()).getDate());
-                hourTextField.setText(dateService.getByID(LogIn.getUser().getID()).getHour());
-                customerTextField.setText(dateService.getByID(LogIn.getUser().getID()).getCustomerID() + " ");
-                doctorTextField.setText(dateService.getByID(LogIn.getUser().getID()).getAdminID() + " ");
+            if (customerDateService.getByID(LogIn.getUser().getID()) != null) {
+                dateTextField.setText(customerDateService.getByID(LogIn.getUser().getID()).getDate());
+                hourTextField.setText(customerDateService.getByID(LogIn.getUser().getID()).getHour());
+                customerTextField.setText(customerDateService.getByID(LogIn.getUser().getID()).getCustomerID() + " ");
+                doctorTextField.setText(customerDateService.getByID(LogIn.getUser().getID()).getAdminID() + " ");
                 serviceInstance();
             } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot view a date, you must add a date");
@@ -115,8 +112,8 @@ public class ViewDate implements PaneViewer {
         });
 
         deleteButton.setOnAction(e -> {
-            if (dateService.getByID(LogIn.getUser().getID()) != null) {
-                dateService.remove(dateService.getByID(LogIn.getUser().getID()));
+            if (customerDateService.getByID(LogIn.getUser().getID()) != null) {
+                customerDateService.remove(customerDateService.getByID(LogIn.getUser().getID()));
                 dateTextField.clear();
                 hourTextField.clear();
                 customerTextField.clear();
@@ -131,7 +128,7 @@ public class ViewDate implements PaneViewer {
 
             tC_name.setCellValueFactory(new PropertyValueFactory<CustomerDate, String>("Date"));
 
-            dates.add(dateService.getByID(LogIn.getUser().getID()));
+            dates.add(customerDateService.getByID(LogIn.getUser().getID()));
             dates = FXCollections.observableArrayList();
             dateTable.setItems(dates);
             final ObservableList<CustomerDate> tabladates = dateTable.getSelectionModel().getSelectedItems();

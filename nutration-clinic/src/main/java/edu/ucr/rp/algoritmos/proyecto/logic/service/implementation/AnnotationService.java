@@ -4,7 +4,6 @@ import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.AnnotationPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService2;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnotationQueue;
-import edu.ucr.rp.algoritmos.proyecto.util.test.NewService;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
 /**
@@ -18,8 +17,8 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
     private AnnotationPersistence annotationPersistence;
     private static AnnotationService instance;
     private Utility utility;
-    private DateService dateService;
-    private NewService historyCustomerDateService;
+    private CustomerDateService customerDateService;
+    private CustomerDatesHistoryService customerDatesHistoryService;
 
     /**
      * Constructor
@@ -28,8 +27,8 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
         queue = new AdminAnnotationQueue();
         annotationPersistence = new AnnotationPersistence();
         utility = new Utility();
-        dateService = DateService.getInstance();
-        historyCustomerDateService = NewService.getInstance();
+        customerDatesHistoryService = CustomerDatesHistoryService.getInstance();
+        customerDateService = CustomerDateService.getInstance();
         refresh();
     }
 
@@ -53,8 +52,8 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
         refresh();
         if (validateAddition(adminAnnotation)) {
             queue.enqueue(adminAnnotation);
-            historyCustomerDateService.add(dateService.getByID(adminAnnotation.getCustomerID()));
-            dateService.remove(dateService.getByID(adminAnnotation.getCustomerID()));
+            customerDatesHistoryService.add(customerDateService.getByID(adminAnnotation.getCustomerID()));
+            customerDateService.remove(customerDateService.getByID(adminAnnotation.getCustomerID()));
             utility.historyApp("Anotaciones agregadas para el usuario " + adminAnnotation.getCustomerID() + " en la fecha " + adminAnnotation.getDate());
             return annotationPersistence.write(queue);
         }
