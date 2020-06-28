@@ -2,18 +2,15 @@ package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 
-public interface LinkedListInterface {
+/**
+ * @author Luis Carlos
+ */
+public interface LinkedListInterface extends TDA {
     void add(User user);
 
     void remove(User user);
 
-    int size();
-
-    int indexOf(User user);
-
-    User get(int index);
-
     boolean containsByID(User user);
 
-    boolean validateEmpty();
+    Object get(int index); //true si el elemento existe en el árbol//private boolean binarySearch(BTreeNode node, Object element)
 }

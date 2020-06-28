@@ -6,7 +6,7 @@ import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateS
 import logic.interfaces.TestService;
 import org.junit.Test;
 
-public class CustomerDatesHistoryServiceTest implements TestService {
+public class CustomerDatesHistoryDateServiceTest implements TestService {
     CustomerDatesHistoryService customerDatesHistoryService;
     CustomerDateService customerDateService;
 
@@ -19,7 +19,7 @@ public class CustomerDatesHistoryServiceTest implements TestService {
     @Override
     public void testAddition() {
         instances();
-        CustomerDate customerDate = customerDateService.getByID(273);
+        CustomerDate customerDate = customerDateService.getByID(151);
         if(customerDatesHistoryService.add(customerDate)){
             System.out.println("Se agregó");
         }else {

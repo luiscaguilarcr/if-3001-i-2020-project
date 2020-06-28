@@ -9,7 +9,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.DateService;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import javafx.scene.layout.Pane;
  */
 public class SignUpForm implements PaneViewer{
     private static UserService userService;
-    public static Service service;
+    public static DateService dateService;
     private static Button addButton;
     private static Button exitButton;
     private static Label nameLabel;

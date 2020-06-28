@@ -9,10 +9,8 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
-import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityService;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AnnotationService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAnnotationService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.EatingPlanService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
@@ -37,7 +35,7 @@ public class AddAnnotationForm implements PaneViewer {
 
     private static GridPane pane;
     private static CustomerDateService dateService;
-    private static AnnotationService annotationService;
+    private static AdminAnnotationService adminAnnotationService;
     private static UserService userService;
     private static Label customerIDLabel;
     private static Label weightLabel;
@@ -70,7 +68,7 @@ public class AddAnnotationForm implements PaneViewer {
     public static void serviceInstance() {
         dateService = CustomerDateService.getInstance();
         userService = UserService.getInstance();
-        annotationService = AnnotationService.getInstance();
+        adminAnnotationService = AdminAnnotationService.getInstance();
     }
 
     private void setupControls() {
@@ -141,9 +139,9 @@ public class AddAnnotationForm implements PaneViewer {
             adminAnnotation.setCustomerID(user.getID());
             adminAnnotation.setDocID(LogIn.getUser().getID());
             EatingPlanService eatingPlanService = EatingPlanService.getInstance();
-            adminAnnotation.setEatingPlan(eatingPlanService.getPlanByID(fat));
+            adminAnnotation.setEatingPlan(eatingPlanService.getPlanByFat(fat));
 
-            if (annotationService.add(adminAnnotation)) {
+            if (adminAnnotationService.add(adminAnnotation)) {
                 MainManagePane.clearPane();
                 refreshItems();
                 PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Annotation added", "The annotation was correctly added");

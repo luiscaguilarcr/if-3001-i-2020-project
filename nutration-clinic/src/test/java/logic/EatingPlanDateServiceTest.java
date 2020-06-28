@@ -6,7 +6,7 @@ import edu.ucr.rp.algoritmos.proyecto.util.test.TestUtility;
 import logic.interfaces.TestService;
 import org.junit.Test;
 
-public class EatingPlanServiceTest implements TestService {
+public class EatingPlanDateServiceTest implements TestService {
     TestUtility testUtility = new TestUtility();
 
     @Test

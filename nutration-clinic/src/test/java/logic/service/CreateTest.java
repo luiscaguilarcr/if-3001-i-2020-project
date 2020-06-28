@@ -21,8 +21,8 @@ public class CreateTest implements TestInterfaceService {
     public void AnnotationServiceTest() {
         CustomerDateService customerDateService = CustomerDateService.getInstance();
         AdminAnnotation adminAnnotation = testUtility.generateAnnotations(customerDateService.getByID(251));
-        AnnotationService annotationService = AnnotationService.getInstance();
-        if(annotationService.add(adminAnnotation)){
+        AdminAnnotationService adminAnnotationService = AdminAnnotationService.getInstance();
+        if(adminAnnotationService.add(adminAnnotation)){
             System.out.println("Se agregaron las anotaciones");
         }else {
             System.out.println("NO se agregaron las anotaciones");

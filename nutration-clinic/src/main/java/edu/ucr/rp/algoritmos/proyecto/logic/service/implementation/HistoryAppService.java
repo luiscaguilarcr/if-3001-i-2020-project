@@ -2,7 +2,7 @@ package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.HistoryAppPersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService3;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.HistoryService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.HistoryAppAVL;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
@@ -12,7 +12,7 @@ import edu.ucr.rp.algoritmos.proyecto.util.Utility;
  *
  * @author Luis Carlos Aguilar
  */
-public class HistoryAppService implements AuxService3<HistoryApp, HistoryAppAVL> {
+public class HistoryAppService implements HistoryService<HistoryApp> {
     public HistoryAppAVL avl;
     private HistoryAppPersistence datePersistence;
     private static HistoryAppService instance;
@@ -46,8 +46,8 @@ public class HistoryAppService implements AuxService3<HistoryApp, HistoryAppAVL>
     @Override
     public boolean add(HistoryApp historyApp) {
         refresh();
-        if (!avl.contains(historyApp)) {
-            avl.insert(historyApp);
+        if (historyApp != null) {
+            avl.add(historyApp);
             return datePersistence.write(avl);
         }
         return false;
@@ -62,8 +62,8 @@ public class HistoryAppService implements AuxService3<HistoryApp, HistoryAppAVL>
     @Override
     public boolean remove(HistoryApp historyApp) {
         refresh();
-        if (avl.contains(historyApp)) {
-            avl.delete(historyApp);
+        if (historyApp != null) {
+            avl.remove(historyApp);
             return datePersistence.write(avl);
         }
         return false;
@@ -83,7 +83,8 @@ public class HistoryAppService implements AuxService3<HistoryApp, HistoryAppAVL>
     /**
      * Refresca la lista de citas
      */
-    private void refresh() {
+    @Override
+    public void refresh() {
         //Lee el archivo
         Object object = datePersistence.read();
         //Valida que existe y lo sustituye por la lista en memoria

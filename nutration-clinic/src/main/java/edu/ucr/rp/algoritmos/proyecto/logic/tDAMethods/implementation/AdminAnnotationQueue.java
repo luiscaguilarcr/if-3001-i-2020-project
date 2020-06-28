@@ -1,112 +1,95 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
-import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.QueueInterface;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.Queue;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.nodes.QueueNode;
+import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
-public class AdminAnnotationQueue implements QueueInterface {
-    public Node front, rear;
-    public int accountant = 0;
+/**
+ * @author Luis Carlos
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class AdminAnnotationQueue implements Queue {
+    public QueueNode front; //apuntador al anterior/frente de la cola
+    public QueueNode rear; //apuntador al posterior/final de la cola
+    public int count; //control de elementos encolados
 
-    public static class Node {
-        public AdminAnnotation adminAnnotation;
-        public Node nextNode;
-
-        public Node() {
-        }
-
-        public Node(AdminAnnotation adminAnnotation) {
-            this.adminAnnotation = adminAnnotation;
-            this.nextNode = null;
-        }
-    }
-
+    //Cosntructor
     public AdminAnnotationQueue() {
-        front=rear=null;
-        accountant=0;
+        front = rear = null;
+        count = 0;
     }
 
     @Override
-    public void enqueue(AdminAnnotation adminAnnotation) {
-        Node newNode = new Node(adminAnnotation);
-        if(validateEmpty()){ //la cola no existe
+    public int size() {
+        return this.count;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return front == null;
+    }
+
+    @Override
+    public void enQueue(AdminAnnotation element) {
+        QueueNode newNode = new QueueNode(element);
+        if (isEmpty()) { //la cola no existe
             rear = newNode; //encolo por el extremo posterior
+            //garantizo que anterior quede apuntando al primer nodo
             front = rear;
-        }else{ //que pasa si ya hay elementos encolados
-            rear.nextNode = newNode; //encolo por el extremo posterior
+        } else { // pasa si ya hay elementos encolados
+            rear.next = newNode; //encolo por el extremo posterior
             rear = newNode; //muevo el apuntador a newNode
         }
         //al final actualzo el contador
-        accountant++;
-    }
-
-    public void clear() {
-        front=rear=null;
-        accountant=0;
+        this.count++;
     }
 
     @Override
-    public AdminAnnotation dequeue() {
-        if(!validateEmpty()){
+    public AdminAnnotation deQueue() {
+        if (!isEmpty()) {
             AdminAnnotation element = front.adminAnnotation; //desencolo por el extremo anterior
-            //Caso 1. Que pasa si solo hay un elemento encolado
-            if(front==rear){
-                clear(); //anulo la cola
-            }else{ //Caso 2. Caso contrario
-                front = front.nextNode; //muevo front al sgte nodo
+            //Caso 1: pasa si solo hay un elemento encolado
+            if (front == rear) {
+                front = rear = null;
+                count = 0;
+            } else { //Caso 2: Caso contrario
+                front = front.next; //muevo front al sgte nodo
             }
             //actualizo el contador de elementos
-            accountant--;
+            count--;
             return element; //retorno el elemento desencolado
         }
         return null;
     }
 
     @Override
-    public int size() {
-        return accountant;
-    }
-
-    @Override
-    public AdminAnnotationQueue getByID(int iD) {
-        AdminAnnotationQueue out = new AdminAnnotationQueue();
-        Node actual = front;
-        if (front != null) {
-            while (actual != null) {
-                if (actual.adminAnnotation.getCustomerID() == iD) {
-                    out.enqueue(actual.adminAnnotation);
+    public boolean contains(AdminAnnotation element) {
+        if (!isEmpty()) {
+            AdminAnnotationQueue aux = new AdminAnnotationQueue();
+            boolean finded = false; //encontrado
+            while (!isEmpty()) {
+                if (Utility.equals(front(), element)) {
+                    finded = true; //ya lo encontro
                 }
-                actual = actual.nextNode;
+                aux.enQueue(deQueue());
             }
-        }
-        return out;
-    }
-
-    @Override
-    public boolean contains(AdminAnnotation adminAnnotation) {
-        Node tempNode = front;
-        while (tempNode != null) {
-            if (tempNode.adminAnnotation.getCustomerID() == adminAnnotation.getCustomerID() && tempNode.adminAnnotation.getDate().equals(adminAnnotation.getDate())) {
-                return true;
+            //al final dejamos la cola en su estado original
+            while (!aux.isEmpty()) {
+                enQueue(aux.deQueue());
             }
-            tempNode = tempNode.nextNode;
+            return finded;
         }
         return false;
     }
-    
-    public boolean validateEmpty() {
-        return front == null;
-    }
 
-    public AdminAnnotation get(int index) {
-        int count = 0;
-        Node tempNode = front;
-        while (tempNode.nextNode != null) {
-            if (count == index) {
-                return tempNode.adminAnnotation;
-            }
-            count++;
-            tempNode = tempNode.nextNode;
+    @Override
+    public AdminAnnotation front() {
+        if (!isEmpty()) {
+            return front.adminAnnotation;
         }
         return null;
     }
+
 }

@@ -2,7 +2,7 @@ package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.CustomerDatesHistoryPersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.HistoryDatesService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDatesHistoryTree;
 
 /**
@@ -11,17 +11,19 @@ import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDa
  *
  * @author Luis Carlos Aguilar
  */
-public class CustomerDatesHistoryService implements AuxService<CustomerDate, CustomerDatesHistoryTree> {
-    public CustomerDatesHistoryTree customerDatesHistoryTree;
-    private CustomerDatesHistoryPersistence historyDatesByCustomerPersistence;
+public class CustomerDatesHistoryService implements HistoryDatesService {
+    public CustomerDatesHistoryTree tree;
+    private CustomerDatesHistoryPersistence customerDatesHistoryPersistence;
     private static CustomerDatesHistoryService instance;
+    private CustomerDateService customerDateService;
 
     /**
      * Constructor
      */
     private CustomerDatesHistoryService() {
-        customerDatesHistoryTree = new CustomerDatesHistoryTree();
-        historyDatesByCustomerPersistence = new CustomerDatesHistoryPersistence();
+        tree = new CustomerDatesHistoryTree();
+        customerDatesHistoryPersistence = new CustomerDatesHistoryPersistence();
+        customerDateService = CustomerDateService.getInstance();
         refresh();
     }
 
@@ -43,9 +45,9 @@ public class CustomerDatesHistoryService implements AuxService<CustomerDate, Cus
     @Override
     public boolean add(CustomerDate customerDate) {
         refresh();
-        if (validateAddition(customerDate)) {
-            customerDatesHistoryTree.insert(customerDate);
-            return historyDatesByCustomerPersistence.write(customerDatesHistoryTree);
+        if (customerDate != null) {
+            tree.add(customerDate);
+            return customerDatesHistoryPersistence.write(tree);
         }
         return false;
     }
@@ -59,9 +61,9 @@ public class CustomerDatesHistoryService implements AuxService<CustomerDate, Cus
     @Override
     public boolean remove(CustomerDate customerDate) {
         refresh();
-        if (customerDatesHistoryTree.search(customerDate)) {
-            customerDatesHistoryTree.delete(customerDate);
-            return historyDatesByCustomerPersistence.write(customerDatesHistoryTree);
+        if (customerDate != null) {
+            tree.remove(customerDate);
+            return customerDatesHistoryPersistence.write(tree);
         }
         return false;
     }
@@ -73,13 +75,14 @@ public class CustomerDatesHistoryService implements AuxService<CustomerDate, Cus
      * @return lista de las citas ya realizada a partir de un ID, si el iD no corresponde a algún cliente, null
      */
     @Override
-    public CustomerDatesHistoryTree getByID(int iD) {
+    public CustomerDatesHistoryTree getAllByID(int iD) {
         refresh();
         CustomerDatesHistoryTree datesByID = new CustomerDatesHistoryTree();
-        for (int i = 0; i < customerDatesHistoryTree.size(); i++) {
-            if (customerDatesHistoryTree.get(i) != null) {
-                if (customerDatesHistoryTree.get(i).getCustomerID() == iD) {
-                    datesByID.insert(customerDatesHistoryTree.get(i));
+        for (int i = 0; i < tree.size(); i++) {
+            CustomerDate customerDate = tree.get(i);
+            if (tree.get(i) != null) {
+                if (tree.get(i).getCustomerID() == iD) {
+                    datesByID.add(tree.get(i));
                 }
             }
         }
@@ -89,17 +92,18 @@ public class CustomerDatesHistoryService implements AuxService<CustomerDate, Cus
     /**
      * Refresca la lista de citas ya realizadas en el sistema.
      */
-    private void refresh() {
-        //Lee el archivo
-        Object object = historyDatesByCustomerPersistence.read();
-        //Valida que existe y lo sustituye por la lista en memoria
-        if (object != null) {
-            customerDatesHistoryTree = (CustomerDatesHistoryTree) object;
-        }
-    }
+    @Override
+    public void refresh() {
+        customerDatesHistoryPersistence = new CustomerDatesHistoryPersistence();
+        CustomerDatesHistoryTree tempCustomerHistoryDates = new CustomerDatesHistoryTree();
 
-    private boolean validateAddition(CustomerDate customerDate) {
-        if (customerDatesHistoryTree.search(customerDate)) return false;
-        return true;
+        tree = customerDatesHistoryPersistence.read();
+        if (tree != null) {
+            int size = tree.size();
+            for (int i = 0; i < size; i++) {
+                tempCustomerHistoryDates.add(tree.get(i));
+            }
+        }
+        tree = tempCustomerHistoryDates;
     }
 }

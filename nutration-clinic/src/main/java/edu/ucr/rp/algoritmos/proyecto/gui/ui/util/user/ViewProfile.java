@@ -7,10 +7,8 @@ package edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
-import static edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ViewDate.serviceInstance;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.DateService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -44,7 +42,7 @@ public class ViewProfile implements PaneViewer {
     private static TextField rolTextField;
     private static Label rolLabel;
     private static UserService userService;
-    public static Service service;
+    public static DateService dateService;
     // private static TextField rolTextField;
    
 

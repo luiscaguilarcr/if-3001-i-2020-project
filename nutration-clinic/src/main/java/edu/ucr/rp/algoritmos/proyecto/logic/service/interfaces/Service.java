@@ -1,13 +1,9 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces;
 
-public interface Service<E, L> {
+public interface Service<E> {
     boolean add(E element);
-
-    boolean edit(E oldElement, E newElement);
 
     boolean remove(E element);
 
-    E getByID(int iD);
-
-    L getAll();
+    void refresh();
 }

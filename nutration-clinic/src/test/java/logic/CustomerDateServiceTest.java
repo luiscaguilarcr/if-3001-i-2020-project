@@ -15,19 +15,17 @@ public class CustomerDateServiceTest implements TestService {
     @Test
     @Override
     public void testAddition() {
-        //for (int i = 8; i < 16; i++) {
-            //CustomerDate customerDate = testUtility.generateDate("28/6/2020", i+":00", 257);
-            CustomerDate customerDate = testUtility.generateDate("28/6/2020", "14:00", 257);
-            if (customerDate != null) {
-                if (customerDateService.add(customerDate)) {
-                    System.out.println("DATE ADDED");
-                } else {
-                    System.out.println("ERROR WHEN ADDING");
-                }
+        CustomerDate customerDate = testUtility.generateDate("29/6/2020", "14:00", 241);
+        if (customerDate != null) {
+            if (customerDateService.add(customerDate)) {
+                System.out.println("DATE ADDED");
             } else {
-                System.out.println("ERROR");
+                System.out.println("ERROR WHEN ADDING");
             }
-        //}
+        } else {
+            System.out.println("ERROR");
+        }
+
     }
 
     @Test
@@ -35,7 +33,7 @@ public class CustomerDateServiceTest implements TestService {
     public void testDelete() {
         CustomerDateService customerDateService = CustomerDateService.getInstance();
         if (customerDateService.getAll() != null) {
-            CustomerDate customerDate = customerDateService.getByID(261);
+            CustomerDate customerDate = customerDateService.getByID(141);
             if (customerDateService.remove(customerDate)) {
                 System.out.println("DATE DELETED");
             } else {

@@ -1,294 +1,192 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.AVLTree;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.nodes.TreeNode;
+import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
-import static java.lang.Integer.max;
+/**
+ * @author Luis Carlos
+ */
+public class HistoryAppAVL implements AVLTree {
+    public TreeNode root; //representa la unica entrada al arbol
 
-//@JsonDeserialize(as = HistoryAppAVL.class)
-public class HistoryAppAVL {
-    public Node topNode;
-    public int targetID = 0;
-
+    //Constructor
     public HistoryAppAVL() {
+        this.root = null;
     }
 
-    public static class Node {
-        public HistoryApp historyApp;
-        public int height, key;
-        public Node left, right;
+    @Override
+    public int size() {
+        return size(root);
+    }
 
-        public Node() {
+    private int size(TreeNode node) {
+        if (node == null) return 0;
+        else
+            return 1 + size(node.left) + size(node.right);
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return root == null;
+    }
+
+    @Override
+    public HistoryApp get(int index) {
+        if (!isEmpty()) {
+            return binarySearch(root, index);
         }
+        return null;
+    }
 
-        /**
-         * @param historyApp número que se quiere ingresar en el nodo
-         */
-        public Node(HistoryApp historyApp) {
-            this.historyApp = historyApp;
-            this.height = 1;
-            this.key = 0;
-            this.left = null;
-            this.right = null;
+    private HistoryApp binarySearch(TreeNode node, int index) {
+        if (node == null) return null;
+        else if (Utility.equals(node.historyApp, index)) {
+            return node.historyApp; //YA LO ENCONTRO
+        } else if (Utility.lessT(index, node.historyApp.getTargetID()))
+            return binarySearch(node.left, index);
+        else return binarySearch(node.right, index);
+    }
+
+    @Override
+    public void add(HistoryApp historyApp) {
+        root = add(root, historyApp, "root");
+    }
+
+    private TreeNode add(TreeNode node, HistoryApp historyApp, String sequence) {
+        if (node == null) { //el arbol esta vacio
+            node = new TreeNode(historyApp, "The historyApp " + historyApp
+                    + " was inicial added as: " + sequence);
+        } else
+            //preguntamos si el elemento a insertar es menor o mayor que node.data
+            if (Utility.lessT(historyApp, node.historyApp)) {
+                node.left = add(node.left, historyApp, sequence + "/left");
+            } else //sino inserta por la der
+                if (Utility.greaterT(historyApp, node.historyApp)) {
+                    node.right = add(node.right, historyApp, sequence + "/right");
+                }
+
+        //SE DEBE OBTENER EL FACTOR DE EQUILIBRIO
+        //PARA VERIFICAR SI EL ARBOL QUEDA BALANCEADO
+        //O REQUIERE RE-BALANCEO
+        int balance = getBalanceFactor(node);
+
+        //REVISAMOS LA 4 POSIBLES CASOS DE RE-BALANCEO
+        //Left-Left Case
+        if (balance > 1 && Utility.lessT(historyApp, node.left.historyApp)) {
+            return rightRotate(node);
+        }
+        //Right Right Case
+        if (balance < -1 && Utility.greaterT(historyApp, node.right.historyApp)) {
+            return leftRotate(node);
+        }
+        //Left Right Case
+        //Double rotation
+        if (balance > 1 && Utility.greaterT(historyApp, node.left.historyApp)) {
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+        //Right Left Case
+        //Double rotation
+        if (balance < -1 && Utility.lessT(historyApp, node.right.historyApp)) {
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
+        }
+        return node; //en todos los casos, retorna un nuevo nodo
+    }
+
+    private int getBalanceFactor(TreeNode node) {
+        if (node == null) return 0;
+        else return height(node.left) - height(node.right);
+    }
+
+    private TreeNode leftRotate(TreeNode node) {
+        TreeNode node1 = node.right;
+        TreeNode node2 = node1.left;
+        //se realiza la rotacion
+        node1.left = node;
+        node.right = node2;
+        return node1;
+    }
+
+    private TreeNode rightRotate(TreeNode node) {
+        TreeNode node1 = node.left;
+        TreeNode node2 = node1.right;
+        //se realiza la rotacion
+        node1.right = node;
+        node.left = node2;
+        return node1;
+    }
+
+    @Override
+    public void remove(HistoryApp historyApp) {
+        if (!isEmpty()) {
+            root = remove(root, historyApp);
         }
     }
 
-    /**
-     * Método público que permite el ingreso del valor a un nodo
-     *
-     * @param value valor que se quiere insertar
-     */
-    public void insert(HistoryApp value) {
-        topNode = insert(topNode, value);
-        targetID++;
-    }
-
-    /**
-     * Método que permite el acceso al método "search"
-     *
-     * @param key valor que se quiere buscar
-     * @return true si existe, si no, false
-     */
-    public boolean contains(HistoryApp key) {
-        Node node = contains(topNode, key);
+    private TreeNode remove(TreeNode node, HistoryApp historyApp) {
         if (node != null) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Método que permite el acceso al método "deleteNode"
-     *
-     * @param key valor que se quiere buscar
-     * @return verdadero si lo encuentra, si no, falso
-     */
-    public boolean delete(HistoryApp key) {
-        topNode = delete(topNode, key);
-        if (topNode != null) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Método que permite el acceso al método "printInorder"
-     */
-    public void printInorder() {
-        printInorder(topNode);
-    }
-
-    /**
-     * Método que permite el acceso al método "printPreorder"
-     */
-    public void printPreorder() {
-        printPreorder(topNode);
-    }
-
-    /**
-     * Método que inserta un nodo de manera balanceada
-     *
-     * @param node       raíz del árbol de nodos
-     * @param historyApp elemento que se quiere insertar en un nodo
-     * @return el último nodo que se agregó
-     */
-    public Node insert(Node node, HistoryApp historyApp) {
-        historyApp.setTargetID(targetIDSize());
-        if (targetIDSize() == 0) {
-            node = new Node(historyApp);
-        } else {
-            if (historyApp.getTargetID() % 2 == 0) {
-                node.left = insert(node.left, historyApp);
-            } else {
-                node.right = insert(node.right, historyApp);
-            }
-        }
-        node.height = Integer.max(height(node.left), height(node.right)) + 1;
-        int balance = height(node.left) - height(node.right);
-        if (balance > 1) { //Desbalance derecho
-            if (historyApp.getTargetID() < node.left.historyApp.getTargetID()) { //Caso 1: izquierda-izquierda
-                node = rightRotation(node);
-            } else { //Caso 2: izquierda-derecha
-                node.left = leftRotation(node.left);
-                node = rightRotation(node);
-            }
-        } else if (balance < -1) { //Desbalance izquierdo
-            if (historyApp.getTargetID() > node.right.historyApp.getTargetID()) { //Caso 3: derecha-derecha
-                node = leftRotation(node);
-            } else { //Caso 4: derecha-izquierda
-                node.right = rightRotation(node.right);
-                node = leftRotation(node);
-            }
-        }
+            if (Utility.lessT(historyApp, node.historyApp)) {
+                node.left = remove(node.left, historyApp);
+            } else if (Utility.greaterT(historyApp, node.historyApp)) {
+                node.right = remove(node.right, historyApp);
+            } else if (Utility.equals(node.historyApp, historyApp)) {
+                //CASO 1. EL NODO A SUPRIMIR ES UN NODO SIN HIJOS
+                //EN ESTE CASO, EL NODO A SUPRMIR ES UNA HOJA
+                if (node.left == null && node.right == null) {
+                    return null;
+                } else
+                    //CASO 2. EL NODO A SUPRIMIR SOLO TIENE UN HIJO
+                    //EN ESE CASO, EL NODO A SUPRIMIR CON EL DATA A ELIMINAR
+                    //ES REEMPLAZADO POR EL HIJO
+                    if (node.left == null && node.right != null) {
+                        node = node.right;
+                    } else if (node.left != null && node.right == null) {
+                        node = node.left;
+                    } else
+                        //CASO 3 EL NODO A SUPRIMIR TIENE 2 HIJOS
+                        if (node.left != null && node.right != null) {
+                            //OBTENGA EL VALOR MIN DEL SUBARBOL DERECHO
+                            HistoryApp value = min(node.right);
+                            node.historyApp = value;
+                            node.right = remove(node.right, value);
+                        }
+            }//equals(node.data, element))
+        }//node!=null
         return node;
     }
 
-    /**
-     * Método recursivo que busca de manera binaria un nodo
-     *
-     * @param node       raíz del árbol de nodos
-     * @param historyApp valor que se quiere buscar
-     * @return null si el árbol no tiene nodos, de otro modo, el nodo encontrado
-     */
-    public Node contains(Node node, HistoryApp historyApp) {
-        if (node == null) {
-            return null;
-        } else {
-            if (node.historyApp == historyApp) { //Caso base
-                return node;
-            } else {
-                if (historyApp.getTargetID() < node.historyApp.getTargetID()) { //Caso 1: buscar lado izquierdo
-                    node = node.left;
-                } else { //Caso 2: buscar l ado derecho
-                    node = node.right;
-                }
-                return contains(node, historyApp);
-            }
+    public int height() {
+        if (!isEmpty()) {
+            return height(root) - 1;
         }
+        return -1;
     }
 
-    /**
-     * @param node       raíz del árbol de nodos
-     * @param historyApp valor que se quiere eliminar
-     * @return verdadero si se elimino, si no, falso
-     */
-    public Node delete(Node node, HistoryApp historyApp) {
-        if (node == null) {
-            return null;
-        } else {
-            if (historyApp.getTargetID() < node.historyApp.getTargetID()) {//busca del lado izquierda
-                node.left = delete(node.left, historyApp);
-            } else if (historyApp.getTargetID() > node.historyApp.getTargetID()) { //busca del lado derecha
-                node.right = delete(node.right, historyApp);
-            } else if (node.historyApp == historyApp) { //si encuentra el número
-                if (node.left == null && node.right == null) { //Caso 1: nodo sin hijos
-                    node = null;
-                    return node;
-                }//Caso  2: el nodo solo tiene un hijo
-                else if (node.left != null && node.right == null) { //el nodo es remplazado por el hijo izquierdo
-                    node = node.left;
-                    return (node);
-                } else if (node.left == null && node.right != null) { //el nodo es remplazado por el hijo derecho
-                    node = node.right;
-                    return (node);
-                } else if (node.left != null && node.right != null) { //Caso 3: el nodo tiene n hijos
-                    //obtener el elemento mas pequeño del sub-arbol derecho
-                    HistoryApp lowerValue = minValue(node.right);
-                    //cambia el nodo raiz con el elemnto obtenido
-                    node.historyApp = lowerValue;
-                    node.right = delete(node.right, lowerValue);
+    private int height(TreeNode node) {
+        if (node == null) return 0;
+        else
+            return Math.max(
+                    height(node.left),
+                    height(node.right)) + 1;
+    }
 
-                    int balance = height(node.left) - height(node.right);
-                    if (balance > 1) { //Desbalance derecho
-                        if (historyApp.getTargetID() < node.left.historyApp.getTargetID()) { //Caso 1: izquierda-izquierda
-                            node = rightRotation(node);
-                        } else { //Caso 2: izquierda-derecha
-                            node.left = leftRotation(node.left);
-                            node = rightRotation(node);
-                        }
-                    } else if (balance < -1) { //Desbalance izquierdo
-                        if (historyApp.getTargetID() > node.right.historyApp.getTargetID()) { //Caso 3: derecha-derecha
-                            node = leftRotation(node);
-                        } else { //Caso 4: derecha-izquierda
-                            node.right = rightRotation(node.right);
-                            node = leftRotation(node);
-                        }
-                    }
-                }
-            }
-            return node;//en cualquier caso retorna el nuevo puntero
+
+    public HistoryApp min() {
+        if (!isEmpty()) {
+            return min(root);
         }
+        return null;
     }
 
-    /**
-     * Imprime el árbol de nodos en in-order
-     *
-     * @param node raíz del árbol de nodos
-     */
-    public void printInorder(Node node) {
-        if (node != null) {
-            printInorder(node.left); //imprime el hijo izquierdo
-            System.out.print(node.historyApp + ", ");
-            printInorder(node.right); //imprime el hijo derecho
+    private HistoryApp min(TreeNode node) {
+        if (node.left != null) {
+            return min(node.left);
         }
+        return node.historyApp;
     }
 
-    /**
-     * Imprime el árbol de nodos en pre-order
-     *
-     * @param node raíz del árbol de nodos
-     */
-    public void printPreorder(Node node) {
-        if (node != null) {
-            System.out.print(node.historyApp + ", ");
-            printPreorder(node.left); //imprime el hijo izquierda
-            printPreorder(node.right); //imprime el hijo derecha
-        }
-    }
 
-    /**
-     * @param node raíz del árbol de nodos
-     * @return la altura de una raíz
-     */
-    public int height(Node node) {
-        if (node == null) {
-            return 0;
-        }
-        return node.height;
-    }
-
-    /**
-     * @return la altura total de un árbol
-     */
-    public int searchHeight() {
-        return height(topNode);
-    }
-
-    /**
-     * Obtiene el menor número del árbol binario
-     *
-     * @param node raíz del árbol de nodos
-     * @return el número menor o -1 si no existe
-     */
-    public HistoryApp minValue(Node node) {
-        Node tempNode = node;
-        while (tempNode.left != null) {
-            tempNode = tempNode.left;
-        }
-        return tempNode.historyApp;
-    }
-
-    /**
-     * El método cambia los apuntadores del nodo raíz izquierdo con el nodo que ingresa
-     *
-     * @param node raíz del árbol
-     * @return
-     */
-    public Node rightRotation(Node node) {
-        Node lefChild = node.left;
-        node.left = lefChild.right;
-        lefChild.right = node;
-        node.height = max(height(node.left), height(node.right)) + 1;
-        lefChild.height = max(height(lefChild.left), height(lefChild.right)) + 1;
-        return lefChild;
-    }
-
-    /**
-     * El método cambia los apuntadores del nodo raíz derecho con el nodo que ingresa
-     *
-     * @param node raíz del árbol
-     * @return
-     */
-    public Node leftRotation(Node node) {
-        Node rightChild = node.right;
-        node.right = rightChild.left;
-        rightChild.left = node;
-        node.height = max(height(node.left), height(node.right)) + 1;
-        rightChild.height = max(height(rightChild.left), height(rightChild.right)) + 1;
-        return rightChild;
-    }
-
-    public int targetIDSize() {
-        return targetID;
-    }
 }

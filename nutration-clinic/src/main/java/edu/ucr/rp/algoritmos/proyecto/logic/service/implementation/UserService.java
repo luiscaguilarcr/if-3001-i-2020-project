@@ -3,7 +3,7 @@ package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.UserPersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.UserControlService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 import edu.ucr.rp.algoritmos.proyecto.util.test.TestUtility;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Luis Carlos Aguilar
  */
-public class UserService implements Service<User, UserLinkedList> {
+public class UserService implements UserControlService<User> {
     public UserLinkedList userLinkedList;
     private UserPersistence userPersistence;
     private Utility utility;
@@ -122,6 +122,7 @@ public class UserService implements Service<User, UserLinkedList> {
         return null;
     }
 
+    @Override
     public User getByName(String name) {
         refresh();
         for (int i = 0; i < userLinkedList.size(); i++) {
@@ -132,6 +133,7 @@ public class UserService implements Service<User, UserLinkedList> {
         return null;
     }
 
+    @Override
     public List<String> getAdminNames(){
         refresh();
         List<String> list = new ArrayList<>();
@@ -143,7 +145,8 @@ public class UserService implements Service<User, UserLinkedList> {
         return list;
     }
 
-    public List<String> getCustomerNames(){
+    @Override
+    public List<String> getCustomerNames() {
         refresh();
         List<String> list = new ArrayList<>();
         for (int i = 0; i < userLinkedList.size(); i++) {
@@ -163,7 +166,8 @@ public class UserService implements Service<User, UserLinkedList> {
     /**
      * Refresca la lista de usuarios.
      */
-    private void refresh() {
+    @Override
+    public void refresh() {
         userPersistence = new UserPersistence();
         UserLinkedList tempUserLinkedList = new UserLinkedList();
 
@@ -189,14 +193,14 @@ public class UserService implements Service<User, UserLinkedList> {
     }
 
     private void addAdminAvailability(int iD) { //TODO test
-        AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
+        AdminAvailabilityGeneralService adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
         TestUtility testUtility = new TestUtility();
         AdminAvailability adminAvailability = testUtility.generateAdminAvailability(iD);
         adminAvailabilityService.add(adminAvailability);
     }
 
     private void deleteAdminAvailability(int iD) { //TODO test
-        AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
+        AdminAvailabilityGeneralService adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
         AdminAvailability adminAvailability = adminAvailabilityService.getByID(iD);
         adminAvailabilityService.remove(adminAvailability);
     }

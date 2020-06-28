@@ -85,12 +85,12 @@ public class TestUtility {
     UserService userService;
     CustomerDateService customerDateService;
     UserLinkedList userLinkedList;
-    AdminAvailabilityService adminAvailabilityService;
+    AdminAvailabilityGeneralService adminAvailabilityService;
 
     private void initializeService() {
         userService = UserService.getInstance();
         customerDateService = CustomerDateService.getInstance();
-        adminAvailabilityService = AdminAvailabilityService.getInstance();
+        adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
         userLinkedList = userService.getAll();
     }
 
@@ -205,7 +205,7 @@ public class TestUtility {
         adminAnnotation.setDate(customerDate.getDate());
         adminAnnotation.setCustomerID(customerDate.getCustomerID());
         adminAnnotation.setDocID(customerDate.getAdminID());
-        EatingPlan eatingPlan = eatingPlanService.getByID(5);
+        EatingPlan eatingPlan = eatingPlanService.getByPlanID(5);
         adminAnnotation.setEatingPlan(eatingPlan);
 
         int[] fat = {16, 17, 18, 19, 20, 21, 22, 23, 24};

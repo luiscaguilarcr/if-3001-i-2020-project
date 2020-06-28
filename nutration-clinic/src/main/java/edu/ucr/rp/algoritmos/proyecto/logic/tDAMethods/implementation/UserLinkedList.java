@@ -85,29 +85,6 @@ public class UserLinkedList implements LinkedListInterface {
     }
 
     /**
-     * Obtiene el índice de un usuario.
-     *
-     * @param user que se quiere buscar
-     * @return índice del elemento ingresado
-     */
-    @Override
-    public int indexOf(User user) {
-        Node tempNode = firstNode;
-        if (!containsByID(user)) {
-            return -1;
-        }
-        int index = 0;
-        do {
-            if (tempNode.user == user) {
-                return index;
-            }
-            index++;
-            tempNode = tempNode.nextNode;
-        } while (tempNode != null);
-        return index;
-    }
-
-    /**
      * Obtiene el objeto en el índice solicitado.
      *
      * @param index del elemento que se quiere obtener
@@ -117,7 +94,7 @@ public class UserLinkedList implements LinkedListInterface {
     public User get(int index) {
         int accountant = 0; //contador para la posición en el índice
         Node tempNode = firstNode; //posicionar un nodo temporal en el primer elemento
-        if (!validateEmpty()) { //Caso 1: la lista tiene al menos un número
+        if (!isEmpty()) { //Caso 1: la lista tiene al menos un número
             while (tempNode != null) {
                 if (accountant == index) {
                     return tempNode.user;//devolver el número en el índice pedido
@@ -137,7 +114,7 @@ public class UserLinkedList implements LinkedListInterface {
      */
     @Override
     public boolean containsByID(User user) {
-        if (validateEmpty()) { //Case 1: the list is empty
+        if (isEmpty()) { //Case 1: the list is empty
             return false;
         }
         //The temporary node is positioned on the first node
@@ -155,7 +132,7 @@ public class UserLinkedList implements LinkedListInterface {
     }
 
     public boolean containsByName(User user) {
-        if (validateEmpty()) { //Case 1: the list is empty
+        if (isEmpty()) { //Case 1: the list is empty
             return false;
         }
         //The temporary node is positioned on the first node
@@ -178,7 +155,7 @@ public class UserLinkedList implements LinkedListInterface {
      * @return true si la lista está vacía, si no, false
      */
     @Override
-    public boolean validateEmpty() {
+    public boolean isEmpty() {
         return firstNode == null;
     }
 

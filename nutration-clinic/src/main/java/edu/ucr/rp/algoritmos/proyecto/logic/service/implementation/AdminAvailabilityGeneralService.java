@@ -3,7 +3,7 @@ package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.AdminAvailabilityPersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AvailabilityService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +16,16 @@ import java.util.Map;
  *
  * @author Luis Carlos Aguilar
  */
-public class AdminAvailabilityService implements Service<AdminAvailability, List> {
+public class AdminAvailabilityGeneralService implements AvailabilityService<AdminAvailability> {
     public List<AdminAvailability> list;
     private AdminAvailabilityPersistence adminAvailabilityPersistence;
     private UserService userService;
-    private static AdminAvailabilityService instance;
+    private static AdminAvailabilityGeneralService instance;
 
     /**
      * Constructor
      */
-    private AdminAvailabilityService() {
+    private AdminAvailabilityGeneralService() {
         adminAvailabilityPersistence = new AdminAvailabilityPersistence();
         userService = UserService.getInstance();
         list = new ArrayList();
@@ -35,9 +35,9 @@ public class AdminAvailabilityService implements Service<AdminAvailability, List
     /**
      * Singleton Pattern
      */
-    public static AdminAvailabilityService getInstance() {
+    public static AdminAvailabilityGeneralService getInstance() {
         if (instance == null)
-            instance = new AdminAvailabilityService();
+            instance = new AdminAvailabilityGeneralService();
         return instance;
     }
 
@@ -168,8 +168,8 @@ public class AdminAvailabilityService implements Service<AdminAvailability, List
         }
         return tempList;
     }
-
-    private void refresh() {
+    @Override
+    public void refresh() {
         //Lee el archivo
         Object object = adminAvailabilityPersistence.read();
         //Valida que existe y lo sustituye por la lista en memoria

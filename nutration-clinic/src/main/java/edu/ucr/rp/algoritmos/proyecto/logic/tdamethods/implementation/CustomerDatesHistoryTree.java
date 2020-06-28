@@ -1,254 +1,166 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.interfaces.BTree;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.nodes.TreeNode;
+import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
 /**
  * @author Luis Carlos
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class CustomerDatesHistoryTree implements BTree {
+    public TreeNode root; //representa la unica entrada al arbol
 
-public class CustomerDatesHistoryTree {
-    public int targetID = 0;
-    public Node topNode;
-
+    //Constructor
     public CustomerDatesHistoryTree() {
+        this.root = null;
     }
 
-    public static class Node {
-        public CustomerDate customerDate;
-        public Node leftNode, rightNode;
-
-        public Node() {
-        }
-        /**
-         * Agrega en un nuevo nodo el elemento
-         *
-         * @param customerDate número que se quiere agregar
-         */
-        public Node(CustomerDate customerDate) {
-            this.customerDate = customerDate;
-            leftNode = null;
-            rightNode = null;
-        }
+    @Override
+    public int size() {
+        return size(root);
     }
 
-    public void insert(CustomerDate customerDate) {
-        topNode = insert(topNode, customerDate);
-        targetID++;
+    private int size(TreeNode node) {
+        if (node == null) return 0;
+        else
+            return 1 + size(node.left) + size(node.right);
     }
 
-    public boolean search(CustomerDate customerDate) {
-        return search(topNode, customerDate);
+    @Override
+    public boolean isEmpty() {
+        return root == null;
     }
 
+    @Override
     public CustomerDate get(int index) {
-        return get(topNode, index);
-    }
-
-    public void delete(CustomerDate customerDate) {
-        topNode = delete(topNode, customerDate);
-    }
-
-    public CustomerDate minValue() {
-        return minValue(topNode);
-    }
-
-    public int maxValue() {
-        return maxValue(topNode);
-    }
-
-    public void preOrder() {
-        preOrder(topNode);
-    }
-
-    public void postOrder() {
-        postOrder(topNode);
-    }
-
-    public void inOrder() {
-        inOrder(topNode);
-    }
-
-    /**
-     * Inserta un customerDate en un árbol binario
-     *
-     * @param node         objeto del árbol binario
-     * @param customerDate customerDate que se desea agregar en el árbol binario
-     * @return árbol de nodos
-     */
-    private Node insert(Node node, CustomerDate customerDate) {
-        customerDate.setTargetID(size());
-        Node newNode = new Node(customerDate);
-
-        if (node == null) { //si el árbol está vacío
-            node = newNode;
-            topNode = node; //agrega el nuevo node en la raíz
-        } else { //si no
-            if (customerDate.getTargetID() < node.customerDate.getTargetID()) { //agregar en el hijo izquierda
-                node.leftNode = insert(node.leftNode, customerDate);
-            } else { //agregar en el hijo derecha
-                node.rightNode = insert(node.rightNode, customerDate);
-            }
-        }
-        return node;
-    }
-
-    /**
-     * @param node         objeto del árbol binario
-     * @param customerDate customerDate que queremos buscar en el árbol binario
-     * @return verdadero si lo encontró, si no falso
-     */
-    private boolean search(Node node, CustomerDate customerDate) {
-        if (node != null) {
-            if (customerDate.getTargetID() < node.customerDate.getTargetID()) {
-                if (node.customerDate == customerDate) {
-                    return true;
-                } else {
-                    return search(node.leftNode, customerDate);
-                }
-            } else {
-                if (node.customerDate == customerDate) {
-                    return true;
-                } else {
-                    return search(node.rightNode, customerDate);
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @param node               objeto del árbol binario
-     * @param customerDateTarget customerDateTarget que queremos buscar en el árbol binario
-     * @return verdadero si lo encontró, si no falso
-     */
-    private CustomerDate get(Node node, int customerDateTarget) {
-        if (node != null) {
-            if (customerDateTarget < node.customerDate.getTargetID()) {
-                if (node.customerDate.getTargetID() == customerDateTarget) {
-                    return node.customerDate;
-                } else {
-                    return get(node.leftNode, customerDateTarget);
-                }
-            } else {
-                if (node.customerDate.getTargetID() == customerDateTarget) {
-                    return node.customerDate;
-                } else {
-                    return get(node.rightNode, customerDateTarget);
-                }
-            }
+        if (!isEmpty()) {
+            return binarySearch(root, index);
         }
         return null;
     }
 
-    /**
-     * Elimina un elemento del árbol binario
-     *
-     * @param node         objeto del árbol binario
-     * @param customerDate customerDate que se quiere eliminar
-     * @return árbol binario
-     */
-    private Node delete(Node node, CustomerDate customerDate) {
-        if (customerDate.getTargetID() < node.customerDate.getTargetID()) {//busca del lado izquierda
-            node.leftNode = delete(node.leftNode, customerDate);
-        } else if (customerDate.getTargetID() > node.customerDate.getTargetID()) { //busca del lado derecha
-            node.rightNode = delete(node.rightNode, customerDate);
-        } else if (node.customerDate == customerDate) { //si encuentra el customerDate
-            //Caso 1: node sin hijos
-            if (node.leftNode == null && node.rightNode == null) {
-                node = null;
-                return node;
-            } //Caso  2: el node solo tiene un hijo
-            //el node es remplazado por el hio
-            else if (node.leftNode != null && node.rightNode == null) {
-                node = node.leftNode;
-                return (node);
-            } else if (node.leftNode == null && node.rightNode != null) {
-                node = node.rightNode;
-                return (node);
-            } //Caso 3: el node tiene hijos
-            else if (node.leftNode != null && node.rightNode != null) {
-                //obtener el elemento mas pequeño del sub-arbol derecha
-                CustomerDate rightSubTree = minValue(node.rightNode);
-                //cambia el node raiz con el elemnto obtenido
-                node.customerDate = rightSubTree;
-                node.rightNode = delete(node.rightNode, rightSubTree);
-            }// n fin de nodos con de hjos
-        }
-        return node;//en cualquier caso retorna el nuevo puntero
-
-    }
-
-    /**
-     * Obtiene el número menor del árbol binario
-     *
-     * @param node objeto del árbol binario
-     * @return el menor número o -1 si no existe
-     */
-    private CustomerDate minValue(Node node) {
-        Node tempNode = node;
-        while (tempNode.leftNode != null) {
-            tempNode = tempNode.leftNode;
-        }
-        return tempNode.customerDate;
-    }
-
-    /**
-     * Obtiene el número mayor del árbol binario
-     *
-     * @param node objeto del árbol binario
-     * @return el menor número o -1 si no existe
-     */
-    private int maxValue(Node node) {
-        Node tempNode = node;
-        while (tempNode.leftNode != null) {
-            tempNode = tempNode.rightNode;
-        }
-        return tempNode.customerDate.getTargetID();
-    }
-
-    /**
-     * Lee un árbol binario en PreOrden: 1.Visita la raíz, 2.Atraviesa el
-     * sub-árbol izquierda, 3.Atraviesa el sub-árbol derecha
-     *
-     * @param nodo nodo del árbol binario
-     */
-    private void preOrder(Node nodo) {
-        if (nodo != null) {
-            System.out.print(nodo.customerDate + ", ");
-            preOrder(nodo.leftNode); //imprime el hijo izquierda
-            preOrder(nodo.rightNode); //imprime el hijo derecha
+    private CustomerDate binarySearch(TreeNode node, int index) {
+        if (node == null) return null;
+        else if (Utility.equals(node.customerDate.getTargetID(), index)) {
+            return node.customerDate; //YA LO ENCONTRO
+        } else if (node.customerDate.getTargetID() < index) {
+            return binarySearch(node.left, index);
+        } else {
+            return binarySearch(node.right, index);
         }
     }
 
-    /**
-     * Lee un árbol binario en InOrden: 1.Atraviesa el sub-árbol izquierda,
-     * 2.Visita la raíz, 3.Atraviesa el sub-árbol derecha
-     *
-     * @param nodo objeto del árbol binario
-     */
-    private void inOrder(Node nodo) {
-        if (nodo != null) {
-            inOrder(nodo.leftNode); //imprime el hijo izquierda
-            System.out.print(nodo.customerDate + ", ");
-            inOrder(nodo.rightNode); //imprime el hijo derecha
+    @Override
+    public void add(CustomerDate element) {
+        element.setTargetID(size());
+        root = add(root, element, "root", 0);
+    }
+
+    private TreeNode add(TreeNode node, CustomerDate customerDate) {
+        if (node == null) { //el arbol esta vacio
+            node = new TreeNode(customerDate);
+        } else if (node.left == null) {
+            node.left = add(node.left, customerDate);
+        } else if (node.right == null) {
+            node.right = add(node.right, customerDate);
+        } else { //debemos establecer algun criterio de insercion
+            //con un criterio aletario, decide como agregar
+            //el nuevo elemento
+            int num = Utility.random(10);
+            if (num % 2 == 0) {//si es par, inserta por la izq
+                node.left = add(node.left, customerDate);
+            } else //sino inserta por la der
+                node.right = add(node.right, customerDate);
+        }
+        return node;
+    }
+
+    private TreeNode add(TreeNode node, CustomerDate customerDate, String label, int level) {
+        if (node == null) { //el arbol esta vacio
+            node = new TreeNode(customerDate, label, level);
+        } else if (node.left == null) {
+            node.left = add(node.left, customerDate, label + "/left", ++level);
+        } else if (node.right == null) {
+            node.right = add(node.right, customerDate, label + "/right", ++level);
+        } else { //debemos establecer algun criterio de insercion
+            //con un criterio aletario, decide como agregar
+            //el nuevo elemento
+            int num = Utility.random(10);
+            if (num % 2 == 0) {//si es par, inserta por la izq
+                node.left = add(node.left, customerDate, label + "/left", ++level);
+            } else //sino inserta por la der
+                node.right = add(node.right, customerDate, label + "/right", ++level);
+        }
+        return node;
+    }
+
+    @Override
+    public void remove(CustomerDate customerDate) {
+        if (!isEmpty()) {
+            root = remove(root, customerDate);
         }
     }
 
-    /**
-     * Lee un árbol binario en la siguiente secuencia: 1.Atraviesa el sub-árbol
-     * izquierda, 2.Atraviesa el sub-árbol derecha, 3.Visita la raíz
-     *
-     * @param nodo objeto del árbol binario
-     */
-    private void postOrder(Node nodo) {
-        if (nodo != null) {
-            postOrder(nodo.leftNode); //imprime el hijo izquierda
-            postOrder(nodo.rightNode); //imprime el hijo derecha
-            System.out.print(nodo.customerDate + ", ");
-        }
+    private TreeNode remove(TreeNode node, CustomerDate customerDate) {
+        if (node != null) {
+            if (Utility.equals(node.customerDate, customerDate)) {
+                //CASO 1. EL NODO A SUPRIMIR ES UN NODO SIN HIJOS
+                //EN ESTE CASO, EL NODO A SUPRMIR ES UNA HOJA
+                if (node.left == null && node.right == null) {
+                    return node = null;
+                } else
+                    //CASO 2. EL NODO A SUPRIMIR SOLO TIENE UN HIJO
+                    //EN ESE CASO, EL NODO A SUPRIMIR CON EL DATA A ELIMINAR
+                    //ES REEMPLAZADO POR EL HIJO
+                    if (node.left == null && node.right != null) {
+                        node = node.right;
+                    } else if (node.left != null && node.right == null) {
+                        node = node.left;
+                    } else
+                        //CASO 3 EL NODO A SUPRIMIR TIENE 2 HIJOS
+                        if (node.left != null && node.right != null) {
+                            //OBTENGA UNA HOJA DEL SUBARBOL DERECHO
+                            CustomerDate value = getLeaf(node.right);
+                            node.customerDate = value;
+                            node.right = removeLeaf(node.right, value);
+                        }
+            }//equals(node.data, element))
+            node.left = remove(node.left, customerDate);
+            node.right = remove(node.right, customerDate);
+        }//node!=null
+        return node;
     }
 
-    public int size() {
-        return targetID;
+    private CustomerDate getLeaf(TreeNode node) {
+        CustomerDate aux;
+        if (node == null) return null;
+        else if (node.left == null && node.right == null) {
+            return node.customerDate; //es una hoja
+        } else {
+            aux = getLeaf(node.left);
+            if (aux == null) {
+                //quiere decir q todavia no ha encontrado una hoja
+                aux = getLeaf(node.right);
+            }
+        }
+        return aux;
     }
+
+    private TreeNode removeLeaf(TreeNode node, CustomerDate customerDate) {
+        if (node == null) return null;
+        else if (node.left == null && node.right == null
+                && Utility.equals(node.customerDate, customerDate)) {
+            //ES UNA HOJA Y ES LA QUE ANDO BUSCANDO,
+            //YA LA PUEDO ELIMINAR
+            return null;
+        } else {
+            node.left = removeLeaf(node.left, customerDate);
+            node.right = removeLeaf(node.right, customerDate);
+        }
+        return node;
+    }
+
 }

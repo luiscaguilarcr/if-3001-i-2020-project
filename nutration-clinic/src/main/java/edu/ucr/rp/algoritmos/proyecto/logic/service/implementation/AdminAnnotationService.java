@@ -2,11 +2,8 @@ package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.AnnotationPersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.UserPersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService2;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService5;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AnnotationService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnotationQueue;
-import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
 /**
@@ -15,10 +12,10 @@ import edu.ucr.rp.algoritmos.proyecto.util.Utility;
  *
  * @author Luis Carlos Aguilar
  */
-public class AnnotationService implements AuxService5<AdminAnnotation, AdminAnnotationQueue> {
+public class AdminAnnotationService implements AnnotationService<AdminAnnotation> {
     public AdminAnnotationQueue queue;
     private AnnotationPersistence annotationPersistence;
-    private static AnnotationService instance;
+    private static AdminAnnotationService instance;
     private Utility utility;
     private CustomerDateService customerDateService;
     private CustomerDatesHistoryService customerDatesHistoryService;
@@ -26,7 +23,7 @@ public class AnnotationService implements AuxService5<AdminAnnotation, AdminAnno
     /**
      * Constructor
      */
-    private AnnotationService() {
+    private AdminAnnotationService() {
         queue = new AdminAnnotationQueue();
         annotationPersistence = new AnnotationPersistence();
         utility = new Utility();
@@ -38,9 +35,9 @@ public class AnnotationService implements AuxService5<AdminAnnotation, AdminAnno
     /**
      * Singleton Pattern
      */
-    public static AnnotationService getInstance() {
+    public static AdminAnnotationService getInstance() {
         if (instance == null)
-            instance = new AnnotationService();
+            instance = new AdminAnnotationService();
         return instance;
     }
 
@@ -54,7 +51,7 @@ public class AnnotationService implements AuxService5<AdminAnnotation, AdminAnno
     public boolean add(AdminAnnotation adminAnnotation) {
         refresh();
         if (adminAnnotation != null) {
-            queue.enqueue(adminAnnotation);
+            queue.enQueue(adminAnnotation);
             customerDatesHistoryService.add(customerDateService.getByID(adminAnnotation.getCustomerID()));
             customerDateService.remove(customerDateService.getByID(adminAnnotation.getCustomerID()));
             //utility.historyApp("Anotaciones agregadas para el usuario " + adminAnnotation.getCustomerID() + " en la fecha " + adminAnnotation.getDate());
@@ -73,16 +70,16 @@ public class AnnotationService implements AuxService5<AdminAnnotation, AdminAnno
     public AdminAnnotationQueue getAllByID(int iD) {
         refresh();
         AdminAnnotationQueue annotationsByID = new AdminAnnotationQueue();
-        for (int i = 0; i < queue.size(); i++) {
-            if (queue.get(i) != null) {
-                if (queue.get(i).getCustomerID() == iD) {
-                    annotationsByID.enqueue(queue.get(i));
+        int size = queue.size();
+        for (int i = 0; i < size; i++) {
+            AdminAnnotation adminAnnotation = queue.deQueue();
+            if (adminAnnotation != null) {
+                if (adminAnnotation.getCustomerID() == iD) {
+                    annotationsByID.enQueue(adminAnnotation);
                 }
             }
         }
-        if (annotationsByID.validateEmpty()) {
-            return null;
-        }
+        refresh();
         return annotationsByID;
     }
 
@@ -96,31 +93,35 @@ public class AnnotationService implements AuxService5<AdminAnnotation, AdminAnno
     @Override
     public AdminAnnotation getByDateAndCustomerID(String date, int customerID) {
         refresh();
-        AdminAnnotation adminAnnotation;
-        for (int i = 0; i < queue.size(); i++) {
-            adminAnnotation = queue.get(i);
+        int size = queue.size();
+        for (int i = 0; i < size; i++) {
+            AdminAnnotation adminAnnotation = queue.deQueue();
             if (adminAnnotation != null) {
                 if (adminAnnotation.getCustomerID() == customerID) {
                     if (adminAnnotation.getDate().equals(date)) {
+                        refresh();
                         return adminAnnotation;
                     }
                 }
             }
         }
+        refresh();
         return null;
     }
 
     /**
      * Refresca la cola de anotaciones realizadas por los administradores.
      */
-    private void refresh() {
+    @Override
+    public void refresh() {
         annotationPersistence = new AnnotationPersistence();
         AdminAnnotationQueue tempAdminAnnotationQueue = new AdminAnnotationQueue();
 
         queue = annotationPersistence.read();
         if (queue != null) {
-            for (int i = 0; i < queue.size(); i++) {
-                tempAdminAnnotationQueue.enqueue(queue.dequeue());
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                tempAdminAnnotationQueue.enQueue(queue.deQueue());
             }
         }
         queue = tempAdminAnnotationQueue;

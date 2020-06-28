@@ -3,7 +3,7 @@ package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.EatingPlan;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.EatingPlanPersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService3;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.PlanService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Luis Carlos Aguilar
  */
-public class EatingPlanService implements AuxService3<EatingPlan, List> {
+public class EatingPlanService implements PlanService<EatingPlan> {
     public List<EatingPlan> list;
     private EatingPlanPersistence eatingPlanPersistence;
     private static EatingPlanService instance;
@@ -82,19 +82,21 @@ public class EatingPlanService implements AuxService3<EatingPlan, List> {
 
     /**
      * Obtiene un plan de comida a partir de una cantidad de grasa ingresada.
+     *
      * @param fat del usuario
      * @return plan de comida
      */
-    public EatingPlan getPlanByID(int fat){
+    @Override
+    public EatingPlan getPlanByFat(int fat) {
         refresh();
         for (int i = 0; i < list.size(); i++) {
             int eatingPlanFat = list.get(i).getFat();
-            int quantityFat =  fat - eatingPlanFat;
-            if(quantityFat < 5 && quantityFat > 0){
+            int quantityFat = fat - eatingPlanFat;
+            if (quantityFat < 5 && quantityFat > 0) {
                 return list.get(i);
-            }else if(quantityFat < 10 && quantityFat > 0){
+            } else if (quantityFat < 10 && quantityFat > 0) {
                 return list.get(i);
-            }else if(quantityFat < 15 && quantityFat > 0){
+            } else if (quantityFat < 15 && quantityFat > 0) {
                 return list.get(i);
             }
         }
@@ -106,9 +108,10 @@ public class EatingPlanService implements AuxService3<EatingPlan, List> {
      *
      * @return plan de comida
      */
-    public EatingPlan getByID(int planID) {
+    @Override
+    public EatingPlan getByPlanID(int planID) {
         for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getID() == planID){
+            if (list.get(i).getID() == planID) {
                 return list.get(i);
             }
         }
@@ -118,7 +121,8 @@ public class EatingPlanService implements AuxService3<EatingPlan, List> {
     /**
      * Refresca la lista de planes de comidas.
      */
-    private void refresh() {
+    @Override
+    public void refresh() {
         //Lee el archivo
         Object object = eatingPlanPersistence.read();
         //Valida que existe y lo sustituye por la lista en memoria
@@ -130,14 +134,14 @@ public class EatingPlanService implements AuxService3<EatingPlan, List> {
 
     private boolean validateAddition(EatingPlan customerDate) {
         if (list.contains(customerDate)) return false;
-        if(containsFat(customerDate.getFat())) return false;
+        if (containsFat(customerDate.getFat())) return false;
         return true;
     }
 
-    private boolean containsFat(int fat){
+    private boolean containsFat(int fat) {
         refresh();
         for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getFat() == fat){
+            if (list.get(i).getFat() == fat) {
                 return true;
             }
         }

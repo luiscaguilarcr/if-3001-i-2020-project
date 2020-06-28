@@ -1,5 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.util;
 
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.HistoryAppService;
@@ -47,5 +48,61 @@ public class Utility {
                 customerDateService.remove(customerDateService.getByID(iD));
             }
         }
+    }
+
+    public static String instanceOf(Object a, Object b){
+        if(a instanceof Integer&&b instanceof Integer) return "integer";
+        if(a instanceof String&&b instanceof String) return "string";
+        if(a instanceof Character&&b instanceof Character) return "character";
+        if(a instanceof AdminAnnotation&&b instanceof AdminAnnotation) return "adminAnnotation";
+        return "unknown"; //desconocido
+    }
+
+    public static boolean equals(Object a, Object b){
+        switch(instanceOf(a, b)){
+            case "integer":
+                Integer x=(Integer) a; Integer y=(Integer) b;
+                return x==y;
+            case "string":
+                String v=(String) a; String w=(String) b;
+                return v.compareToIgnoreCase(w)==0;
+            case "character":
+                Character c=(Character) a; Character d=(Character) b;
+                return c.compareTo(d)==0;
+            case "adminAnnotation":
+                AdminAnnotation pa=(AdminAnnotation)a; AdminAnnotation pb=(AdminAnnotation)b;
+                return pa.getCustomerID()== pb.getCustomerID();
+        }
+        return false; //en cualquier otro caso
+    }
+
+    public static int random(int bound){
+        return 1+(int) Math.floor(Math.random()*bound);
+    }
+
+    //less than (menorQ)
+    public static boolean lessT(Object a, Object b){
+        switch(instanceOf(a, b)){
+            case "integer":
+                Integer x=(Integer) a; Integer y=(Integer) b;
+                return x<y;
+            case "string":
+                String v=(String) a; String w=(String) b;
+                return v.compareToIgnoreCase(w)<0;
+        }
+        return false; //en cualquier otro caso
+    }
+
+    //greater than (mayorQ)
+    public static boolean greaterT(Object a, Object b){
+        switch(instanceOf(a, b)){
+            case "integer":
+                Integer x=(Integer) a; Integer y=(Integer) b;
+                return x>y;
+            case "string":
+                String v=(String) a; String w=(String) b;
+                return v.compareToIgnoreCase(w)>0;
+        }
+        return false; //en cualquier otro caso
     }
 }

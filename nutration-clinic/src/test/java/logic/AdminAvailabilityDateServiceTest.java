@@ -2,7 +2,7 @@ package logic;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityGeneralService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 import edu.ucr.rp.algoritmos.proyecto.util.test.TestUtility;
@@ -11,12 +11,12 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class AdminAvailabilityServiceTest implements TestService {
-    AdminAvailabilityService adminAvailabilityService;
+public class AdminAvailabilityDateServiceTest implements TestService {
+    AdminAvailabilityGeneralService adminAvailabilityService;
     TestUtility testUtility;
 
     private void refresh() {
-        adminAvailabilityService = AdminAvailabilityService.getInstance();
+        adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
         testUtility = new TestUtility();
     }
 
@@ -29,7 +29,7 @@ public class AdminAvailabilityServiceTest implements TestService {
             UserLinkedList userLinkedList = userService.getAll();
             for (int i = 0; i < userLinkedList.size(); i++) {
                 User user = userLinkedList.get(i);
-                AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
+                AdminAvailabilityGeneralService adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
                 if (user.getRol() == 3) {
                     if (adminAvailabilityService.getByID(user.getID()) == null) {
                         AdminAvailability adminAvailability = testUtility.generateAdminAvailability(user.getID());
@@ -51,7 +51,7 @@ public class AdminAvailabilityServiceTest implements TestService {
     @Override
     public void testDelete() {
         refresh();
-        AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
+        AdminAvailabilityGeneralService adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
         AdminAvailability adminAvailability = adminAvailabilityService.getAll().get(0);
 
         if (adminAvailabilityService.remove(adminAvailability)) {
@@ -64,7 +64,7 @@ public class AdminAvailabilityServiceTest implements TestService {
     @Test
     @Override
     public void testEdit() {
-        AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
+        AdminAvailabilityGeneralService adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
         AdminAvailability adminAvailability = adminAvailabilityService.getAll().get(0);
         AdminAvailability adminAvailability1 = adminAvailability;
         String date = "32/JUNE/2020";

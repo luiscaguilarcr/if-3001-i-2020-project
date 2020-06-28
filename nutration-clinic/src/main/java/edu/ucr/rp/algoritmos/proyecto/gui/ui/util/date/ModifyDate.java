@@ -10,7 +10,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityGeneralService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
@@ -35,7 +35,7 @@ import javafx.scene.layout.Pane;
  */
 public class ModifyDate implements PaneViewer {
 
-    private static AdminAvailabilityService adminAvailabilityService;
+    private static AdminAvailabilityGeneralService adminAvailabilityService;
     private static CustomerDateService customerDateService;
     private static UserService userService;
     public static CustomerDate customerDateOLD;

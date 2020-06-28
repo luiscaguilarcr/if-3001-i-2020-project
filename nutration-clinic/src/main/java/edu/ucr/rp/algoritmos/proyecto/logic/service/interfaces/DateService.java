@@ -1,11 +1,9 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces;
 
-public interface AuxService4<E, L> {
-    boolean add(E element);
-
-    boolean remove(E element);
-
+public interface DateService<E> extends Service<E> {
     boolean edit(E oldElement, E newElement);
 
-    L getAll();
+    E getByID(int iD);
+
+    Object getAll();
 }

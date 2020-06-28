@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.CustomerDatePersistence;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.Service;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.DateService;
+
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
@@ -22,10 +18,10 @@ import java.util.List;
  *
  * @author Luis Carlos Aguilar
  */
-public class CustomerDateService implements Service<CustomerDate, CustomerDateStack> {
+public class CustomerDateService implements DateService<CustomerDate> {
     public CustomerDateStack stack;
     private CustomerDatePersistence customerDatePersistence;
-    private AdminAvailabilityService adminAvailabilityService;
+    private AdminAvailabilityGeneralService adminAvailabilityService;
     private static CustomerDateService instance;
     private Utility utility;
 
@@ -35,7 +31,7 @@ public class CustomerDateService implements Service<CustomerDate, CustomerDateSt
     private CustomerDateService() {
         stack = new CustomerDateStack();
         customerDatePersistence = new CustomerDatePersistence();
-        adminAvailabilityService = AdminAvailabilityService.getInstance();
+        adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
         utility = new Utility();
         refresh();
     }
@@ -58,7 +54,7 @@ public class CustomerDateService implements Service<CustomerDate, CustomerDateSt
     @Override
     public boolean add(CustomerDate customerDate) {
         refresh();
-        if (!stack.contains(customerDate)) {
+        if (customerDate != null) {
             deleteAdminAvailability(customerDate); //TODO revisar
             stack.push(customerDate);
             //utility.historyApp("Cita agregada para el usuario " + customerDate.getCustomerID());
@@ -77,15 +73,14 @@ public class CustomerDateService implements Service<CustomerDate, CustomerDateSt
     @Override
     public boolean edit(CustomerDate oldCustomerDate, CustomerDate newCustomerDate) {
         refresh();
-        if (stack.contains(oldCustomerDate)) {
-            stack.pop(oldCustomerDate);
-            stack.push(newCustomerDate);
-            customerDatePersistence.write(stack);
+        if (!stack.isEmpty()) {
+            stack = editCustomerDate(newCustomerDate);
             editAdminAvailability(oldCustomerDate, newCustomerDate);
             //utility.historyApp("Cita editada para el usuario " + oldCustomerDate.getCustomerID());
             refresh();
+            return customerDatePersistence.write(stack);
         }
-        return stack.contains(newCustomerDate);
+        return false;
     }
 
     /**
@@ -97,8 +92,8 @@ public class CustomerDateService implements Service<CustomerDate, CustomerDateSt
     @Override
     public boolean remove(CustomerDate customerDate) {
         refresh();
-        if (stack.contains(customerDate)) {
-            stack.pop(customerDate);
+        if (!stack.isEmpty() && customerDate != null) {
+            stack = removeCustomerDate(customerDate);
             addAdminAvailability(customerDate);
             //utility.historyApp("Cita removida para el usuario " + customerDate.getCustomerID());
             CustomerDatesHistoryService customerDatesHistoryService = CustomerDatesHistoryService.getInstance();
@@ -106,6 +101,34 @@ public class CustomerDateService implements Service<CustomerDate, CustomerDateSt
             return customerDatePersistence.write(stack);
         }
         return false;
+    }
+
+    private CustomerDateStack removeCustomerDate(CustomerDate customerDate) {
+        refresh();
+        CustomerDateStack auxCustomerDateStack = new CustomerDateStack();
+        int size = stack.size();
+        for (int i = 0; i < size; i++) {
+            CustomerDate auxCustomerDate = stack.pop();
+            if (auxCustomerDate.getCustomerID() != customerDate.getCustomerID()) {
+                auxCustomerDateStack.push(auxCustomerDate);
+            }
+        }
+        refresh();
+        return auxCustomerDateStack;
+    }
+
+    private CustomerDateStack editCustomerDate(CustomerDate customerDate) {
+        CustomerDateStack auxCustomerDateStack = new CustomerDateStack();
+        for (int i = 0; i < stack.size(); i++) {
+            CustomerDate auxCustomerDate = get(i);
+            if (auxCustomerDate.getCustomerID() != customerDate.getCustomerID()) {
+                auxCustomerDateStack.push(auxCustomerDate);
+            } else {
+                auxCustomerDateStack.push(customerDate);
+            }
+        }
+        refresh();
+        return auxCustomerDateStack;
     }
 
     /**
@@ -117,33 +140,37 @@ public class CustomerDateService implements Service<CustomerDate, CustomerDateSt
     @Override
     public CustomerDate getByID(int iD) {
         refresh();
-        for (int i = 0; i < stack.size(); i++) {
-            CustomerDate customerDate = stack.getByAcc(i);
+        int size = stack.size();
+        for (int i = 0; i < size; i++) {
+            CustomerDate customerDate = stack.pop();
             if (customerDate.getCustomerID() == iD) {
-                return stack.getByAcc(i);
+                return customerDate;
             }
             if (customerDate.getAdminID() == iD) {
                 return null;
             }
         }
+        refresh();
         return null;
     }
 
     /**
      * Para obtener una cita a partir de una hora y ID de administrador.
      *
-     * @param hour de una cita
+     * @param hour    de una cita
      * @param adminID de un usuario
      * @return true si el hour ingresado corresponde a una cita, si no, false
      */
     public CustomerDate getByHourAndAdminID(String hour, int adminID) {
         refresh();
-        for (int i = 0; i < stack.size(); i++) {
-            CustomerDate customerDate = stack.getByAcc(i);
+        int size = stack.size();
+        for (int i = 0; i < size; i++) {
+            CustomerDate customerDate = stack.pop();
             if (customerDate.getAdminID() == adminID && customerDate.getHour().equals(hour)) {
                 return customerDate;
             }
         }
+        refresh();
         return null;
     }
 
@@ -159,13 +186,12 @@ public class CustomerDateService implements Service<CustomerDate, CustomerDateSt
         String date = localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear();
 
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < stack.size(); i++) {
-            CustomerDate customerDate = stack.getByAcc(i);
-
+        int size = stack.size();
+        for (int i = 0; i < size; i++) {
+            CustomerDate customerDate = stack.pop();
             if (customerDate.getCustomerID() == adminID) {
                 return null;
             }
-
             if (customerDate.getAdminID() == adminID) {
                 if (date.equals(customerDate.getDate())) {
                     list.add(customerDate.getHour());
@@ -190,16 +216,30 @@ public class CustomerDateService implements Service<CustomerDate, CustomerDateSt
         List customerNamesByDates = new ArrayList();
         UserService userService = UserService.getInstance();
         for (int i = 0; i < customerDateStack.size(); i++) {
-            String name = userService.getByID(customerDateStack.getByAcc(i).getCustomerID()).getName();
+            String name = userService.getByID(get(i).getCustomerID()).getName();
             customerNamesByDates.add(name);
         }
         return customerNamesByDates;
     }
 
+    private CustomerDate get(int index) {
+        int count = 0;
+        int size = stack.size();
+        for (int i = 0; i < size; i++) {
+            CustomerDate customerDate = stack.pop();
+            if (index == count) {
+                refresh();
+                return customerDate;
+            }
+        }
+        refresh();
+        return null;
+    }
+
     private void addAdminAvailability(CustomerDate customerDate) {
         CustomerDate newCustomerDate = customerDate;
 
-        adminAvailabilityService = AdminAvailabilityService.getInstance();
+        adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
         AdminAvailability adminAvailability = adminAvailabilityService.getByID(customerDate.getAdminID());
 
         AdminAvailability adminAvailability1 = adminAvailability;
@@ -212,7 +252,7 @@ public class CustomerDateService implements Service<CustomerDate, CustomerDateSt
     }
 
     private void deleteAdminAvailability(CustomerDate customerDate) {
-        adminAvailabilityService = AdminAvailabilityService.getInstance();
+        adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
         AdminAvailability adminAvailability = adminAvailabilityService.getByID(customerDate.getAdminID());
 
         AdminAvailability adminAvailability1 = adminAvailability;
@@ -262,12 +302,18 @@ public class CustomerDateService implements Service<CustomerDate, CustomerDateSt
     /**
      * Refresca la lista de citas
      */
-    private void refresh() {
-        //Lee el archivo
-        Object object = customerDatePersistence.read();
-        //Valida que existe y lo sustituye por la lista en memoria
-        if (object != null) {
-            stack = (CustomerDateStack) object;
+    @Override
+    public void refresh() {
+        customerDatePersistence = new CustomerDatePersistence();
+        CustomerDateStack tempAdminAnnotationQueue = new CustomerDateStack();
+
+        stack = customerDatePersistence.read();
+        if (stack != null) {
+            int size = stack.size();
+            for (int i = 0; i < size; i++) {
+                tempAdminAnnotationQueue.push(stack.pop());
+            }
         }
+        stack = tempAdminAnnotationQueue;
     }
 }
