@@ -142,15 +142,15 @@ public class TestUtility {
     ////////////////////////////////////////////////////////////// GENERADOR DE PLANES DE COMIDA
     private String[] carbohydrates = {"pan", "cereal", "arroz", "galletas", "leche", "papa", "maíz", "frijoles", "ponche de frutas", "yogur", "jugo"};
     private String[] fruits = {"aguacate", "ananá", "banana ", "arándano", "cereza ", "ciruela", "coco", "durazno ", "frambuesa", "fresa ", "Jugo", "granada"};
-    String carbohydratesList = "";
-    String fruitsList = "";
+
 
     public EatingPlan generateEatingPlan() {
         initializeService();
         EatingPlan eatingPlan = new EatingPlan();
         EatingPlanService eatingPlanService = EatingPlanService.getInstance();
         eatingPlan.setID(eatingPlanService.getAll().size() + 1);
-
+        String carbohydratesList = "";
+        String fruitsList = "";
         for (int i = 0; i < 3; i++) {
             carbohydratesList += carbohydrates[random(carbohydrates.length)] + ", ";
             fruitsList += fruits[random(fruits.length)] + ", ";
@@ -158,6 +158,8 @@ public class TestUtility {
         eatingPlan.setCarbohydrates(carbohydratesList);
         eatingPlan.setFruits(fruitsList);
         eatingPlan.setFat(random(30));
+        carbohydratesList = "";
+        fruitsList = "";
         return eatingPlan;
     }
 

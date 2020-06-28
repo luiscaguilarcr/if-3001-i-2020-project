@@ -15,7 +15,7 @@ public class CustomerDateServiceTest implements TestService {
     @Test
     @Override
     public void testAddition() {
-        CustomerDate customerDate = testUtility.generateDate("30/6/2020", "15:00", 149);
+        CustomerDate customerDate = testUtility.generateDate("28/6/2020", "17:00", 149);
         if (customerDate != null) {
             if (customerDateService.add(customerDate)) {
                 System.out.println("DATE ADDED");
