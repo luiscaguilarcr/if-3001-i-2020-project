@@ -17,7 +17,18 @@
                                 "nextNode" : {
                                   "nextNode" : {
                                     "nextNode" : {
-                                      "nextNode" : null,
+                                      "nextNode" : {
+                                        "nextNode" : null,
+                                        "user" : {
+                                          "name" : "maikel",
+                                          "email" : "maikecmgmail.com",
+                                          "password" : "5b0833b4461c6bbdad1bee552ea196b4",
+                                          "address" : "50mts ",
+                                          "phoneNumber" : 5555555,
+                                          "rol" : 2,
+                                          "id" : 6
+                                        }
+                                      },
                                       "user" : {
                                         "name" : "Hern Olivar5138877",
                                         "email" : "Hern Olivar5138877123@gmail.com",
@@ -201,13 +212,13 @@
   "node" : {
     "nextNode" : null,
     "user" : {
-      "name" : "Carlitos Aguilar4343697",
-      "email" : "Carlitos Aguilar4343697123@gmail.com",
-      "password" : "feeaed27a8d062aa171b60ebe21f2cf0",
-      "address" : "25 mts al O, casa #25 a nombre de Carlitos Aguilar4343697",
-      "phoneNumber" : 226,
-      "rol" : 3,
-      "id" : 266
+      "name" : "maikel",
+      "email" : "maikecmgmail.com",
+      "password" : "5b0833b4461c6bbdad1bee552ea196b4",
+      "address" : "50mts ",
+      "phoneNumber" : 5555555,
+      "rol" : 2,
+      "id" : 6
     }
   }
 }

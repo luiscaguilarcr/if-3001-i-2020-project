@@ -7,12 +7,15 @@ package edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
+import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -36,6 +39,9 @@ public class AddAnnotationForm implements PaneViewer {
     private static Label weightLabel;
     private static Label fatLabel;
     private static Label heightLabel;
+     private static Label weightKgLabel;
+    private static Label fatPorcLabel;
+    private static Label heightcmtLabel;
     private static Label dateLabel;
     private static Label eatingPlanLabel;
     private static Label doctorIDLabel;
@@ -45,7 +51,7 @@ public class AddAnnotationForm implements PaneViewer {
     private static TextField dateTextField;
     private static ComboBox eatingPlanComboBox;
     private static ComboBox customerIDComboBox;
-    private static ComboBox doctorIDComboBox;
+    private static TextField doctorIDTextField;
     private static Button addAnnotationButton;
     private static Button cancelButton;
     private ObservableList<String> selectCustomerObservableList;
@@ -65,38 +71,47 @@ public class AddAnnotationForm implements PaneViewer {
     }
 
     private void setupControls() {
-        
+
         customerIDLabel = PaneUtil.buildLabel(pane, " Select Customer ", 0, 0);
         selectCustomerObservableList = FXCollections.observableArrayList(userService.getCustomerNames());
         customerIDComboBox = PaneUtil.buildComboBox(pane, selectCustomerObservableList, 1, 0);
         weightLabel = PaneUtil.buildLabel(pane, " Insert weight ", 0, 1);
+        weightKgLabel = PaneUtil.buildLabel(pane, "KG", 2, 1);
         weightTextField = PaneUtil.buildTextField(pane, 1);
         fatLabel = PaneUtil.buildLabel(pane, " Insert fat ", 0, 2);
+        fatPorcLabel = PaneUtil.buildLabel(pane, "%", 2, 2);
         fatTextField = PaneUtil.buildTextField(pane, 2);
         heightLabel = PaneUtil.buildLabel(pane, " Insert height ", 0, 3);
+        heightcmtLabel = PaneUtil.buildLabel(pane, "CM", 2, 3);
         heightTextField = PaneUtil.buildTextField(pane, 3);
         dateLabel = PaneUtil.buildLabel(pane, " Date ", 0, 4);
         dateTextField = PaneUtil.buildTextField(pane, 4);
+        dateTextField.setDisable(true);
         eatingPlanLabel = PaneUtil.buildLabel(pane, " Select Eating Plan ", 0, 5);
 //      eatingPlanComboBox = PaneUtil.buildComboBox(pane, observableList, 1, 5);
-        doctorIDLabel = PaneUtil.buildLabel(pane, " Select Doctor ", 0, 6);
-        selectDoctorObservableList = FXCollections.observableArrayList();
-        doctorIDComboBox = PaneUtil.buildComboBox(pane, selectDoctorObservableList, 1, 6);
+        doctorIDLabel = PaneUtil.buildLabel(pane, " DoctorID ", 0, 6);
+        doctorIDTextField = PaneUtil.buildTextField(pane, 6);
+        doctorIDTextField.setDisable(true);
         addAnnotationButton = PaneUtil.buildButton("Annotate", pane, 1, 7);
         cancelButton = PaneUtil.buildButtonImage(new Image("logout.png"), pane, 2, 7);
 
     }
 
     private void addHandlers() {
+        LocalDate localDate = LocalDate.now();
+        String date = localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear();
+        dateTextField.setText(date);
         cancelButton.setOnAction(e -> MainManagePane.clearPane());
         addAnnotationButton.setOnAction(e -> {
+            doctorIDTextField.setText(LogIn.getUser().getID() + "");
             AdminAnnotation adminAnnotation = new AdminAnnotation();
             adminAnnotation.setWeight(Integer.parseInt(weightTextField.getText()));
             adminAnnotation.setFat(Integer.parseInt(fatTextField.getText()));
             adminAnnotation.setWeight(Integer.parseInt(heightTextField.getText()));
-            
-//            int customerID = customerIDComboBox.getSelectionModel().getSelectedItem().toString();
-//            adminAnnotation.setCustomerID(customerIDComboBox.getSelectionModel().getSelectedItem().toString());
+            User user = userService.getByName(customerIDComboBox.getSelectionModel().getSelectedItem().toString());
+            adminAnnotation.setCustomerID(user.getID());
+            adminAnnotation.setDocID(LogIn.getUser().getID());
+            adminAnnotation.setDate(date);
         });
     }
 
@@ -104,4 +119,5 @@ public class AddAnnotationForm implements PaneViewer {
     public Pane getPane() {
         return addAnnotationForm();
     }
+
 }
