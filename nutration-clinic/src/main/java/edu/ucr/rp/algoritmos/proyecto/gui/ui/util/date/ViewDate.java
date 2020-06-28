@@ -54,7 +54,7 @@ public class ViewDate implements PaneViewer {
     private Pane viewDate() {
         pane = PaneUtil.buildPane();
         setupControls();
-        setupControls2();
+       
         addHandlers();
         serviceInstance();
         return pane;
@@ -128,7 +128,7 @@ public class ViewDate implements PaneViewer {
         });
 
         taavButton.setOnAction(e -> {
-
+ setupControls2();
             tC_name.setCellValueFactory(new PropertyValueFactory<CustomerDate, String>("Date"));
 
             dates.add(dateService.getByID(LogIn.getUser().getID()));
