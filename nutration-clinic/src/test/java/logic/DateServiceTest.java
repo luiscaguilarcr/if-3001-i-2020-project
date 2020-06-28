@@ -14,14 +14,12 @@ public class DateServiceTest implements TestService {
     @Test
     @Override
     public void testAddition() {
-        if (testUtility.randomDate() != null) {
-            for (int i = 0; i < 20; i++) {
-                CustomerDate customerDate = testUtility.randomDate();
-                if(dateService.add(customerDate)){
-                    System.out.println("DATE ADDED");
-                }else {
-                    System.out.println("ERROR WHEN ADDING");
-                }
+        CustomerDate customerDate = testUtility.generateDate("30/6/2020", "11:00", 149);
+        if (customerDate != null) {
+            if (dateService.add(customerDate)) {
+                System.out.println("DATE ADDED");
+            } else {
+                System.out.println("ERROR WHEN ADDING");
             }
         } else {
             System.out.println("ERROR");
@@ -34,9 +32,9 @@ public class DateServiceTest implements TestService {
         DateService dateService = DateService.getInstance();
         if (dateService.getAll() != null) {
             CustomerDate customerDate = dateService.getByID(261);
-            if(dateService.remove(customerDate)){
+            if (dateService.remove(customerDate)) {
                 System.out.println("DATE DELETED");
-            }else {
+            } else {
                 System.out.println("ERROR WHEN DELETING");
             }
         } else {
@@ -48,9 +46,14 @@ public class DateServiceTest implements TestService {
     @Override
     public void testEdit() {
         DateService dateService = DateService.getInstance();
-        CustomerDate oldCustomerDate = dateService.getByID(244);
-        CustomerDate newCustomerDate = oldCustomerDate;
-        newCustomerDate.setHour("10:00am");
+        CustomerDate oldCustomerDate = dateService.getByID(129);
+
+        CustomerDate newCustomerDate = new CustomerDate();
+        newCustomerDate.setAdminID(184);
+        newCustomerDate.setCustomerID(oldCustomerDate.getCustomerID());
+        newCustomerDate.setDate("32/6/2020");
+        newCustomerDate.setHour("17:00");
+
         if (dateService.edit(oldCustomerDate, newCustomerDate)) {
             System.out.println("Old user:" + oldCustomerDate.getHour());
             System.out.println("Edited user: " + newCustomerDate.getHour());

@@ -69,7 +69,8 @@ public class AdminAvailabilityService implements Service<AdminAvailability, List
         refresh();
         int index = containsIndexOf(oldAdminAvailability.getAdminID());
         if (index != -1) {
-            list.add(index, newAdminAvailability);
+            list.remove(index);
+            list.add(newAdminAvailability);
             adminAvailabilityPersistence.write(list);
             return true;
         }
@@ -117,6 +118,11 @@ public class AdminAvailabilityService implements Service<AdminAvailability, List
         return null;
     }
 
+    /**
+     * Para obtener la disponibilidad de un doctor en un Map
+     * @param iD del doctor
+     * @return mapa con la disponibilidad del doctor
+     */
     public Map<String, List> getByID2(int iD) {
         refresh();
         for (int i = 0; i < list.size(); i++) {

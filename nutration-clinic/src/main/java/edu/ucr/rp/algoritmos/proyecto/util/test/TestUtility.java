@@ -1,10 +1,7 @@
 package edu.ucr.rp.algoritmos.proyecto.util.test;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.*;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AnnotationService;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.EatingPlanService;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.*;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
@@ -31,7 +28,7 @@ public class TestUtility {
 
     public void generateUserName() {
         String[] name = {"Carlitos Aguilar", "Braulio Carrillo", "Andre Turrio", "Hern Olivar", "Rosa Marquez", "Lolo Quesada", "Fran Mars", "Yeiny Misun"};
-        user.setName(name[random(name.length)]+random(10000000));
+        user.setName(name[random(name.length)] + random(10000000));
     }
 
     public void generateEmail() {
@@ -89,10 +86,12 @@ public class TestUtility {
     UserService userService;
     DateService dateService;
     UserLinkedList userLinkedList;
+    AdminAvailabilityService adminAvailabilityService;
 
     private void initializeService() {
         userService = UserService.getInstance();
         dateService = DateService.getInstance();
+        adminAvailabilityService = AdminAvailabilityService.getInstance();
         userLinkedList = userService.getAll();
     }
 
@@ -105,13 +104,14 @@ public class TestUtility {
         return false;
     }
 
-    public CustomerDate randomDate() {
+    public CustomerDate generateDate(String date, String hour, int adminID) {
         initializeService();
         if (validate()) {
             customerDate = new CustomerDate();
             setID();
-            setDateAndHour();
-
+            customerDate.setDate(date);
+            customerDate.setHour(hour);
+            customerDate.setAdminID(adminID);
             return customerDate;
         }
         return null;
@@ -120,20 +120,13 @@ public class TestUtility {
     private void setID() {
         initializeService();
         int iD = userService.getAll().get(random(userLinkedList.size())).getID();
-        int rol = 0;
+        int rol;
         boolean customerID = true;
-        boolean adminID = true;
         int accountant = 0;
 
-        while (accountant != 2) {
+        while (accountant != 1) {
             rol = userService.getByID(iD).getRol();
-            if (rol == 2) {
-                if (adminID) {
-                    customerDate.setAdminID(iD);
-                    adminID = false;
-                    accountant++;
-                }
-            } else if (rol == 3) {
+            if (rol == 3) {
                 if (customerID) {
                     customerDate.setCustomerID(iD);
                     customerID = false;
@@ -141,23 +134,10 @@ public class TestUtility {
                     customerSetID = iD;
                 }
             }
-            if (accountant != 2) {
+            if (accountant != 1) {
                 iD = userService.getAll().get(random(userLinkedList.size())).getID();
             }
         }
-    }
-
-    public void setDateAndHour() {
-        initializeService();
-        /*DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        dtf.format(now)*/
-
-        LocalDateTime now = LocalDateTime.now();
-        String date = now.getDayOfMonth() + "/" + now.getMonth() + "/" + now.getYear();
-        customerDate.setDate(date);
-
-        String hour = now.getHour() + ":" + now.getMinute() + ":" + now.getSecond();
-        customerDate.setHour(hour);
     }
 
     ////////////////////////////////////////////////////////////// GENERADOR DE PLANES DE COMIDA
@@ -231,9 +211,9 @@ public class TestUtility {
     }
 
     public void generateRandomAnnotations() {
-        Object[] fat = {"16%","17%","18%","19%","20%","21%","22%","23%","24%"};
-        Object[] weight = {"50 kg","55 kg","60 kg","65 kg","70 kg","75 kg","80 kg","85 kg","90 kg"};
-        Object[] height = {"110 cm","115 cm","120 cm","125 cm","130 cm","135 cm","140 cm", "145 cm", "150 cm"};
+        Object[] fat = {"16%", "17%", "18%", "19%", "20%", "21%", "22%", "23%", "24%"};
+        Object[] weight = {"50 kg", "55 kg", "60 kg", "65 kg", "70 kg", "75 kg", "80 kg", "85 kg", "90 kg"};
+        Object[] height = {"110 cm", "115 cm", "120 cm", "125 cm", "130 cm", "135 cm", "140 cm", "145 cm", "150 cm"};
         int randomNumber = random(fat.length);
         adminAnnotation.setFat(fat[randomNumber]);
         adminAnnotation.setWeight(weight[randomNumber]);

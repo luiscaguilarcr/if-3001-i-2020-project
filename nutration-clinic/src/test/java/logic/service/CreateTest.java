@@ -41,7 +41,7 @@ public class CreateTest implements TestInterfaceService {
     public void DateServiceTest() { // works
         DateService dateService = DateService.getInstance();
         for (int i = 0; i < 10; i++) {
-            CustomerDate customerDate = testUtility.randomDate();
+            CustomerDate customerDate = testUtility.generateDate("32/6/2020", "8:00", 305290615);
             if (dateService.add(customerDate)) {
                 System.out.println("Se agregó cita");
             } else {
