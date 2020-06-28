@@ -1,5 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation;
 
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.EatingPlan;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.interfaces.Persistence;
 import edu.ucr.rp.algoritmos.proyecto.util.files.JsonUtil;
@@ -48,6 +49,15 @@ public class EatingPlanPersistence implements Persistence<EatingPlan, List> {
             } catch (MalformedURLException e) {
                 System.out.println(e.getMessage());
             }
+        }
+        return null;
+    }
+
+    public List<EatingPlan> convert(List<AdminAvailability> list){
+        try {
+            return jsonUtil.jsonArrayToObjectList(jsonUtil.asJson(list), EatingPlan.class);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return null;
     }
