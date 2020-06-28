@@ -12,7 +12,9 @@ import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AnnotationService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.EatingPlanService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import java.time.LocalDate;
@@ -35,28 +37,26 @@ public class AddAnnotationForm implements PaneViewer {
 
     private static GridPane pane;
     private static CustomerDateService dateService;
+    private static AnnotationService annotationService;
     private static UserService userService;
     private static Label customerIDLabel;
     private static Label weightLabel;
     private static Label fatLabel;
     private static Label heightLabel;
-     private static Label weightKgLabel;
+    private static Label weightKgLabel;
     private static Label fatPorcLabel;
     private static Label heightcmtLabel;
     private static Label dateLabel;
-    private static Label eatingPlanLabel;
     private static Label doctorIDLabel;
     private static TextField weightTextField;
     private static TextField fatTextField;
     private static TextField heightTextField;
     private static TextField dateTextField;
-    private static ComboBox eatingPlanComboBox;
     private static ComboBox customerIDComboBox;
     private static TextField doctorIDTextField;
     private static Button addAnnotationButton;
     private static Button cancelButton;
     private ObservableList<String> selectCustomerObservableList;
-    private ObservableList<String> selectDoctorObservableList;
 
     public GridPane addAnnotationForm() {
         pane = PaneUtil.buildPane();
@@ -69,6 +69,7 @@ public class AddAnnotationForm implements PaneViewer {
     public static void serviceInstance() {
         dateService = CustomerDateService.getInstance();
         userService = UserService.getInstance();
+        annotationService = AnnotationService.getInstance();
     }
 
     private void setupControls() {
@@ -88,42 +89,72 @@ public class AddAnnotationForm implements PaneViewer {
         dateLabel = PaneUtil.buildLabel(pane, " Date ", 0, 4);
         dateTextField = PaneUtil.buildTextField(pane, 4);
         dateTextField.setDisable(true);
-        eatingPlanLabel = PaneUtil.buildLabel(pane, " Select Eating Plan ", 0, 5);
-//      eatingPlanComboBox = PaneUtil.buildComboBox(pane, observableList, 1, 5);
-        doctorIDLabel = PaneUtil.buildLabel(pane, " DoctorID ", 0, 6);
-        doctorIDTextField = PaneUtil.buildTextField(pane, 6);
+        doctorIDLabel = PaneUtil.buildLabel(pane, " DoctorID ", 0, 5);
+        doctorIDTextField = PaneUtil.buildTextField(pane, 5);
         doctorIDTextField.setDisable(true);
-        addAnnotationButton = PaneUtil.buildButton("Annotate", pane, 1, 7);
-        cancelButton = PaneUtil.buildButtonImage(new Image("logout.png"), pane, 2, 7);
+        addAnnotationButton = PaneUtil.buildButton("Annotate", pane, 1, 6);
+        cancelButton = PaneUtil.buildButtonImage(new Image("logout.png"), pane, 2, 6);
 
     }
 
     private void addHandlers() {
-        LocalDate localDate = LocalDate.now();
-        String date = localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear();
-        dateTextField.setText(date);
-         if(weightTextField.getText().isEmpty()){
-              PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "Insert amount of weight");
-         }
-          if(fatTextField.getText().isEmpty()){
-              PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "Insert the amount of fat");
-         }
-       if(heightTextField.getText().isEmpty()){
-              PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "Insert height measure");
-         }
-        
-        cancelButton.setOnAction(e -> MainManagePane.clearPane());
+        cancelButton.setOnAction(e -> {
+            MainManagePane.clearPane();
+            refreshItems();
+        });
         addAnnotationButton.setOnAction(e -> {
-            doctorIDTextField.setText(LogIn.getUser().getID() + "");
+            addAnnotation();
+        });
+    }
+
+    public void addAnnotation() {
+
+        boolean validate = true;
+        if (weightTextField.getText().isEmpty()) {
+            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "Insert amount of weight");
+            validate = false;
+        }
+        if (fatTextField.getText().isEmpty()) {
+            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "Insert the amount of fat");
+            validate = false;
+        }
+        if (heightTextField.getText().isEmpty()) {
+            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "Insert height measure");
+            validate = false;
+        }
+        if (validate) {
             AdminAnnotation adminAnnotation = new AdminAnnotation();
+            LocalDate localDate = LocalDate.now();
+            String date = localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear();
+            adminAnnotation.setDate(date);
+            dateTextField.setText(date);
+            doctorIDTextField.setText(LogIn.getUser().getID() + "");
             adminAnnotation.setWeight(Integer.parseInt(weightTextField.getText()));
-            adminAnnotation.setFat(Integer.parseInt(fatTextField.getText()));
+            int fat = Integer.parseInt(fatTextField.getText());
+            adminAnnotation.setFat(fat);
             adminAnnotation.setWeight(Integer.parseInt(heightTextField.getText()));
             User user = userService.getByName(customerIDComboBox.getSelectionModel().getSelectedItem().toString());
             adminAnnotation.setCustomerID(user.getID());
             adminAnnotation.setDocID(LogIn.getUser().getID());
-            adminAnnotation.setDate(date);
-        });
+            EatingPlanService eatingPlanService = EatingPlanService.getInstance();
+            adminAnnotation.setEatingPlan(eatingPlanService.getPlanByID(fat));
+            if (annotationService.add(adminAnnotation)) {
+                MainManagePane.clearPane();
+                refreshItems();
+                PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Annotation added", "The annotation was correctly added");
+            } else {
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "ERROR", "The annotation was not added");
+            }
+        }
+    }
+
+    private void refreshItems() {
+        customerIDComboBox.getSelectionModel().clearSelection();
+        dateTextField.clear();
+        doctorIDTextField.clear();
+        weightTextField.clear();
+        heightTextField.clear();
+        fatTextField.clear();
     }
 
     @Override
