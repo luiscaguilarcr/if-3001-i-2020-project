@@ -7,6 +7,7 @@ package edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import static edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddAdminForm.serviceInstance;
+import static edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ViewAdminForm.tableView;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
@@ -16,11 +17,12 @@ import javafx.scene.layout.Pane;
  *
  * @author Noel
  */
-public class ViewAdminForm implements PaneViewer{
-public static TableView tableView;
- private static GridPane pane;
+public class ViewCustomer_Form implements PaneViewer {
 
- public GridPane  Table() {
+    private static GridPane pane;
+    private static TableView tableView;
+
+    public GridPane ViewCustomer() {
         pane = PaneUtil.buildPane();
         setupControls();
         //addHandlers();
@@ -29,15 +31,18 @@ public static TableView tableView;
         return pane;
     }
 
-private void setupControls() {
+    
+    private void setupControls() {
 //tableView= PaneUtil.buildTableViewUser(pane, 1, 2);
 
-
+pane= PaneUtil.buildTableViewUser(pane, 1, 0);
 }
-
+    
+    
+    
     @Override
     public Pane getPane() {
-       return Table();
+
+        return ViewCustomer();
     }
-    
 }

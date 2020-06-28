@@ -19,7 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javax.swing.JOptionPane;
+
 
 /**
  * @author Noel
@@ -65,10 +65,10 @@ public class ChangePasswordForm implements PaneViewer {
         modifyButton.setOnAction(e -> {
             Utility utility = new Utility();
             String encrypted = utility.encrypt(newPassword1TextField.getText());
-            
-                if (validateAdd()) {
-                     if (valiteFill()) {
-                    
+
+            if (validateAdd()) {
+                if (valiteFill()) {
+
                     if (utility.encrypt(currentPasswordTextField.getText()).equals(LogIn.getUser().getPassword())) {
 
                         if (changePassword(encrypted, LogIn.getUser())) {
@@ -77,13 +77,13 @@ public class ChangePasswordForm implements PaneViewer {
                         } else {
                             PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", " Added a password diferent of the original");
                         }
-                    } else{
-                     PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The new password cannot be the same as the old one");
+                    } else {
+                        PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The new password cannot be the same as the old one");
                     }
-                }else {
-                      PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "New password are diferent");
-                     
-                     }
+                } else {
+                    PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "New password are diferent");
+
+                }
             }
         });
     }

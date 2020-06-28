@@ -16,6 +16,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.text.Font;
 
 public class PaneUtil {
 
@@ -66,15 +67,15 @@ public class PaneUtil {
         alert.show();
     }
 
-    public static TableView buildTableView(GridPane pane,int column, int row) {
+    public static TableView buildTableView(GridPane pane, int column, int row) {
         TableView tableview = new TableView();
         tableview.setPrefWidth(10000000);
         tableview.setPrefHeight(5000);
         tableview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        pane.add(tableview,column, row);
+        pane.add(tableview, column, row);
         return tableview;
     }
- 
+
     public static Button buildButton(String text, GridPane pane, int column, int row) {
         Button button = new Button(text);
         pane.setHalignment(button, HPos.LEFT);
@@ -175,20 +176,29 @@ public class PaneUtil {
 //        series3.getData().add(new XYChart.Data(italy, 17557.31));
 //        series3.getData().add(new XYChart.Data(usa, 92633.68));
         //bc.getData().addAll(series1, series2, series3);
-         
-return xAxis;
+
+        return xAxis;
     }
 //     public static TableView builTableView(GridPane pane) {
 //    
 //}
-    
-    
-    public static TableView buildTableViewUser(GridPane pane,int column, int row) {
-        TableView tableview = new TableView();
-        tableview.setPrefWidth(10000000);
-        tableview.setPrefHeight(5000);
-        tableview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        pane.add(tableview,column, row);
-        return tableview;
+
+    public static GridPane buildTableViewUser(GridPane pane, int column, int row) {
+        final Label label = new Label("Address Book");
+        label.setFont(new Font("Arial", 20));
+     TableView table = new TableView();
+
+    table.setEditable (
+    true);
+ 
+        TableColumn firstNameCol = new TableColumn("First Name");
+    TableColumn lastNameCol = new TableColumn("Last Name");
+    TableColumn emailCol = new TableColumn("Email");
+
+   
+
+table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+pane.add(table, 1, 0);
+return pane;
     }
 }

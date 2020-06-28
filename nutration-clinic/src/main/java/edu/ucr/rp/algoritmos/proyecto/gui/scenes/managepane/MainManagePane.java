@@ -14,6 +14,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.SignUpForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ChangePasswordForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.Graphic;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ViewAdminForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ViewCustomer_Form;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ViewProfile;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -54,7 +55,8 @@ public class MainManagePane implements PaneViewer {
         panes.put(PaneName.ADD_ADMIN, new AddAdminForm().getPane());
         //panes.put(PaneName.MODIFY_USER_FORM), new ModifyUserForm().getPane());
         panes.put(PaneName.VIEW_USER_FORM, new ViewProfile().getPane());
-       panes.put(PaneName.TABLEVIEW, new ViewAdminForm().getPane());   
+        panes.put(PaneName.VIEW_CUSTOMER_FORM, new ViewCustomer_Form().getPane());
+      // panes.put(PaneName., new .getPane());   
         panes.put(PaneName.CHANGE_PASSWORD, new ChangePasswordForm().getPane());
         panes.put(PaneName.ADD_DATE_FORM, new AddDatesForm().getPane());
         panes.put(PaneName.MODIFY_DATE_FORM, new ModifyDate().getPane());
