@@ -1,6 +1,5 @@
 package persistence;
 
-import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.*;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
@@ -89,8 +88,8 @@ public class UserPersistenceTest implements TestPersistence {
         ioUtility.verifyAppDir();
         AdminAvailabilityPersistence adminAvailabilityPersistence = new AdminAvailabilityPersistence();
         AnnotationPersistence annotationPersistence = new AnnotationPersistence();
-        CustomerReportPersistence customerReportPersistence = new CustomerReportPersistence();
-        DatePersistence datePersistence = new DatePersistence();
+        CustomerDatesHistoryPersistence customerDatesHistoryPersistence = new CustomerDatesHistoryPersistence();
+        CustomerDatePersistence customerDatePersistence = new CustomerDatePersistence();
         EatingPlanPersistence eatingPlanPersistence = new EatingPlanPersistence();
         HistoryAppPersistence historyAppPersistence = new HistoryAppPersistence();
         UserPersistence userPersistence = new UserPersistence();
@@ -114,13 +113,13 @@ public class UserPersistenceTest implements TestPersistence {
             System.out.println("No se eliminó annotation persistence\"");
 
         /*---------------------------------*/
-        if (customerReportPersistence.deleteAll())
+        if (customerDatesHistoryPersistence.deleteAll())
             System.out.println("Se eliminó customer report persistence\"");
         else
             System.out.println("No se eliminó customer report persistence\"");
 
         /*---------------------------------*/
-        if (datePersistence.deleteAll())
+        if (customerDatePersistence.deleteAll())
             System.out.println("Se eliminó date persistence\"");
         else
             System.out.println("No se eliminó date persistence\"");
