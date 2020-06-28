@@ -85,7 +85,7 @@ public class ViewDate implements PaneViewer {
 
         dateTable = PaneUtil.buildTableView(pane, 1, 1);
 
-//   
+ 
 //    tC_name.setCellValueFactory(new PropertyValueFactory<CustomerDate,String>("Date"));
 //    
 //    

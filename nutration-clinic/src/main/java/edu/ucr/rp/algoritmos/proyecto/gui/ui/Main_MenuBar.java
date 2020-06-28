@@ -212,7 +212,7 @@ public class Main_MenuBar implements PaneViewer {
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_DATES));
         });
 
-        annotationsDate_MenuItem.setOnAction((event) -> {
+        annotationsDate_MenuItem.setOnAction((event) -> {           
         });
 
         dates_Menu.getItems().addAll(addDate_MenuItem, modifyDate_MenuItem, viewDate_MenuItem, annotationsDate_MenuItem);

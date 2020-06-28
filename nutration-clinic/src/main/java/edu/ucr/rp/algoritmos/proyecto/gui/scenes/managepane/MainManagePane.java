@@ -4,6 +4,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.Main_MenuBar;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddAnnotationForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ViewDate;
@@ -57,7 +58,7 @@ public class MainManagePane implements PaneViewer {
         panes.put(PaneName.ADD_DATE_FORM, new AddDatesForm().getPane());
         panes.put(PaneName.MODIFY_DATE_FORM, new ModifyDate().getPane());
         panes.put(PaneName.VIEW_DATES, new ViewDate().getPane());
-
+    
     }
 
     @Override
