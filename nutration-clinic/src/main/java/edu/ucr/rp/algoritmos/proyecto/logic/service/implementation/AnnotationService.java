@@ -2,8 +2,11 @@ package edu.ucr.rp.algoritmos.proyecto.logic.service.implementation;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.AnnotationPersistence;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.UserPersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService2;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.AuxService5;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnotationQueue;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
 /**
@@ -12,7 +15,7 @@ import edu.ucr.rp.algoritmos.proyecto.util.Utility;
  *
  * @author Luis Carlos Aguilar
  */
-public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnnotationQueue> {
+public class AnnotationService implements AuxService5<AdminAnnotation, AdminAnnotationQueue> {
     public AdminAnnotationQueue queue;
     private AnnotationPersistence annotationPersistence;
     private static AnnotationService instance;
@@ -50,46 +53,11 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
     @Override
     public boolean add(AdminAnnotation adminAnnotation) {
         refresh();
-        if (validateAddition(adminAnnotation)) {
+        if (adminAnnotation != null) {
             queue.enqueue(adminAnnotation);
             customerDatesHistoryService.add(customerDateService.getByID(adminAnnotation.getCustomerID()));
             customerDateService.remove(customerDateService.getByID(adminAnnotation.getCustomerID()));
             //utility.historyApp("Anotaciones agregadas para el usuario " + adminAnnotation.getCustomerID() + " en la fecha " + adminAnnotation.getDate());
-            return annotationPersistence.write(queue);
-        }
-        return false;
-    }
-
-    /**
-     * @param oldAdminAnnotation
-     * @param newAdminAnnotation
-     * @return
-     */
-    @Override
-    public boolean edit(AdminAnnotation oldAdminAnnotation, AdminAnnotation newAdminAnnotation) {
-        refresh();
-        if (queue.contains(oldAdminAnnotation)) {
-            queue.dequeue(oldAdminAnnotation);
-            queue.enqueue(newAdminAnnotation);
-            annotationPersistence.write(queue);
-            //utility.historyApp("Anotaciones editadas para el usuario " + oldAdminAnnotation.getCustomerID() + " en la fecha " + oldAdminAnnotation.getDate());
-            refresh();
-        }
-        return queue.contains(newAdminAnnotation);
-    }
-
-    /**
-     * Para remover las anotaciones realizadas por un administrador en una cita.
-     *
-     * @param adminAnnotation que se quiere remover
-     * @return true si las anotaciones realizadas por un administrador en una cita fueron removidas, si no, false
-     */
-    @Override
-    public boolean remove(AdminAnnotation adminAnnotation) {
-        refresh();
-        if (queue.contains(adminAnnotation)) {
-            queue.dequeue(adminAnnotation);
-            //utility.historyApp("Anotaciones eliminadas para el usuario " + adminAnnotation.getCustomerID() + " en la fecha " + adminAnnotation.getDate());
             return annotationPersistence.write(queue);
         }
         return false;
@@ -146,22 +114,15 @@ public class AnnotationService implements AuxService2<AdminAnnotation, AdminAnno
      * Refresca la cola de anotaciones realizadas por los administradores.
      */
     private void refresh() {
-        //Lee el archivo
-        Object object = annotationPersistence.read();
-        //Valida que existe y lo sustituye por la lista en memoria
-        if (object != null) {
-            queue = (AdminAnnotationQueue) object;
-        }
-    }
+        annotationPersistence = new AnnotationPersistence();
+        AdminAnnotationQueue tempAdminAnnotationQueue = new AdminAnnotationQueue();
 
-    /**
-     * Valida si se puede agregar las anotaciones a un cliente.
-     *
-     * @param adminAnnotation que se quiere agregar
-     * @return true si se puede agregar, si no, false
-     */
-    private boolean validateAddition(AdminAnnotation adminAnnotation) {
-        if (queue.contains(adminAnnotation)) return false;
-        return true;
+        queue = annotationPersistence.read();
+        if (queue != null) {
+            for (int i = 0; i < queue.size(); i++) {
+                tempAdminAnnotationQueue.enqueue(queue.dequeue());
+            }
+        }
+        queue = tempAdminAnnotationQueue;
     }
 }

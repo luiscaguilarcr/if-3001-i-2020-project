@@ -200,18 +200,14 @@ public class TestUtility {
     }
 
     public AdminAnnotation generateAnnotations(CustomerDate customerDate) {
-        refresh();
+        AdminAnnotation adminAnnotation = new AdminAnnotation();
         EatingPlanService eatingPlanService = EatingPlanService.getInstance();
         adminAnnotation.setDate(customerDate.getDate());
         adminAnnotation.setCustomerID(customerDate.getCustomerID());
         adminAnnotation.setDocID(customerDate.getAdminID());
         EatingPlan eatingPlan = eatingPlanService.getByID(5);
         adminAnnotation.setEatingPlan(eatingPlan);
-        generateRandomAnnotations();
-        return adminAnnotation;
-    }
 
-    public void generateRandomAnnotations() {
         int[] fat = {16, 17, 18, 19, 20, 21, 22, 23, 24};
         int[] weight = {50, 55, 60, 65, 70, 75, 80, 85, 90};
         int[] height = {110, 115, 120, 125, 130, 135, 140, 145, 150};
@@ -219,5 +215,11 @@ public class TestUtility {
         adminAnnotation.setFat(fat[randomNumber]);
         adminAnnotation.setWeight(weight[randomNumber]);
         adminAnnotation.setHeight(height[randomNumber]);
+        return adminAnnotation;
+    }
+
+    public void generateRandomAnnotations() {
+        refresh();
+
     }
 }

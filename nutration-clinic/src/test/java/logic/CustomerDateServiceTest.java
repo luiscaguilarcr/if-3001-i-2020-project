@@ -15,16 +15,19 @@ public class CustomerDateServiceTest implements TestService {
     @Test
     @Override
     public void testAddition() {
-        CustomerDate customerDate = testUtility.generateDate("28/6/2020", "17:00", 149);
-        if (customerDate != null) {
-            if (customerDateService.add(customerDate)) {
-                System.out.println("DATE ADDED");
+        //for (int i = 8; i < 16; i++) {
+            //CustomerDate customerDate = testUtility.generateDate("28/6/2020", i+":00", 257);
+            CustomerDate customerDate = testUtility.generateDate("28/6/2020", "14:00", 257);
+            if (customerDate != null) {
+                if (customerDateService.add(customerDate)) {
+                    System.out.println("DATE ADDED");
+                } else {
+                    System.out.println("ERROR WHEN ADDING");
+                }
             } else {
-                System.out.println("ERROR WHEN ADDING");
+                System.out.println("ERROR");
             }
-        } else {
-            System.out.println("ERROR");
-        }
+        //}
     }
 
     @Test

@@ -7,7 +7,7 @@ import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnot
 public interface QueueInterface {
     void enqueue(AdminAnnotation adminAnnotation);
 
-    void dequeue(AdminAnnotation adminAnnotation);
+    AdminAnnotation dequeue();
 
     int size();
 

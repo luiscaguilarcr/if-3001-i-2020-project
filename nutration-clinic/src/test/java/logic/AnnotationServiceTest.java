@@ -1,6 +1,7 @@
 package logic;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AnnotationService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.util.test.TestUtility;
@@ -14,7 +15,8 @@ public class AnnotationServiceTest implements TestService {
     @Override
     public void testAddition() {
         CustomerDateService customerDateService = CustomerDateService.getInstance();
-        AdminAnnotation adminAnnotation = testUtility.generateAnnotations(customerDateService.getByID(129));
+        CustomerDate customerDate = customerDateService.getByID(145);
+        AdminAnnotation adminAnnotation = testUtility.generateAnnotations(customerDate);
         AnnotationService annotationService = AnnotationService.getInstance();
         if(annotationService.add(adminAnnotation)){
             System.out.println("Se agregaron las anotaciones");

@@ -118,10 +118,11 @@ public class CustomerDateService implements Service<CustomerDate, CustomerDateSt
     public CustomerDate getByID(int iD) {
         refresh();
         for (int i = 0; i < stack.size(); i++) {
-            if (stack.getByAcc(i).getCustomerID() == iD) {
+            CustomerDate customerDate = stack.getByAcc(i);
+            if (customerDate.getCustomerID() == iD) {
                 return stack.getByAcc(i);
             }
-            if (stack.getByAcc(i).getAdminID() == iD) {
+            if (customerDate.getAdminID() == iD) {
                 return null;
             }
         }
