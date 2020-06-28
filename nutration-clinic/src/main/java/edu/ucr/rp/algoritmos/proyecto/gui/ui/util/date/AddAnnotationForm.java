@@ -11,12 +11,12 @@ import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityService;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.DateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -100,6 +100,16 @@ public class AddAnnotationForm implements PaneViewer {
         LocalDate localDate = LocalDate.now();
         String date = localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear();
         dateTextField.setText(date);
+         if(weightTextField.getText().isEmpty()){
+              PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "Insert amount of weight");
+         }
+          if(fatTextField.getText().isEmpty()){
+              PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "Insert the amount of fat");
+         }
+       if(heightTextField.getText().isEmpty()){
+              PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "Insert height measure");
+         }
+        
         cancelButton.setOnAction(e -> MainManagePane.clearPane());
         addAnnotationButton.setOnAction(e -> {
             doctorIDTextField.setText(LogIn.getUser().getID() + "");
