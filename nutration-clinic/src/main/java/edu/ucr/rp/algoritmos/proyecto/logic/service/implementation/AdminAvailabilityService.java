@@ -161,7 +161,7 @@ public class AdminAvailabilityService implements AvailabilityService<AdminAvaila
         List<String> tempList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             Map<String, List> map = list.get(i).getAdminAvailability();
-            if(map.containsKey(date)){
+            if(map.get(date) != null){
                 User user = userService.getByID(list.get(i).getAdminID());
                 tempList.add(user.getName());
             }

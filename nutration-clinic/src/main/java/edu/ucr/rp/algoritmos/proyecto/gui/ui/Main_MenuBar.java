@@ -142,7 +142,6 @@ public class Main_MenuBar implements PaneViewer {
         modifyAdmin_MenuItem.setOnAction((event) -> {
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.MODIFY_USER_FORM));
             ModifyUserForm.setRol(2);
-            ModifyUserForm.unShow();
             ModifyUserForm.refresh();
         });
 

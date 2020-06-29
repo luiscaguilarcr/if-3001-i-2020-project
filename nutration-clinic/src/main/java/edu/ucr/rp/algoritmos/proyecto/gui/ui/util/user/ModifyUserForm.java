@@ -28,15 +28,15 @@ public class ModifyUserForm implements PaneViewer {
     private static Label phoneNumberLabel;
     private static Label selectCustomerLabel;
     private static Label selectAdminLabel;
+    private static Label rolLabel;
     private static TextField nameTextField;
     private static TextField passwordTextField;
     private static TextField emailTextField;
     private static TextField addressTextField;
     private static TextField phoneNumberTextField;
-
     private static ComboBox selectCustomerComboBox;
     private static ComboBox rolComboBox;
-    private static Integer rol;
+    private static int rol;
     private static ObservableList<String> selectCustomerObservableList;
     private ObservableList<Integer> rolObservableList;
     private static GridPane pane;
@@ -53,24 +53,26 @@ public class ModifyUserForm implements PaneViewer {
     private void setupControls() {
         selectCustomerLabel = PaneUtil.buildLabel(pane, "Select a customer", 0, 3);
         selectAdminLabel = PaneUtil.buildLabel(pane, "Select a doctor", 0, 3);
+
         selectCustomerObservableList = FXCollections.observableArrayList();
         selectCustomerComboBox = PaneUtil.buildComboBox(pane, selectCustomerObservableList, 1, 3);
-        selectCustomerButton = PaneUtil.buildButtonImage(new Image("add.png"), pane, 2, 3);
+        selectCustomerButton = PaneUtil.buildButtonImage(new Image("editUser.png"), pane, 2, 3);
 
-        nameLabel = PaneUtil.buildLabel(pane, "Name", 1, 1);
-        nameTextField = PaneUtil.buildTextInput(pane, 1, 2);
-        passwordLabel = PaneUtil.buildLabel(pane, "Password", 1, 3);
-        passwordTextField = PaneUtil.buildTextInput(pane, 1, 4);
-        emailLabel = PaneUtil.buildLabel(pane, "Email", 1, 5);
-        emailTextField = PaneUtil.buildTextInput(pane, 1, 6);
-        addressLabel = PaneUtil.buildLabel(pane, "Address", 1, 7);
-        addressTextField = PaneUtil.buildTextInput(pane, 1, 8);
-        phoneNumberLabel = PaneUtil.buildLabel(pane, "Phone Number", 1, 9);
-        phoneNumberTextField = PaneUtil.buildTextInput(pane, 1, 10);
+        nameLabel = PaneUtil.buildLabel(pane, "Name", 1, 4);
+        nameTextField = PaneUtil.buildTextInput(pane, 1, 5);
+        passwordLabel = PaneUtil.buildLabel(pane, "Password", 1, 6);
+        passwordTextField = PaneUtil.buildTextInput(pane, 1, 7);
+        emailLabel = PaneUtil.buildLabel(pane, "Email", 1, 8);
+        emailTextField = PaneUtil.buildTextInput(pane, 1, 9);
+        addressLabel = PaneUtil.buildLabel(pane, "Address", 1, 10);
+        addressTextField = PaneUtil.buildTextInput(pane, 1, 11);
+        phoneNumberLabel = PaneUtil.buildLabel(pane, "Phone Number", 1, 12);
+        phoneNumberTextField = PaneUtil.buildTextInput(pane, 1, 13);
         rolObservableList = FXCollections.observableArrayList(2, 3);
-        rolComboBox = PaneUtil.buildComboBox(pane, rolObservableList, 1, 11);
-        exitButton = PaneUtil.buildButtonImage(new Image("exit.png"), pane, 2, 13);
-        modifyButton = PaneUtil.buildButton("Modify", pane, 4, 13);
+        rolLabel = PaneUtil.buildLabel(pane, "Rol", 1, 14);
+        rolComboBox = PaneUtil.buildComboBox(pane, rolObservableList, 1, 15);
+        exitButton = PaneUtil.buildButtonImage(new Image("exit.png"), pane, 2, 16);
+        modifyButton = PaneUtil.buildButton("Modify", pane, 4, 16);
     }
 
     public static void serviceInstance() {
@@ -180,7 +182,7 @@ public class ModifyUserForm implements PaneViewer {
             phoneNumberTextField.setStyle("-fx-background-color: #FDC7C7");
             validate = false;
         }
-        if(rolComboBox.getSelectionModel().getSelectedItem() == null){
+        if (rolComboBox.getSelectionModel().getSelectedItem() == null) {
             PaneUtil.showAlert(Alert.AlertType.ERROR, "ERROR", "Select a rol");
         }
         return validate;
@@ -200,8 +202,8 @@ public class ModifyUserForm implements PaneViewer {
         rolComboBox.setVisible(false);
         exitButton.setVisible(false);
         modifyButton.setVisible(false);
+        rolLabel.setVisible(false);
 
-        selectCustomerLabel.setVisible(true);
         selectCustomerComboBox.setVisible(true);
         selectCustomerButton.setVisible(true);
     }
@@ -220,9 +222,9 @@ public class ModifyUserForm implements PaneViewer {
         rolComboBox.setVisible(true);
         exitButton.setVisible(true);
         modifyButton.setVisible(true);
+        rolLabel.setVisible(true);
 
         selectAdminLabel.setVisible(false);
-        selectCustomerLabel.setVisible(false);
         selectCustomerLabel.setVisible(false);
         selectCustomerComboBox.setVisible(false);
         selectCustomerButton.setVisible(false);
@@ -236,20 +238,22 @@ public class ModifyUserForm implements PaneViewer {
         if (userService.getAll().isEmpty()) {
             PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You must first add an user");
             MainManagePane.clearPane();
+        } else {
+            unShow();
         }
     }
 
-    public static void setRol(Integer rol1) {
+    public static void setRol(int rol1) {
         rol = rol1;
-        editAdminAndCustomer();
+        editAdminAndCustomer(rol1);
     }
 
-    private static void editAdminAndCustomer() {
+    private static void editAdminAndCustomer(int rol) {
         if (rol == 2) {
             selectCustomerObservableList.clear();
-            selectCustomerObservableList.addAll(userService.getUserNames());
-            selectCustomerLabel.setVisible(false);
+            selectCustomerObservableList.addAll(userService.getAdminNames());
             selectAdminLabel.setVisible(true);
+            selectCustomerLabel.setVisible(false);
         } else if (rol == 3) {
             selectCustomerObservableList.clear();
             selectCustomerObservableList.addAll(userService.getCustomerNames());
