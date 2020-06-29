@@ -88,7 +88,7 @@ public class ViewAdminForm implements PaneViewer {
         rolComboBox = PaneUtil.buildComboBox(pane, rolObservableList, 1, 15);
         exitButton = PaneUtil.buildButtonImage(new Image("exit.png"), pane, 2, 5);
         deleteButton = PaneUtil.buildButtonImage(new Image("cleanApp.png"), pane, 2, 4);
-        selectCustomerButton = PaneUtil.buildButtonImage(new Image("editUser.png"), pane, 2, 3);
+        selectCustomerButton = PaneUtil.buildButtonImage(new Image("seeIcon.png"), pane, 2, 3);
     }
 
     private void addHandlers() {
@@ -101,7 +101,6 @@ public class ViewAdminForm implements PaneViewer {
             deleteCustomer();
         });
         selectCustomerButton.setOnAction(event -> {
-
             refreshFillItems();
             show();
         });
@@ -188,7 +187,7 @@ public class ViewAdminForm implements PaneViewer {
         //deleteButton.setVisible(true);
         rolLabel.setVisible(true);
 
-        selectAdminLabel.setVisible(false);
+        //selectAdminLabel.setVisible(false);
         selectCustomerLabel.setVisible(false);
         selectCustomerComboBox.setVisible(false);
         selectCustomerButton.setVisible(false);
