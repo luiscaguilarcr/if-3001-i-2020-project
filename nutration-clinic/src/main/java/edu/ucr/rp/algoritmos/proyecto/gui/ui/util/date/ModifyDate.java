@@ -77,7 +77,7 @@ public class ModifyDate implements PaneViewer {
         selectCustomerLabel = PaneUtil.buildLabel(pane, "Select a customer", 0, 3);
         selectCustomerObservableList = FXCollections.observableArrayList(userService.getCustomerNames());
         selectCustomerComboBox = PaneUtil.buildComboBox(pane, selectCustomerObservableList, 1, 3);
-        selectCustomerButton = PaneUtil.buildButtonImage(new Image("add.png"), pane, 2, 3);
+        selectCustomerButton = PaneUtil.buildButtonImage(new Image("editDate.png"), pane, 2, 3);
         addDateTitleLabel = PaneUtil.buildLabel(pane, "Book appointment", 0, 0);
         dateFieldLabel = PaneUtil.buildLabel(pane, "Date Field", 0, 1);
         checkInDatePicker = PaneUtil.buildDatePicker(pane, 1, 1);

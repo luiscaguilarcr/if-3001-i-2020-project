@@ -246,7 +246,6 @@ public class Main_MenuBar implements PaneViewer {
             int rol = LogIn.getRol();
             if (rol == 1) {
                 personalProgress_MenuItem.setVisible(false);
-                dates_Menu.setVisible(false);
                 annotationsDate_MenuItem.setVisible(false);
             } else if (rol == 2) {
                 personalProgress_MenuItem.setVisible(false);

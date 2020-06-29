@@ -208,6 +208,10 @@ public class AddDatesForm implements PaneViewer {
         hoursComboBox.setVisible(false);
         addDateButton.setVisible(false);
         selectHoursLabel.setVisible(false);
+
+        selectCustomerLabel.setVisible(true);
+        selectCustomerComboBox.setVisible(true);
+        selectCustomerButton.setVisible(true);
     }
 
     private static void show() {
@@ -220,6 +224,7 @@ public class AddDatesForm implements PaneViewer {
         addDateButton.setVisible(true);
         selectHoursLabel.setVisible(true);
         addDateButton.setVisible(false);
+
         selectCustomerLabel.setVisible(false);
         selectCustomerComboBox.setVisible(false);
         selectCustomerButton.setVisible(false);
