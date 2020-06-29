@@ -36,7 +36,6 @@ public class ViewDate implements PaneViewer {
     private static Button cancelButton;
     private static Button viewButton;
     private static Button deleteButton;
-    private static Button deleteAdminButton;
     private static Label dateLabel;
     private static Label hourLabel;
     private static Label customerLabel;
@@ -46,10 +45,6 @@ public class ViewDate implements PaneViewer {
     private static TextField customerTextField;
     private static TextField doctorTextField;
     private static CustomerDateService customerDateService;
-    private static ObservableList<CustomerDate> dates;
-    private static TableColumn tC_name;
-    private static TableView<CustomerDate> dateTable;
-    private static Button viewAdminButton;
     private static ComboBox selectCustomerComboBox;
     private static Button viewDateCustomerButton;
     private static Label selectCustomerLabel;
@@ -87,15 +82,35 @@ public class ViewDate implements PaneViewer {
         doctorTextField = PaneUtil.buildTextField(pane, 4);
         doctorTextField.setDisable(true);
         viewButton = PaneUtil.buildButtonImage(new Image("seeIcon.png"), pane, 0, 0);
-        cancelButton = PaneUtil.buildButtonImage(new Image("logout.png"), pane, 1, 0);
+        cancelButton = PaneUtil.buildButtonImage(new Image("exit.png"), pane, 1, 0);
         deleteButton = PaneUtil.buildButtonImage(new Image("cleanApp.png"), pane, 2, 0);
-        viewAdminButton = PaneUtil.buildButtonImage(new Image("seeIcon.png"), pane, 0, 0);
-        deleteAdminButton = PaneUtil.buildButtonImage(new Image("cleanApp.png"), pane, 2, 0);
     }
 
     private void addHandlers() {
         cancelButton.setOnAction(e -> MainManagePane.clearPane());
         viewButton.setOnAction(e -> {
+            view();
+        });
+
+        viewDateCustomerButton.setOnAction(event -> {
+            User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
+            if (customerDateService.getByID(user.getID()) == null) {
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "This user can't add another date");
+                MainManagePane.clearPane();
+            } else {
+                show();
+            }
+        });
+
+        deleteButton.setOnAction(e -> {
+            delete();
+        });
+    }
+
+    private void view() {
+        serviceInstance();
+        int rol = LogIn.getUser().getRol();
+        if (rol == 3) {
             if (customerDateService.getByID(LogIn.getUser().getID()) != null) {
                 dateTextField.setText(customerDateService.getByID(LogIn.getUser().getID()).getDate());
                 hourTextField.setText(customerDateService.getByID(LogIn.getUser().getID()).getHour());
@@ -105,18 +120,7 @@ public class ViewDate implements PaneViewer {
             } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot view a date, you must add a date");
             }
-        });
-        
-   viewDateCustomerButton.setOnAction(event -> {
-            User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
-            if (customerDateService.getByID(user.getID()) == null) {
-                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "This user can't add another date");
-                MainManagePane.clearPane();
-            } else {
-                showAdmin();
-            }
-        });
-        viewAdminButton.setOnAction(e -> {
+        } else {
             User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
             if (customerDateService.getByID(user.getID()) != null) {
                 dateTextField.setText(customerDateService.getByID(user.getID()).getDate());
@@ -127,9 +131,13 @@ public class ViewDate implements PaneViewer {
             } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot view a date, you must add a date");
             }
-        });
+        }
+    }
 
-        deleteButton.setOnAction(e -> {
+    private void delete() {
+        serviceInstance();
+        int rol = LogIn.getUser().getRol();
+        if (rol == 3) {
             if (customerDateService.getByID(LogIn.getUser().getID()) != null) {
                 customerDateService.remove(customerDateService.getByID(LogIn.getUser().getID()));
                 dateTextField.clear();
@@ -140,8 +148,7 @@ public class ViewDate implements PaneViewer {
             } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot delete a date, you must add a date");
             }
-        });
-        deleteAdminButton.setOnAction(e -> {
+        } else {
             User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
             if (customerDateService.getByID(user.getID()) != null) {
                 customerDateService.remove(customerDateService.getByID(user.getID()));
@@ -153,18 +160,7 @@ public class ViewDate implements PaneViewer {
             } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot delete a date, you must add a date");
             }
-        });
-        
-        viewDateCustomerButton.setOnAction(event -> {
-            User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
-            if (customerDateService.getByID(user.getID()) == null) {
-                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "This user can't add another date");
-                MainManagePane.clearPane();
-            } else {
-                showAdmin();
-            }
-        });
-
+        }
     }
 
     private static void unShow() {
@@ -179,24 +175,11 @@ public class ViewDate implements PaneViewer {
         viewButton.setVisible(false);
         cancelButton.setVisible(false);
         deleteButton.setVisible(false);
-        viewAdminButton.setVisible(false);
-        deleteAdminButton.setVisible(false);
+        selectCustomerLabel.setVisible(true);
+        selectCustomerComboBox.setVisible(true);
+        viewDateCustomerButton.setVisible(true);
     }
- private static void showAdmin() {
-        hourTextField.setVisible(true);
-        hourLabel.setVisible(true);
-        doctorTextField.setVisible(true);
-        doctorLabel.setVisible(true);
-        dateTextField.setVisible(true);
-        dateLabel.setVisible(true);
-        customerTextField.setVisible(true);
-        customerLabel.setVisible(true);
-        viewButton.setVisible(false);
-        deleteButton.setVisible(false);
-        selectCustomerLabel.setVisible(false);
-        selectCustomerComboBox.setVisible(false);
-        viewDateCustomerButton.setVisible(false);
-    }
+
     private static void show() {
         hourTextField.setVisible(true);
         hourLabel.setVisible(true);
@@ -209,7 +192,6 @@ public class ViewDate implements PaneViewer {
         viewButton.setVisible(true);
         cancelButton.setVisible(true);
         deleteButton.setVisible(true);
-        viewAdminButton.setVisible(false);
         selectCustomerLabel.setVisible(false);
         selectCustomerComboBox.setVisible(false);
         viewDateCustomerButton.setVisible(false);
