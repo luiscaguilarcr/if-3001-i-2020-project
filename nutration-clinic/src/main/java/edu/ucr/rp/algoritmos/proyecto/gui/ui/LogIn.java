@@ -135,7 +135,7 @@ public class LogIn implements PaneViewer {
 
     public static int getRol() {
         if (validUser) {
-            return userService.getByName(nameTextField.getText()).getRol();
+            return getUser().getRol();
         }
         return -1;
     }

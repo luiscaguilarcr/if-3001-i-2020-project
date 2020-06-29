@@ -261,6 +261,7 @@ public class ModifyDate implements PaneViewer {
     }
 
     private static void show() {
+        setupControlsInfo();
         addDateTitleLabel.setVisible(true);
         dateFieldLabel.setVisible(true);
         checkInDatePicker.setVisible(true);

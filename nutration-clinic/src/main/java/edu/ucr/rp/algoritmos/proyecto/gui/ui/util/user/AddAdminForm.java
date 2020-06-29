@@ -160,36 +160,40 @@ public class AddAdminForm implements PaneViewer {
     }
 
     private boolean validateAdd() {
+        boolean validate = true;
         if (nameTextField.getText().isEmpty()) {
             nameTextField.setPromptText("Obligatory field");
             nameTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
         if (passwordTextField.getText().isEmpty()) {
             passwordTextField.setPromptText("Obligatory field");
             passwordTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
         if (emailTextField.getText().isEmpty()) {
             emailTextField.setPromptText("Obligatory field");
             emailTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
 
         if (addressTextField.getText().isEmpty()) {
             addressTextField.setPromptText("Obligatory field");
             addressTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
         if (phoneNumberTextField.getText().isEmpty()) {
             phoneNumberTextField.setPromptText("Obligatory field");
             phoneNumberTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
         if (iDTextField.getText().isEmpty()) {
             iDTextField.setPromptText("Obligatory field");
             iDTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
 
-        if (!iDTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !emailTextField.getText().isEmpty() && !phoneNumberTextField.getText().isEmpty()) {
-            return true;
-        }
-        return false;
+        return validate;
     }
 
     @Override
