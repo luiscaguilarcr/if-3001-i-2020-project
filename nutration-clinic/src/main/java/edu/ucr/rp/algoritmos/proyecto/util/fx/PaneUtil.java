@@ -1,6 +1,8 @@
 package edu.ucr.rp.algoritmos.proyecto.util.fx;
 
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.AdminAnnotationQueue;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -19,6 +21,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Font;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaneUtil {
 private static ObservableList<String> selectCustomerObservableList;
@@ -161,27 +166,26 @@ private static ObservableList<String> selectCustomerObservableList;
         return textArea;
     }
 
-    public static CategoryAxis buildGraphic(GridPane pane) {
-
+    public CategoryAxis buildGraphic(GridPane pane, AdminAnnotationQueue adminAnnotationQueue) {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String, Number> bc
+        final BarChart<String, Number> barChart
                 = new BarChart<String, Number>(xAxis, yAxis);
-        bc.setTitle("Customer advancements");
-
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Fat");
-        series1.getData().add(new XYChart.Data("Fat", 25601.34));
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Hidratation");
-        series2.getData().add(new XYChart.Data("Hidration", 57401.85));
-        XYChart.Series series3 = new XYChart.Series();
-        series3.setName("Muscle");
-        series3.getData().add(new XYChart.Data("Muscle", 45000.65));
-
-        bc.getData().addAll(series1, series2, series3);
-        pane.add(bc, 0, 0);
-
+        barChart.setTitle("Customer advancements");
+        for (int i = 0; i < adminAnnotationQueue.size(); i++) {
+            AdminAnnotation adminAnnotation = adminAnnotationQueue.deQueue();
+            XYChart.Series series1 = new XYChart.Series();
+            series1.setName("Fat");
+            series1.getData().add(new XYChart.Data("Fat", adminAnnotation.getFat()));
+            XYChart.Series series2 = new XYChart.Series();
+            series2.setName("Hidratation");
+            series2.getData().add(new XYChart.Data("Weight", adminAnnotation.getWeight()));
+            XYChart.Series series3 = new XYChart.Series();
+            series3.setName("Muscle");
+            series3.getData().add(new XYChart.Data("Height", adminAnnotation.getHeight()));
+            barChart.getData().addAll(series1, series2, series3);
+            pane.add(barChart, 0, i);
+        }
         return xAxis;
     }
 

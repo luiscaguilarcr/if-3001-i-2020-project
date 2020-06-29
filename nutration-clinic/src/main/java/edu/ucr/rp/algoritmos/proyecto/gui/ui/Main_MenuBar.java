@@ -4,13 +4,11 @@ import edu.ucr.rp.algoritmos.proyecto.gui.App;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddAnnotationForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.system.CleanApp;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddAdminForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ViewDate;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ChangePasswordForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.PersonalProgress;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ModifyUserForm;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
@@ -27,7 +25,6 @@ import java.awt.Desktop;
 
 import java.io.File;
 import java.io.IOException;
-import javax.swing.JOptionPane;
 
 public class Main_MenuBar implements PaneViewer {
   
@@ -89,7 +86,8 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         personalProgress_MenuItem.setOnAction((event) -> {
-            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.GRAPHIC));
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.PERSONAL_PROGRESS));
+            PersonalProgress.refresh();
         });
 
         guide_MenuItem.setOnAction((event) -> {
