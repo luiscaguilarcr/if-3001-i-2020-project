@@ -188,7 +188,7 @@ public class TestUtility {
         Map<String, List> availability = new HashMap<>();
         LocalDate localDate = LocalDate.now();
         String dayOfWeek = localDate.getDayOfWeek().toString();
-        int j = 1;
+        int j = 0;
         if (dayOfWeek.equalsIgnoreCase("Monday")) {
             j++;
         } else if (dayOfWeek.equalsIgnoreCase("Tuesday")) {
@@ -199,14 +199,16 @@ public class TestUtility {
             j += 4;
         } else if (dayOfWeek.equalsIgnoreCase("Friday")) {
             j += 5;
+        }else if (dayOfWeek.equalsIgnoreCase("Saturday")) {
+            j++;
         }
-        for (int x = j ; x < 6; x++) {
+        for (int x = j ; x < 5; x++) {
             int dayOfMonth = localDate.getDayOfMonth();
 
-            if (dayOfMonth + x + 1 <= 30) {
-                availability.put(dayOfMonth + x + 1 + "/" + localDate.getMonthValue() + "/" + localDate.getYear(), hours);
+            if (dayOfMonth + x <= 30) {
+                availability.put(dayOfMonth + x + "/" + localDate.getMonthValue() + "/" + localDate.getYear(), hours);
             } else {
-                availability.put(dayOfMonth + x - 29 + "/" + (localDate.getMonthValue() + 1) + "/" + localDate.getYear(), hours);
+                availability.put(dayOfMonth + x - 30 + "/" + (localDate.getMonthValue() + j) + "/" + localDate.getYear(), hours);
             }
         }
         adminAvailability.setAdminAvailability(availability);
