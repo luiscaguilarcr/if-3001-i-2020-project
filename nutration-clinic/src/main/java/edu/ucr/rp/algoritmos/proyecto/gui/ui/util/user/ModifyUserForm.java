@@ -52,7 +52,7 @@ public class ModifyUserForm implements PaneViewer {
 
     private void setupControls() {
         selectCustomerLabel = PaneUtil.buildLabel(pane, "Select a customer", 0, 3);
-        selectAdminLabel = PaneUtil.buildLabel(pane, "Select a doctor", 0, 3);
+        selectAdminLabel = PaneUtil.buildLabel(pane, "Select a Admin", 0, 3);
 
         selectCustomerObservableList = FXCollections.observableArrayList();
         selectCustomerComboBox = PaneUtil.buildComboBox(pane, selectCustomerObservableList, 1, 3);
