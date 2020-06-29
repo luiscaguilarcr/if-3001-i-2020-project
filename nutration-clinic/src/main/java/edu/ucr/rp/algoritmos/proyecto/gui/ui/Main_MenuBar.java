@@ -9,6 +9,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.system.CleanApp;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddAdminForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ViewDate;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ChangePasswordForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ModifyUserForm;
 import javafx.application.Platform;
@@ -216,6 +217,7 @@ public class Main_MenuBar implements PaneViewer {
 
         viewDate_MenuItem.setOnAction((event) -> {
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_DATES));
+            ViewDate.refresh();
         });
 
         annotationsDate_MenuItem.setOnAction((event) -> {
