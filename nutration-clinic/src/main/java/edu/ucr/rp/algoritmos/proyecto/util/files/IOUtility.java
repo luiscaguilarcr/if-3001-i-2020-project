@@ -47,8 +47,8 @@ public class IOUtility {
             root.mkdir();
             User superAdmin = new User();
             superAdmin.setID(1234567890);
-            superAdmin.setName("super-admin");
-            superAdmin.setPassword(utility.encrypt("super-admin"));
+            superAdmin.setName("admin");
+            superAdmin.setPassword(utility.encrypt("admin"));
             superAdmin.setRol(1);
             userService.add(superAdmin);
         }

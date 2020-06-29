@@ -74,10 +74,9 @@ public class CustomerDateService implements DateService<CustomerDate> {
     public boolean edit(CustomerDate oldCustomerDate, CustomerDate newCustomerDate) {
         refresh();
         if (!stack.isEmpty()) {
-            stack = editCustomerDate(newCustomerDate);
+            stack = editCustomerDate(oldCustomerDate, newCustomerDate);
             editAdminAvailability(oldCustomerDate, newCustomerDate);
             utility.historyApp("Cita editada para el usuario " + oldCustomerDate.getCustomerID());
-            refresh();
             return customerDatePersistence.write(stack);
         }
         return false;
@@ -85,13 +84,14 @@ public class CustomerDateService implements DateService<CustomerDate> {
 
     /**
      * Para remover una cita.
+     *
      * @param customerDate que se quiere remover
      * @return true si la cita fue removida, si no, false
      */
     @Override
     public boolean remove(CustomerDate customerDate) {
         refresh();
-        if (!stack.isEmpty() && customerDate != null){
+        if (!stack.isEmpty() && customerDate != null) {
             stack = removeCustomerDate(customerDate);
             addAdminAvailability(customerDate);
             utility.historyApp("Cita removida para el usuario " + customerDate.getCustomerID());
@@ -116,16 +116,19 @@ public class CustomerDateService implements DateService<CustomerDate> {
         return auxCustomerDateStack;
     }
 
-    private CustomerDateStack editCustomerDate(CustomerDate customerDate) {
+    private CustomerDateStack editCustomerDate(CustomerDate oldCustomerDate, CustomerDate customerDate) {
         CustomerDateStack auxCustomerDateStack = new CustomerDateStack();
-        for (int i = 0; i < stack.size(); i++) {
-            CustomerDate auxCustomerDate = get(i);
-            if (auxCustomerDate.getCustomerID() != customerDate.getCustomerID()) {
-                auxCustomerDateStack.push(auxCustomerDate);
-            } else {
+
+        int size = stack.size();
+        for (int i = 0; i < size; i++) {
+            CustomerDate auxCustomerDate = stack.pop();
+            if (auxCustomerDate.getCustomerID() == oldCustomerDate.getCustomerID()) {
                 auxCustomerDateStack.push(customerDate);
+            }else {
+                auxCustomerDateStack.push(auxCustomerDate);
             }
         }
+
         refresh();
         return auxCustomerDateStack;
     }

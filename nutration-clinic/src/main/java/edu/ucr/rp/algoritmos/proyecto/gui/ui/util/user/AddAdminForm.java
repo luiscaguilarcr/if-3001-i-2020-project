@@ -94,31 +94,28 @@ public class AddAdminForm implements PaneViewer {
             addUser();
         });
 
-        nameTextField.setOnAction(event ->
+        nameTextField.setOnMouseClicked(event ->
                 nameTextField.setStyle("-fx-background-color: #FFFFFF")
         );
-        emailTextField.setOnAction(event ->
+        emailTextField.setOnMouseClicked(event ->
                 emailTextField.setStyle("-fx-background-color: #FFFFFF")
         );
-        addressTextField.setOnAction(event ->
+        addressTextField.setOnMouseClicked(event ->
                 addressTextField.setStyle("-fx-background-color: #FFFFFF")
         );
-        phoneNumberTextField.setOnAction(event ->
+        phoneNumberTextField.setOnMouseClicked(event ->
                 phoneNumberTextField.setStyle("-fx-background-color: #FFFFFF")
         );
-        passwordTextField.setOnAction(event ->
+        passwordTextField.setOnMouseClicked(event ->
                 passwordTextField.setStyle("-fx-background-color: #FFFFFF")
         );
-        iDTextField.setOnAction(event ->
+        iDTextField.setOnMouseClicked(event ->
                 iDTextField.setStyle("-fx-background-color: #FFFFFF")
         );
     }
 
     private void addUser() {
-        
-        
         if (validateAdd()) {
-            
             Utility utility = new Utility();
             User user = new User();
             user.setName(nameTextField.getText());
@@ -147,39 +144,56 @@ public class AddAdminForm implements PaneViewer {
         addressTextField.clear();
         phoneNumberTextField.clear();
         iDTextField.clear();
+
+        nameTextField.setStyle("-fx-background-color: #FFFFFF");
+        nameTextField.setPromptText("");
+        emailTextField.setStyle("-fx-background-color: #FFFFFF");
+        emailTextField.setPromptText("");
+        addressTextField.setStyle("-fx-background-color: #FFFFFF");
+        addressTextField.setPromptText("");
+        phoneNumberTextField.setStyle("-fx-background-color: #FFFFFF");
+        phoneNumberTextField.setPromptText("");
+        passwordTextField.setStyle("-fx-background-color: #FFFFFF");
+        passwordTextField.setPromptText("");
+        iDTextField.setStyle("-fx-background-color: #FFFFFF");
+        iDTextField.setPromptText("");
     }
 
     private boolean validateAdd() {
+        boolean validate = true;
         if (nameTextField.getText().isEmpty()) {
             nameTextField.setPromptText("Obligatory field");
             nameTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
         if (passwordTextField.getText().isEmpty()) {
             passwordTextField.setPromptText("Obligatory field");
             passwordTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
         if (emailTextField.getText().isEmpty()) {
             emailTextField.setPromptText("Obligatory field");
             emailTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
 
         if (addressTextField.getText().isEmpty()) {
             addressTextField.setPromptText("Obligatory field");
             addressTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
         if (phoneNumberTextField.getText().isEmpty()) {
             phoneNumberTextField.setPromptText("Obligatory field");
             phoneNumberTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
         if (iDTextField.getText().isEmpty()) {
             iDTextField.setPromptText("Obligatory field");
             iDTextField.setStyle("-fx-background-color: #FDC7C7");
+            validate = false;
         }
 
-        if (!iDTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !emailTextField.getText().isEmpty() && !phoneNumberTextField.getText().isEmpty()) {
-            return true;
-        }
-        return false;
+        return validate;
     }
 
     @Override

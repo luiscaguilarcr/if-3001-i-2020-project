@@ -15,6 +15,7 @@ import javafx.scene.layout.*;
 import org.controlsfx.control.CheckComboBox;
 
 import static edu.ucr.rp.algoritmos.proyecto.util.fx.UIConstants.*;
+
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -26,9 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaneUtil {
-private static ObservableList<String> selectCustomerObservableList;
-  private static UserService userService;
-//private static User user;
+    private static ObservableList<String> selectCustomerObservableList;
+    private static UserService userService;
+
+    //private static User user;
     public static GridPane buildPane() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER_RIGHT);
@@ -43,16 +45,17 @@ private static ObservableList<String> selectCustomerObservableList;
 
         return gridPane;
     }
-       public static GridPane buildPaneBig() {
+
+    public static GridPane buildPaneBig() {
         GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER_RIGHT);
         gridPane.setPadding(new Insets(40, 40, 40, 40));
         gridPane.setHgap(5);
         gridPane.setVgap(5);
-        ColumnConstraints columnOneConstraints = new ColumnConstraints(1000, 1000,1000);
-        columnOneConstraints.setHalignment(HPos.RIGHT);
-        
-        gridPane.getColumnConstraints().addAll(columnOneConstraints);
+        ColumnConstraints columnOneConstraints = new ColumnConstraints(LABEL_WITH, LABEL_WITH, LABEL_WITH_MAX);
+        columnOneConstraints.setHalignment(HPos.CENTER);
+        ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
+        columnTwoConstrains.setHgrow(Priority.ALWAYS);
+        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
 
         return gridPane;
     }
@@ -166,7 +169,7 @@ private static ObservableList<String> selectCustomerObservableList;
         return textArea;
     }
 
-    public CategoryAxis buildGraphic(GridPane pane, AdminAnnotationQueue adminAnnotationQueue) {
+    /*public CategoryAxis buildGraphic(GridPane pane, AdminAnnotationQueue adminAnnotationQueue) {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> barChart
@@ -187,10 +190,10 @@ private static ObservableList<String> selectCustomerObservableList;
             pane.add(barChart, 0, i);
         }
         return xAxis;
-    }
+    }*/
 
-    public static TableView buildTableViewUser(GridPane pane, ObservableList observableList,int column, int row) {
-        
+    public static TableView buildTableViewUser(GridPane pane, ObservableList observableList, int column, int row) {
+
         Label label = new Label("Address Book");
         label.setFont(new Font("Arial", 20));
         TableView table = new TableView();
@@ -201,7 +204,7 @@ private static ObservableList<String> selectCustomerObservableList;
         TableColumn nameCol = new TableColumn("Name");
         TableColumn idCol = new TableColumn("Id");
         TableColumn phoneNumberCol = new TableColumn("Phone Number");
-        
+
 
         nameCol.setMinWidth(100);
         nameCol.setCellValueFactory(

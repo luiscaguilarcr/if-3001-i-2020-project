@@ -24,7 +24,6 @@ public class CustomerDatesHistoryService implements HistoryDatesService {
         tree = new CustomerDatesHistoryTree();
         customerDatesHistoryPersistence = new CustomerDatesHistoryPersistence();
         customerDateService = CustomerDateService.getInstance();
-        refresh();
     }
 
     /**
@@ -99,7 +98,7 @@ public class CustomerDatesHistoryService implements HistoryDatesService {
 
         tree = customerDatesHistoryPersistence.read();
         if (tree != null) {
-            int size = tree.size();
+            int size = tree.size()-1;
             for (int i = 0; i < size; i++) {
                 tempCustomerHistoryDates.add(tree.get(i));
             }

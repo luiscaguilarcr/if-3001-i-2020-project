@@ -44,7 +44,7 @@ public class CustomerDatesHistoryTree implements BTree {
 
     private CustomerDate binarySearch(TreeNode node, int index) {
         if (node == null) return null;
-        else if (Utility.equals(node.customerDate.getTargetID(), index)) {
+        else if (node.customerDate.getTargetID() == index) {
             return node.customerDate; //YA LO ENCONTRO
         } else if (node.customerDate.getTargetID() < index) {
             return binarySearch(node.left, index);

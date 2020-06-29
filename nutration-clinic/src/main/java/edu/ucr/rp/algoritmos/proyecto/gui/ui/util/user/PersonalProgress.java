@@ -56,9 +56,9 @@ public class PersonalProgress implements PaneViewer {
     }
 
     private void addHandlers() {
-        fatButton = PaneUtil.buildButton("Fat progress", pane, 0, 2);
-        weightButton = PaneUtil.buildButton("Weight progress", pane, 1, 2);
-        heightButton = PaneUtil.buildButton("Height progress", pane, 2, 2);
+        fatButton = PaneUtil.buildButton("Fat progress", pane, 2, 4);
+        weightButton = PaneUtil.buildButton("Weight progress", pane, 2, 5);
+        heightButton = PaneUtil.buildButton("Height progress", pane, 2, 6);
         backButton = PaneUtil.buildButtonImage(new Image("exit.png"), pane, 3, 5);
     }
 
@@ -101,8 +101,6 @@ public class PersonalProgress implements PaneViewer {
     }
 
     private void notVisibleForFat() {
-        weightButton.setVisible(false);
-        heightButton.setVisible(false);
         weightLineChart.setVisible(false);
         heightLineChart.setVisible(false);
     }
@@ -110,20 +108,16 @@ public class PersonalProgress implements PaneViewer {
     private void notVisibleForWeight() {
         fatLineChart.setVisible(false);
         heightLineChart.setVisible(false);
-        fatButton.setVisible(false);
-        heightButton.setVisible(false);
     }
 
     private void notVisibleForHeight() {
-        fatButton.setVisible(false);
-        weightButton.setVisible(false);
         fatLineChart.setVisible(false);
         weightLineChart.setVisible(false);
     }
 
     private void buildFatChart(AdminAnnotationQueue adminAnnotationQueue) {
         CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis(200, 600, 100);
+        NumberAxis yAxis = new NumberAxis(130, 150, 200);
         yAxis.setLabel("FAT %");
         fatLineChart = new LineChart(xAxis, yAxis);
         XYChart.Series series = new XYChart.Series();
@@ -134,12 +128,12 @@ public class PersonalProgress implements PaneViewer {
         }
         series.setName("Fat progress");
         fatLineChart.getData().add(series);
-        pane.add(fatLineChart, 2, 2);
+        pane.add(fatLineChart, 2, 1);
     }
 
     private void buildWeightChart(AdminAnnotationQueue adminAnnotationQueue) {
         CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis(200, 600, 100);
+        NumberAxis yAxis = new NumberAxis(10, 15, 20);
         yAxis.setLabel("WEIGHT (KG)");
         weightLineChart = new LineChart(xAxis, yAxis);
         XYChart.Series series = new XYChart.Series();
@@ -150,12 +144,12 @@ public class PersonalProgress implements PaneViewer {
         }
         series.setName("Weight progress");
         weightLineChart.getData().add(series);
-        pane.add(fatLineChart, 2, 2);
+        pane.add(weightLineChart, 2, 1);
     }
 
     private void buildHeightChart(AdminAnnotationQueue adminAnnotationQueue) {
         CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis(200, 600, 100);
+        NumberAxis yAxis = new NumberAxis(50, 75, 100);
         yAxis.setLabel("HEIGHT (KG)");
         heightLineChart = new LineChart(xAxis, yAxis);
         XYChart.Series series = new XYChart.Series();
@@ -166,15 +160,7 @@ public class PersonalProgress implements PaneViewer {
         }
         series.setName("Height progress");
         heightLineChart.getData().add(series);
-        pane.add(fatLineChart, 2, 2);
-    }
-
-    public static void refresh() {
-        User user = LogIn.getUser();
-        AdminAnnotationQueue adminAnnotationQueue = adminAnnotationService.getAllByID(user.getID());
-        PaneUtil paneUtil = new PaneUtil();
-        graphic = paneUtil.buildGraphic(pane, adminAnnotationQueue);
-
+        pane.add(heightLineChart, 2, 1);
     }
 
     @Override

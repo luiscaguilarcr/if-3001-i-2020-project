@@ -12,8 +12,10 @@ import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces.DateService;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -25,7 +27,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 /**
- *
  * @author Noel y Luis Carlos
  */
 public class AddCustomerForm implements PaneViewer {
@@ -93,10 +94,28 @@ public class AddCustomerForm implements PaneViewer {
         addButton.setOnAction(e -> {
             addCustomer();
         });
+
+        nameTextField.setOnMouseClicked(event ->
+                nameTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
+        emailTextField.setOnMouseClicked(event ->
+                emailTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
+        addressTextField.setOnMouseClicked(event ->
+                addressTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
+        phoneNumberTextField.setOnMouseClicked(event ->
+                phoneNumberTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
+        passwordTextField.setOnMouseClicked(event ->
+                passwordTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
+        iDTextField.setOnMouseClicked(event ->
+                iDTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
     }
 
     private void addCustomer() {
-        String aux = iDTextField.getText();
         if (validateAdd()) {
             Utility utility = new Utility();
             User user = new User();
@@ -108,11 +127,11 @@ public class AddCustomerForm implements PaneViewer {
             user.setPhoneNumber(Integer.parseInt(phoneNumberTextField.getText()));
             user.setID(Integer.parseInt(iDTextField.getText()));
 
-            if(userService.add(user)){
+            if (userService.add(user)) {
+                PaneUtil.showAlert(Alert.AlertType.INFORMATION, "User added", "The user was added correctly");
                 MainManagePane.clearPane();
                 refreshItems();
-                PaneUtil.showAlert(Alert.AlertType.INFORMATION, "User added", "The user was added correctly");
-            }else{
+            } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The user was not added correctly");
             }
         }
@@ -125,42 +144,56 @@ public class AddCustomerForm implements PaneViewer {
         addressTextField.clear();
         phoneNumberTextField.clear();
         iDTextField.clear();
+
+        nameTextField.setStyle("-fx-background-color: #FFFFFF");
+        nameTextField.setPromptText("");
+        emailTextField.setStyle("-fx-background-color: #FFFFFF");
+        emailTextField.setPromptText("");
+        addressTextField.setStyle("-fx-background-color: #FFFFFF");
+        addressTextField.setPromptText("");
+        phoneNumberTextField.setStyle("-fx-background-color: #FFFFFF");
+        phoneNumberTextField.setPromptText("");
+        passwordTextField.setStyle("-fx-background-color: #FFFFFF");
+        passwordTextField.setPromptText("");
+        iDTextField.setStyle("-fx-background-color: #FFFFFF");
+        iDTextField.setPromptText("");
     }
 
     private boolean validateAdd() {
         if (nameTextField.getText().isEmpty()) {
             nameTextField.setPromptText("Obligatory field");
             nameTextField.setStyle("-fx-background-color: #FDC7C7");
+            return false;
         }
         if (passwordTextField.getText().isEmpty()) {
             passwordTextField.setPromptText("Obligatory field");
             passwordTextField.setStyle("-fx-background-color: #FDC7C7");
+            return false;
         }
         if (emailTextField.getText().isEmpty()) {
             emailTextField.setPromptText("Obligatory field");
             emailTextField.setStyle("-fx-background-color: #FDC7C7");
+            return false;
         }
 
         if (addressTextField.getText().isEmpty()) {
             addressTextField.setPromptText("Obligatory field");
             addressTextField.setStyle("-fx-background-color: #FDC7C7");
+            return false;
         }
         if (phoneNumberTextField.getText().isEmpty()) {
             phoneNumberTextField.setPromptText("Obligatory field");
             phoneNumberTextField.setStyle("-fx-background-color: #FDC7C7");
+            return false;
         }
 
         if (iDTextField.getText().isEmpty()) {
             iDTextField.setPromptText("Obligatory field");
             iDTextField.setStyle("-fx-background-color: #FDC7C7");
+            return false;
         }
 
-        if (!iDTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty() && !nameTextField.getText().isEmpty() && !emailTextField.getText().isEmpty() && !phoneNumberTextField.getText().isEmpty()) {
-            refreshItems();
-
-            return true;
-        }
-        return false;
+        return true;
     }
 
     public boolean validateId(String datos) {

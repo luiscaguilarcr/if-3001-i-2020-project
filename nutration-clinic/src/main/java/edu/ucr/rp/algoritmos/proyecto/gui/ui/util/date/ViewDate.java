@@ -118,7 +118,7 @@ public class ViewDate implements PaneViewer {
                 doctorTextField.setText(customerDateService.getByID(LogIn.getUser().getID()).getAdminID() + " ");
                 serviceInstance();
             } else {
-                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot view a date, you must add a date");
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You must first add a new date");
             }
         } else {
             User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
@@ -129,7 +129,7 @@ public class ViewDate implements PaneViewer {
                 doctorTextField.setText(customerDateService.getByID(user.getID()).getAdminID() + " ");
                 serviceInstance();
             } else {
-                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You cannot view a date, you must add a date");
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "This user must first add a new date");
             }
         }
     }

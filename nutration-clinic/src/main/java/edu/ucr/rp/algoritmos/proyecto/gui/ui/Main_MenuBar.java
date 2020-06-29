@@ -37,7 +37,7 @@ public class Main_MenuBar implements PaneViewer {
     private MenuItem personalProgress_MenuItem;
     private MenuItem annotationsDate_MenuItem;
     private MenuItem cleanApp_MenuItem;
-
+    private MenuItem exercise_MenuItem;
     public Main_MenuBar(Stage stage) {
         this.stage = stage;
     }
@@ -75,6 +75,10 @@ public class Main_MenuBar implements PaneViewer {
         ImageView cleanApp_ImageView = new ImageView(new Image("cleanApp.png"));
         cleanApp_MenuItem = new MenuItem("Clean app", cleanApp_ImageView);
 
+        // exercises_ImageView
+        ImageView exercises_ImageView = new ImageView(new Image("exit3.png"));
+        exercise_MenuItem = new MenuItem("Exercises", exercises_ImageView);
+
         // exit_MenuItem
         ImageView exit_ImageView = new ImageView(new Image("exit3.png"));
         MenuItem exit_MenuItem = new MenuItem("Exit", exit_ImageView);
@@ -86,9 +90,18 @@ public class Main_MenuBar implements PaneViewer {
         generateReport_MenuItem.setOnAction((event) -> {
         });
 
+
         personalProgress_MenuItem.setOnAction((event) -> {
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.PERSONAL_PROGRESS));
-            PersonalProgress.refresh();
+        });
+
+        exercise_MenuItem.setOnAction((event) -> {
+            try {
+                File path = new File("ejercicio.pdf");
+                Desktop.getDesktop().open(path);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
 
         guide_MenuItem.setOnAction((event) -> {
@@ -117,7 +130,7 @@ public class Main_MenuBar implements PaneViewer {
         exit_MenuItem.setOnAction((event) -> Platform.exit());
         exit_MenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 
-        config_Menu.getItems().addAll(changePassword_MenuItem, generateReport_MenuItem, personalProgress_MenuItem, guide_MenuItem, logOut_MenuItem, cleanApp_MenuItem, exit_MenuItem);
+        config_Menu.getItems().addAll(changePassword_MenuItem, personalProgress_MenuItem, guide_MenuItem, exercise_MenuItem, logOut_MenuItem, cleanApp_MenuItem, exit_MenuItem);
 
         ////////////////////////////////////////////////////////////////////////// Menu "ADMIN"
         admin_Menu = new Menu("ADMIN");
@@ -249,10 +262,12 @@ public class Main_MenuBar implements PaneViewer {
             if (rol == 1) {
                 personalProgress_MenuItem.setVisible(false);
                 annotationsDate_MenuItem.setVisible(false);
+                exercise_MenuItem.setVisible(false);
             } else if (rol == 2) {
                 personalProgress_MenuItem.setVisible(false);
                 cleanApp_MenuItem.setVisible(false);
                 admin_Menu.setVisible(false);
+                exercise_MenuItem.setVisible(false);
             } else if (rol == 3) {
                 generateReport_MenuItem.setVisible(false);
                 admin_Menu.setVisible(false);
