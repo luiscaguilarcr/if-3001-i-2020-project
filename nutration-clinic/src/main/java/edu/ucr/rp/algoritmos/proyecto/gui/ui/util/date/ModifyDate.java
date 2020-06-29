@@ -31,7 +31,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 /**
- * @author Alvaro Miranda Cort
+ * @author Mikel
  */
 public class ModifyDate implements PaneViewer {
 

@@ -22,7 +22,7 @@ import javafx.scene.layout.Pane;
 
 
 /**
- * @author Noel
+ * @author Noel y Luis Carlos
  */
 public class ChangePasswordForm implements PaneViewer {
 
