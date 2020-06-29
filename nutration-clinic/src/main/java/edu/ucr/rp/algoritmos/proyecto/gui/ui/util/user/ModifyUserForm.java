@@ -13,6 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+/**
+ * @author Luis Carlos
+ */
 public class ModifyUserForm implements PaneViewer {
     private static UserService userService;
     private static Button modifyButton;
@@ -218,6 +221,8 @@ public class ModifyUserForm implements PaneViewer {
         exitButton.setVisible(true);
         modifyButton.setVisible(true);
 
+        selectAdminLabel.setVisible(false);
+        selectCustomerLabel.setVisible(false);
         selectCustomerLabel.setVisible(false);
         selectCustomerComboBox.setVisible(false);
         selectCustomerButton.setVisible(false);
