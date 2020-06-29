@@ -24,6 +24,7 @@ public class ModifyUserForm implements PaneViewer {
     private static Label addressLabel;
     private static Label phoneNumberLabel;
     private static Label selectCustomerLabel;
+    private static Label selectAdminLabel;
     private static TextField nameTextField;
     private static TextField passwordTextField;
     private static TextField emailTextField;
@@ -48,6 +49,7 @@ public class ModifyUserForm implements PaneViewer {
 
     private void setupControls() {
         selectCustomerLabel = PaneUtil.buildLabel(pane, "Select a customer", 0, 3);
+        selectAdminLabel = PaneUtil.buildLabel(pane, "Select a doctor", 0, 3);
         selectCustomerObservableList = FXCollections.observableArrayList();
         selectCustomerComboBox = PaneUtil.buildComboBox(pane, selectCustomerObservableList, 1, 3);
         selectCustomerButton = PaneUtil.buildButtonImage(new Image("add.png"), pane, 2, 3);
@@ -241,9 +243,13 @@ public class ModifyUserForm implements PaneViewer {
         if (rol == 2) {
             selectCustomerObservableList.clear();
             selectCustomerObservableList.addAll(userService.getUserNames());
+            selectCustomerLabel.setVisible(false);
+            selectAdminLabel.setVisible(true);
         } else if (rol == 3) {
             selectCustomerObservableList.clear();
             selectCustomerObservableList.addAll(userService.getCustomerNames());
+            selectCustomerLabel.setVisible(true);
+            selectAdminLabel.setVisible(false);
         }
     }
 

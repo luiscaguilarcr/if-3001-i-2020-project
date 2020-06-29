@@ -146,9 +146,6 @@ public class CustomerDateService implements DateService<CustomerDate> {
             if (customerDate.getCustomerID() == iD) {
                 return customerDate;
             }
-            if (customerDate.getAdminID() == iD) {
-                return null;
-            }
         }
         refresh();
         return null;

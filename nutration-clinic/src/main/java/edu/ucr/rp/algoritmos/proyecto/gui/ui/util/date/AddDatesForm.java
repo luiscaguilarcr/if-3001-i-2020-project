@@ -68,9 +68,6 @@ public class AddDatesForm implements PaneViewer {
         adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
     }
 
-    /**
-     * Inicializar botonesd, textFields, labels....
-     */
     private void setupControls() {
         selectCustomerLabel = PaneUtil.buildLabel(pane, "Select a customer", 0, 3);
         selectCustomerObservableList = FXCollections.observableArrayList(userService.getCustomerNames());
@@ -94,9 +91,6 @@ public class AddDatesForm implements PaneViewer {
         hoursComboBox.setDisable(true);
     }
 
-    /**
-     * Agregar accion de evento
-     */
     private void addHandlers() {
         cancelButton.setOnAction(e -> MainManagePane.clearPane());
         addDateButton.setOnAction(e -> {
@@ -105,8 +99,7 @@ public class AddDatesForm implements PaneViewer {
         });
         checkInDatePicker.setOnAction(event -> {
             doctorsComboBox.setDisable(false);
-            selectDoctorObservableList.clear();
-            selectHourObservableList.clear();
+            refreshItems();
             String date = checkInDatePicker.getEditor().getText();
             selectDoctorObservableList.addAll(adminAvailabilityService.getNamesListByDate(date));
         });
@@ -128,7 +121,7 @@ public class AddDatesForm implements PaneViewer {
 
         selectCustomerButton.setOnAction(event -> {
             User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
-            if (customerDateService.getDatesByAdminID(user.getID()) == null) {
+            if (customerDateService.getByID(user.getID()) != null) {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "This user can't add another date");
                 MainManagePane.clearPane();
             } else {
@@ -153,7 +146,7 @@ public class AddDatesForm implements PaneViewer {
             CustomerDate customerDate = new CustomerDate();
             User admin = userService.getByName(doctorsComboBox.getSelectionModel().getSelectedItem().toString());
             customerDate.setAdminID(admin.getID());
-            if (LogIn.getUser().getID() == 3) {
+            if (LogIn.getUser().getRol() == 3) {
                 customerDate.setCustomerID(LogIn.getUser().getID());
             } else {
                 User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
@@ -165,17 +158,17 @@ public class AddDatesForm implements PaneViewer {
             customerDate.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
 
             if (customerDateService.add(customerDate)) {
+                MainManagePane.clearPane();
+                refreshItems();
                 PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Date added", "The date was added correctly");
-
             } else {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error when adding the date", "The date was not added");
             }
         }
     }
 
-
     /**
-     * Valida que el usuario no tenga agregada una cita
+     * Valida que el usuario no tenga agregada una cita y el rol
      */
     public static void refresh() {
         serviceInstance();
@@ -183,13 +176,18 @@ public class AddDatesForm implements PaneViewer {
         if (rol == 1 || rol == 2) {
             unShow();
         } else {
-            if (customerDateService.getDatesByAdminID(LogIn.getUser().getID()) == null) {
+            if (customerDateService.getByID(LogIn.getUser().getID()) != null) {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You can't add another date");
                 MainManagePane.clearPane();
             } else {
                 show();
             }
         }
+    }
+
+    private void refreshItems(){
+        selectDoctorObservableList.clear();
+        selectHourObservableList.clear();
     }
 
     private static void unShow() {

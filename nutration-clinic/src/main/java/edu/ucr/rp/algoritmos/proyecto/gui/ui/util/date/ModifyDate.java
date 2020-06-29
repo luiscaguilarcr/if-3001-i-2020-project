@@ -98,7 +98,7 @@ public class ModifyDate implements PaneViewer {
         if (rol == 1 || rol == 2) {
             User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
             CustomerDate customerDate = customerDateService.getByID(user.getID());
-
+            refreshFillCustomerByAdmin();
         } else {
 
         }
@@ -138,13 +138,17 @@ public class ModifyDate implements PaneViewer {
 
         selectCustomerButton.setOnAction(event -> {
             User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
-            if (customerDateService.getDatesByAdminID(user.getID()) == null) {
+            if (customerDateService.getByID(user.getID()) != null) {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "This user can't add another date");
                 MainManagePane.clearPane();
             } else {
                 show();
             }
         });
+
+    }
+
+    private void refreshFillCustomerByAdmin(User user){
 
     }
 

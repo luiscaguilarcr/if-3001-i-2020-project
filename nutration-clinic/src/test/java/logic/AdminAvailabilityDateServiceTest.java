@@ -5,6 +5,7 @@ import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityGeneralService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
+import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import edu.ucr.rp.algoritmos.proyecto.util.test.TestUtility;
 import logic.interfaces.TestService;
 import org.junit.Test;
@@ -88,7 +89,10 @@ public class AdminAvailabilityDateServiceTest implements TestService {
     public void getByDoctorID() {
     }
 
+    @Test
     @Override
     public void test() {
+        TestUtility testUtility = new TestUtility();
+        testUtility.generateAdminAvailableDayAndHour2();
     }
 }

@@ -1,11 +1,14 @@
 package edu.ucr.rp.algoritmos.proyecto.util.test;
 
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.*;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.AdminAvailabilityPersistence;
+import edu.ucr.rp.algoritmos.proyecto.logic.persistance.implementation.CustomerDatePersistence;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.*;
 import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.UserLinkedList;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class TestUtility {
@@ -184,12 +187,84 @@ public class TestUtility {
         }
         Map<String, List> availability = new HashMap<>();
         LocalDate localDate = LocalDate.now();
-
-        for (int i = 0; i < 6; i++) {
-            availability.put(localDate.getDayOfMonth() + i + "/" + localDate.getMonthValue() + "/" + localDate.getYear(), hours);
+        String dayOfWeek = localDate.getDayOfWeek().toString();
+        int j = 1;
+        if (dayOfWeek.equalsIgnoreCase("Monday")) {
+            j++;
+        } else if (dayOfWeek.equalsIgnoreCase("Tuesday")) {
+            j += 2;
+        } else if (dayOfWeek.equalsIgnoreCase("Wednesday")) {
+            j += 3;
+        } else if (dayOfWeek.equalsIgnoreCase("Thursday")) {
+            j += 4;
+        } else if (dayOfWeek.equalsIgnoreCase("Friday")) {
+            j += 5;
         }
+        for (int x = j ; x < 6; x++) {
+            int dayOfMonth = localDate.getDayOfMonth();
 
+            if (dayOfMonth + x + 1 <= 30) {
+                availability.put(dayOfMonth + x + 1 + "/" + localDate.getMonthValue() + "/" + localDate.getYear(), hours);
+            } else {
+                availability.put(dayOfMonth + x - 29 + "/" + (localDate.getMonthValue() + 1) + "/" + localDate.getYear(), hours);
+            }
+        }
         adminAvailability.setAdminAvailability(availability);
+    }
+
+    public void generateAdminAvailableDayAndHour2() {
+        LocalDate localDate = LocalDate.now();
+        String dayOfWeek = localDate.getDayOfWeek().toString();
+        //String dayOfWeek = "Saturday";
+
+        if (dayOfWeek.equalsIgnoreCase("Saturday")) {
+            LocalTime localTime = LocalTime.now();
+            int hour = localTime.getHour();
+            //int hour = 18;
+            if (hour == 18) {
+                UserService userService = UserService.getInstance();
+                AdminAvailabilityPersistence adminAvailabilityPersistence = new AdminAvailabilityPersistence();
+                CustomerDatePersistence customerDatePersistence = new CustomerDatePersistence();
+                AdminAvailabilityGeneralService adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
+
+                UserLinkedList userLinkedList = userService.getAll();
+
+                if (adminAvailabilityPersistence.deleteAll())
+                    System.out.println("Se eliminó admin availability persistence\"");
+                else
+                    System.out.println("No se eliminó admin availability persistence\"");
+
+                if (customerDatePersistence.deleteAll())
+                    System.out.println("Se eliminó admin customer persistence\"");
+                else
+                    System.out.println("No se eliminó admin customer persistence\"");
+
+                List<String> hours = new ArrayList<>();
+                for (int i = 8; i < 18; i++) {
+                    hours.add(i + ":00");
+                }
+
+                for (int i = 0; i < userLinkedList.size(); i++) {
+                    User user = userLinkedList.get(i);
+                    if (user.getRol() == 2) {
+                        AdminAvailability adminAvailability = new AdminAvailability();
+                        Map<String, List> availability = new HashMap<>();
+                        for (int j = 1; j < 6; j++) {
+                            int dayOfMonth = localDate.getDayOfMonth();
+                            //int dayOfMonth = 27;
+                            if (dayOfMonth + j + 1 <= 30) {
+                                availability.put(dayOfMonth + j + 1 + "/" + localDate.getMonthValue() + "/" + localDate.getYear(), hours);
+                            } else {
+                                availability.put(dayOfMonth + j - 29 + "/" + (localDate.getMonthValue() + 1) + "/" + localDate.getYear(), hours);
+                            }
+                        }
+                        adminAvailability.setAdminID(user.getID());
+                        adminAvailability.setAdminAvailability(availability);
+                        adminAvailabilityService.add(adminAvailability);
+                    }
+                }
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////// GENERADOR ANOTACIONES DE ADMIN EN CITA

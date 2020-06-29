@@ -105,9 +105,9 @@ public class AddCustomerForm implements PaneViewer{
             user.setID(Integer.parseInt(iDTextField.getText()));
 
             if(userService.add(user)){
-                PaneUtil.showAlert(Alert.AlertType.INFORMATION, "User added", "The user was added correctly");
-                refreshItems();
                 MainManagePane.clearPane();
+                refreshItems();
+                PaneUtil.showAlert(Alert.AlertType.INFORMATION, "User added", "The user was added correctly");
             }else{
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The user was not added correctly");
             }
