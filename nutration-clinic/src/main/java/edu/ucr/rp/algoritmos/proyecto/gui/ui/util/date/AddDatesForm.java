@@ -121,7 +121,7 @@ public class AddDatesForm implements PaneViewer {
                 selectHourObservableList.clear();
                 selectHourObservableList.addAll(hours);
             }catch (Exception e){
-                System.out.println(e);
+                System.out.println();
             }
         });
 
