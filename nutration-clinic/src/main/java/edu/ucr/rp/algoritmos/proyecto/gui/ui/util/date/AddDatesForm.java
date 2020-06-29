@@ -73,16 +73,16 @@ public class AddDatesForm implements PaneViewer {
         selectCustomerObservableList = FXCollections.observableArrayList(userService.getCustomerNames());
         selectCustomerComboBox = PaneUtil.buildComboBox(pane, selectCustomerObservableList, 1, 3);
         selectCustomerButton = PaneUtil.buildButtonImage(new Image("add.png"), pane, 2, 3);
-        selectHourObservableList = FXCollections.observableArrayList();
-        selectDoctorObservableList = FXCollections.observableArrayList();
         addDateTitleLabel = PaneUtil.buildLabel(pane, "Book appointment", 0, 0);
         dateFieldLabel = PaneUtil.buildLabel(pane, "Date Field", 0, 1);
         checkInDatePicker = PaneUtil.buildDatePicker(pane, 1, 1);
         checkInDatePicker.setValue(LocalDate.now());//establece la fecha actual
         checkInDatePicker.setShowWeekNumbers(true);//habilita numeros de la semana
         selectDoctorLabel = PaneUtil.buildLabel(pane, " Select doctor ", 0, 2);
+        selectDoctorObservableList = FXCollections.observableArrayList();
         doctorsComboBox = PaneUtil.buildComboBox(pane, selectDoctorObservableList, 1, 2);
         selectHoursLabel = PaneUtil.buildLabel(pane, " Select time ", 0, 3);
+        selectHourObservableList = FXCollections.observableArrayList();
         hoursComboBox = PaneUtil.buildComboBox(pane, selectHourObservableList, 1, 3);
         addDateButton = PaneUtil.buildButton("Add Date", pane, 1, 5);
         cancelButton = PaneUtil.buildButtonImage(new Image("logout.png"), pane, 2, 5);
@@ -92,33 +92,6 @@ public class AddDatesForm implements PaneViewer {
     }
 
     private void addHandlers() {
-        cancelButton.setOnAction(e -> MainManagePane.clearPane());
-        addDateButton.setOnAction(e -> {
-            addDate();
-            serviceInstance();
-        });
-        checkInDatePicker.setOnAction(event -> {
-            doctorsComboBox.setDisable(false);
-            refreshItems();
-            String date = checkInDatePicker.getEditor().getText();
-            selectDoctorObservableList.addAll(adminAvailabilityService.getNamesListByDate(date));
-        });
-
-        doctorsComboBox.setOnAction(event -> {
-            hoursComboBox.setDisable(false);
-            selectHourObservableList.clear();
-            User user = userService.getByName(doctorsComboBox.getSelectionModel().getSelectedItem().toString());
-            Map<String, List> map = adminAvailabilityService.getByIDMapAvailability(user.getID());
-            String date = checkInDatePicker.getEditor().getText();
-            List<String> hours = map.get(date);
-            selectHourObservableList.clear();
-            selectHourObservableList.addAll(hours);
-        });
-
-        hoursComboBox.setOnAction(event -> {
-            addDateButton.setVisible(true);
-        });
-
         selectCustomerButton.setOnAction(event -> {
             User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
             if (customerDateService.getByID(user.getID()) != null) {
@@ -127,6 +100,41 @@ public class AddDatesForm implements PaneViewer {
             } else {
                 show();
             }
+        });
+
+        checkInDatePicker.setOnAction(event -> {
+            doctorsComboBox.setDisable(false);
+            refreshItems();
+            String date = checkInDatePicker.getEditor().getText();
+            selectDoctorObservableList.clear();
+            selectDoctorObservableList.addAll(adminAvailabilityService.getAdminNamesAvailableListByDate(date));
+        });
+
+        doctorsComboBox.setOnAction(event -> {
+            hoursComboBox.setDisable(false);
+            try {
+                User user = userService.getByName(doctorsComboBox.getSelectionModel().getSelectedItem().toString());
+                Map<String, List> map = adminAvailabilityService.getByIDMapAvailability(user.getID());
+                String date = checkInDatePicker.getEditor().getText();
+                List<String> hours = map.get(date);
+
+                selectHourObservableList.clear();
+                selectHourObservableList.addAll(hours);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        });
+
+        hoursComboBox.setOnAction(event -> {
+            addDateButton.setVisible(true);
+            addDateButton.setVisible(true);
+        });
+
+        cancelButton.setOnAction(e -> MainManagePane.clearPane());
+
+        addDateButton.setOnAction(e -> {
+            addDate();
+            serviceInstance();
         });
 
     }
@@ -158,6 +166,7 @@ public class AddDatesForm implements PaneViewer {
             customerDate.setHour(hoursComboBox.getSelectionModel().getSelectedItem().toString());
 
             if (customerDateService.add(customerDate)) {
+                unShow();
                 MainManagePane.clearPane();
                 refreshItems();
                 PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Date added", "The date was added correctly");
@@ -210,6 +219,7 @@ public class AddDatesForm implements PaneViewer {
         hoursComboBox.setVisible(true);
         addDateButton.setVisible(true);
         selectHoursLabel.setVisible(true);
+        addDateButton.setVisible(false);
         selectCustomerLabel.setVisible(false);
         selectCustomerComboBox.setVisible(false);
         selectCustomerButton.setVisible(false);
