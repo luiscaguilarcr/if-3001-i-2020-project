@@ -98,7 +98,7 @@ public class ModifyDate implements PaneViewer {
         if (rol == 1 || rol == 2) {
             User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
             CustomerDate customerDate = customerDateService.getByID(user.getID());
-            refreshFillCustomerByAdmin();
+            //refreshFillCustomerByAdmin();
         } else {
 
         }
