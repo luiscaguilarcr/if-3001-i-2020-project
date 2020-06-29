@@ -16,16 +16,16 @@ import java.util.Map;
  *
  * @author Luis Carlos Aguilar
  */
-public class AdminAvailabilityGeneralService implements AvailabilityService<AdminAvailability> {
+public class AdminAvailabilityService implements AvailabilityService<AdminAvailability> {
     public List<AdminAvailability> list;
     private AdminAvailabilityPersistence adminAvailabilityPersistence;
     private UserService userService;
-    private static AdminAvailabilityGeneralService instance;
+    private static AdminAvailabilityService instance;
 
     /**
      * Constructor
      */
-    private AdminAvailabilityGeneralService() {
+    private AdminAvailabilityService() {
         adminAvailabilityPersistence = new AdminAvailabilityPersistence();
         userService = UserService.getInstance();
         list = new ArrayList();
@@ -35,9 +35,9 @@ public class AdminAvailabilityGeneralService implements AvailabilityService<Admi
     /**
      * Singleton Pattern
      */
-    public static AdminAvailabilityGeneralService getInstance() {
+    public static AdminAvailabilityService getInstance() {
         if (instance == null)
-            instance = new AdminAvailabilityGeneralService();
+            instance = new AdminAvailabilityService();
         return instance;
     }
 
@@ -123,7 +123,7 @@ public class AdminAvailabilityGeneralService implements AvailabilityService<Admi
      * @param iD del doctor
      * @return mapa con la disponibilidad del doctor
      */
-    public Map<String, List> getByID2(int iD) {
+    public Map<String, List> getByIDMapAvailability(int iD) {
         refresh();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getAdminID() == iD) {

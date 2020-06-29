@@ -98,28 +98,23 @@ public class AddCustomerForm implements PaneViewer {
     private void addCustomer() {
         String aux = iDTextField.getText();
         if (validateAdd()) {
-            if (logic.validateCed(aux)) {
-                Utility utility = new Utility();
-                User user = new User();
-                user.setName(nameTextField.getText());
-                user.setAddress(addressTextField.getText());
-                user.setRol(Integer.parseInt(rolTextField.getText()));
-                user.setEmail(emailTextField.getText());
-                user.setPassword(utility.encrypt(passwordTextField.getText()));
-                user.setPhoneNumber(Integer.parseInt(phoneNumberTextField.getText()));
-                user.setID(Integer.parseInt(iDTextField.getText()));
+            Utility utility = new Utility();
+            User user = new User();
+            user.setName(nameTextField.getText());
+            user.setAddress(addressTextField.getText());
+            user.setRol(Integer.parseInt(rolTextField.getText()));
+            user.setEmail(emailTextField.getText());
+            user.setPassword(utility.encrypt(passwordTextField.getText()));
+            user.setPhoneNumber(Integer.parseInt(phoneNumberTextField.getText()));
+            user.setID(Integer.parseInt(iDTextField.getText()));
 
-                if (userService.add(user)) {
-                    PaneUtil.showAlert(Alert.AlertType.INFORMATION, "User added", "The user was added correctly");
-                    refreshItems();
-                    MainManagePane.clearPane();
-                } else {
-                    PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The user was not added correctly");
-                }
-            }//else {
-        //PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The Id must be Numbers");
-        //}
-        
+            if(userService.add(user)){
+                MainManagePane.clearPane();
+                refreshItems();
+                PaneUtil.showAlert(Alert.AlertType.INFORMATION, "User added", "The user was added correctly");
+            }else{
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The user was not added correctly");
+            }
         }
     }
 
