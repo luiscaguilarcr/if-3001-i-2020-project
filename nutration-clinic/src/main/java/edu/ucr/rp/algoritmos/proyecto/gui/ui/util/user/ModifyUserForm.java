@@ -90,24 +90,26 @@ public class ModifyUserForm implements PaneViewer {
         });
 
         selectCustomerButton.setOnAction(event -> {
-            refreshFillItems();
-            show();
+            if (selectCustomerComboBox.getSelectionModel().getSelectedItem() != null) {
+                refreshFillItems();
+                show();
+            }
         });
 
-        nameTextField.setOnAction(event ->
+        nameTextField.setOnMouseClicked(event ->
                 nameTextField.setStyle("-fx-background-color: #FFFFFF")
         );
-        emailTextField.setOnAction(event ->
+        emailTextField.setOnMouseClicked(event ->
                 emailTextField.setStyle("-fx-background-color: #FFFFFF")
         );
-        addressTextField.setOnAction(event ->
+        addressTextField.setOnMouseClicked(event ->
                 addressTextField.setStyle("-fx-background-color: #FFFFFF")
         );
-        phoneNumberTextField.setOnAction(event ->
-                phoneNumberTextField.setStyle("-fx-background-color: #FDC7C7")
+        phoneNumberTextField.setOnMouseClicked(event ->
+                phoneNumberTextField.setStyle("-fx-background-color: #FFFFFF")
         );
-        passwordTextField.setOnAction(event ->
-                passwordTextField.setStyle("-fx-background-color: #FDC7C7")
+        passwordTextField.setOnMouseClicked(event ->
+                passwordTextField.setStyle("-fx-background-color: #FFFFFF")
         );
     }
 
@@ -148,6 +150,17 @@ public class ModifyUserForm implements PaneViewer {
         emailTextField.clear();
         addressTextField.clear();
         phoneNumberTextField.clear();
+
+        nameTextField.setStyle("-fx-background-color: #FFFFFF");
+        nameTextField.setPromptText("");
+        emailTextField.setStyle("-fx-background-color: #FFFFFF");
+        emailTextField.setPromptText("");
+        addressTextField.setStyle("-fx-background-color: #FFFFFF");
+        addressTextField.setPromptText("");
+        phoneNumberTextField.setStyle("-fx-background-color: #FFFFFF");
+        phoneNumberTextField.setPromptText("");
+        passwordTextField.setStyle("-fx-background-color: #FFFFFF");
+        passwordTextField.setPromptText("");
     }
 
     private void refreshFillItems() {

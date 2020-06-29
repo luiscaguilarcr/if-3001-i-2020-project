@@ -15,7 +15,7 @@ public class AnnotationDateServiceTest implements TestService {
     @Override
     public void testAddition() {
         CustomerDateService customerDateService = CustomerDateService.getInstance();
-        CustomerDate customerDate = customerDateService.getByID(141);
+        CustomerDate customerDate = customerDateService.getByID(132);
         AdminAnnotation adminAnnotation = testUtility.generateAnnotations(customerDate);
         AdminAnnotationService adminAnnotationService = AdminAnnotationService.getInstance();
         if(adminAnnotationService.add(adminAnnotation)){

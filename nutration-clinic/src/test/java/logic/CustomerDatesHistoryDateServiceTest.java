@@ -19,7 +19,7 @@ public class CustomerDatesHistoryDateServiceTest implements TestService {
     @Override
     public void testAddition() {
         instances();
-        CustomerDate customerDate = customerDateService.getByID(144);
+        CustomerDate customerDate = customerDateService.getByID(200);
         if(customerDatesHistoryService.add(customerDate)){
             System.out.println("Se agregó");
         }else {
