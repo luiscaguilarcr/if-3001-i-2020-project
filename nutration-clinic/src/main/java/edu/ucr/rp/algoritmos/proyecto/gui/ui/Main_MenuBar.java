@@ -146,7 +146,7 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         viewAdmin_MenuItem.setOnAction((event) -> {
-             //MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.TABLEVIEW));
+             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_CUSTOMER_FORM));
         });
 
         admin_Menu.getItems().addAll(addAdmin_MenuItem, modifyAdmin_MenuItem, viewAdmin_MenuItem);

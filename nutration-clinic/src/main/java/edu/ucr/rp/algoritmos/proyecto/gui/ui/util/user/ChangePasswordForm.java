@@ -20,7 +20,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-
 /**
  * @author Noel y Luis Carlos
  */
@@ -30,8 +29,8 @@ public class ChangePasswordForm implements PaneViewer {
     private static Button cancelButton;
     private static Button modifyButton;
     private static TextField currentPasswordTextField;
-    private static TextField newPassword1TextField;
-    private static TextField newPassword2TextField;
+    private static TextField newFirstPasswordTextField;
+    private static TextField newSecondPasswordTextField;
     private static Label currentPasswordLabel;
     private static Label newPassword1Label;
     private static Label newPassword2Label;
@@ -49,9 +48,9 @@ public class ChangePasswordForm implements PaneViewer {
         currentPasswordLabel = PaneUtil.buildLabel(pane, "Current password", 0, 2);
         currentPasswordTextField = PaneUtil.buildTextField(pane, 2);
         newPassword1Label = PaneUtil.buildLabel(pane, "New password", 0, 3);
-        newPassword1TextField = PaneUtil.buildTextField(pane, 3);
+        newFirstPasswordTextField = PaneUtil.buildTextField(pane, 3);
         newPassword2Label = PaneUtil.buildLabel(pane, "Confirm password", 0, 4);
-        newPassword2TextField = PaneUtil.buildTextField(pane, 4);
+        newSecondPasswordTextField = PaneUtil.buildTextField(pane, 4);
         modifyButton = PaneUtil.buildButton("Confirm", pane, 1, 5);
         cancelButton = PaneUtil.buildButton("Back", pane, 2, 5);
     }
@@ -60,17 +59,27 @@ public class ChangePasswordForm implements PaneViewer {
         cancelButton.setOnAction(e -> {
             refreshItems();
             MainManagePane.clearPane();
+            refreshItems();
+        });
+
+        currentPasswordTextField.setOnAction((e) -> {
+            currentPasswordTextField.setStyle("-fx-background-color: #FFFFFF");
+        });
+
+        newFirstPasswordTextField.setOnAction((e) -> {
+            newFirstPasswordTextField.setStyle("-fx-background-color: #FFFFFF");
+        });
+
+        newSecondPasswordTextField.setOnAction((e) -> {
+            newSecondPasswordTextField.setStyle("-fx-background-color: #FFFFFF");
         });
 
         modifyButton.setOnAction(e -> {
-            Utility utility = new Utility();
-            String encrypted = utility.encrypt(newPassword1TextField.getText());
+            String encrypted = Utility.encrypt(newFirstPasswordTextField.getText());
 
-            if (validateAdd()) {
-                if (valiteFill()) {
-
-                    if (utility.encrypt(currentPasswordTextField.getText()).equals(LogIn.getUser().getPassword())) {
-
+            if (validateAdd()) { //espacios vacíos
+                if (valiteFill()) { // contraseñas iguales
+                    if (Utility.encrypt(currentPasswordTextField.getText()).equals(LogIn.getUser().getPassword())) {//contraseña válida
                         if (changePassword(encrypted, LogIn.getUser())) {
                             refreshItems();
                             PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Password changed", "The new password has been changed");
@@ -81,7 +90,7 @@ public class ChangePasswordForm implements PaneViewer {
                         PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The new password cannot be the same as the old one");
                     }
                 } else {
-                    PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "New password are diferent");
+                    PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "New passwords are diferent");
 
                 }
             }
@@ -90,22 +99,17 @@ public class ChangePasswordForm implements PaneViewer {
 
     private void refreshItems() {
         currentPasswordTextField.clear();
-        newPassword1TextField.clear();
-        newPassword2TextField.clear();
+        newFirstPasswordTextField.clear();
+        newSecondPasswordTextField.clear();
     }
 
     public boolean changePassword(String password, User user) {
-        if (user.getPassword() == null ? password != null : !user.getPassword().equals(password)) {
-            user.setPassword(password);
-            if (userService.edit(user, user)) {
-                return true;
-            }
-        }
-        return false;
+        user.setPassword(password);
+        return userService.edit(user, user);
     }
 
     private boolean valiteFill() {
-        if (newPassword1TextField.getText().equals(newPassword2TextField.getText())) {
+        if (newFirstPasswordTextField.getText().equals(newSecondPasswordTextField.getText())) {
             return true;
         } else {
             return false;
@@ -119,16 +123,15 @@ public class ChangePasswordForm implements PaneViewer {
             currentPasswordTextField.setStyle("-fx-background-color: #FDC7C7");
             return false;
         }
-        if (newPassword1TextField.getText().isEmpty()) {
-            newPassword1TextField.setPromptText("Obligatory field");
-            newPassword1TextField.setStyle("-fx-background-color: #FDC7C7");
+        if (newFirstPasswordTextField.getText().isEmpty()) {
+            newFirstPasswordTextField.setPromptText("Obligatory field");
+            newFirstPasswordTextField.setStyle("-fx-background-color: #FDC7C7");
             return false;
         }
-        if (newPassword2TextField.getText().isEmpty()) {
-            newPassword2TextField.setPromptText("Obligatory field");
-            newPassword2TextField.setStyle("-fx-background-color: #FDC7C7");
+        if (newSecondPasswordTextField.getText().isEmpty()) {
+            newSecondPasswordTextField.setPromptText("Obligatory field");
+            newSecondPasswordTextField.setStyle("-fx-background-color: #FDC7C7");
             return false;
-
         }
         return true;
     }

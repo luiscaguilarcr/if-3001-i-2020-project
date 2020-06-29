@@ -28,7 +28,8 @@ import javafx.scene.layout.Pane;
  *
  * @author Noel y Luis Carlos
  */
-public class AddCustomerForm implements PaneViewer{
+public class AddCustomerForm implements PaneViewer {
+
     private static UserService userService;
     public static DateService dateService;
     private static Button addButton;
@@ -48,6 +49,7 @@ public class AddCustomerForm implements PaneViewer{
     private static TextField iDTextField;
     private static TextField rolTextField;
     private static GridPane pane;
+    public static ExcepcionesTextFieldForm logic;
 
     public GridPane addUserFormSuper() {
         pane = PaneUtil.buildPane();
@@ -58,6 +60,7 @@ public class AddCustomerForm implements PaneViewer{
     }
 
     private void setupControls() {
+        nameLabel = PaneUtil.buildLabel(pane, "Name", 1, 1);
         nameTextField = PaneUtil.buildTextInput(pane, 1, 2);
         passwordLabel = PaneUtil.buildLabel(pane, "Password", 1, 3);
         passwordTextField = PaneUtil.buildTextInput(pane, 1, 4);
@@ -92,7 +95,8 @@ public class AddCustomerForm implements PaneViewer{
         });
     }
 
-    private void addCustomer(){
+    private void addCustomer() {
+        String aux = iDTextField.getText();
         if (validateAdd()) {
             Utility utility = new Utility();
             User user = new User();
@@ -145,7 +149,7 @@ public class AddCustomerForm implements PaneViewer{
             phoneNumberTextField.setPromptText("Obligatory field");
             phoneNumberTextField.setStyle("-fx-background-color: #FDC7C7");
         }
-        
+
         if (iDTextField.getText().isEmpty()) {
             iDTextField.setPromptText("Obligatory field");
             iDTextField.setStyle("-fx-background-color: #FDC7C7");
@@ -157,6 +161,10 @@ public class AddCustomerForm implements PaneViewer{
             return true;
         }
         return false;
+    }
+
+    public boolean validateId(String datos) {
+        return datos.matches("[0-9]*");
     }
 
     @Override
