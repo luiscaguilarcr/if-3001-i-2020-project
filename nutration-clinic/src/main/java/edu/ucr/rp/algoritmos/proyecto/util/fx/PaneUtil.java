@@ -169,7 +169,7 @@ public class PaneUtil {
         return textArea;
     }
 
-    public CategoryAxis buildGraphic(GridPane pane, AdminAnnotationQueue adminAnnotationQueue) {
+    /*public CategoryAxis buildGraphic(GridPane pane, AdminAnnotationQueue adminAnnotationQueue) {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> barChart
@@ -190,7 +190,7 @@ public class PaneUtil {
             pane.add(barChart, 0, i);
         }
         return xAxis;
-    }
+    }*/
 
     public static TableView buildTableViewUser(GridPane pane, ObservableList observableList, int column, int row) {
 

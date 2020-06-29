@@ -163,14 +163,6 @@ public class PersonalProgress implements PaneViewer {
         pane.add(heightLineChart, 2, 1);
     }
 
-    public static void refresh() {
-        User user = LogIn.getUser();
-        AdminAnnotationQueue adminAnnotationQueue = adminAnnotationService.getAllByID(user.getID());
-        PaneUtil paneUtil = new PaneUtil();
-        graphic = paneUtil.buildGraphic(pane, adminAnnotationQueue);
-
-    }
-
     @Override
     public Pane getPane() {
         return graphic();

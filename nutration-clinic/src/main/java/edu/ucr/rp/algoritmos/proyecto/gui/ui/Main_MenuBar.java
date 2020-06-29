@@ -87,7 +87,6 @@ public class Main_MenuBar implements PaneViewer {
 
         personalProgress_MenuItem.setOnAction((event) -> {
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.PERSONAL_PROGRESS));
-            PersonalProgress.refresh();
         });
 
         guide_MenuItem.setOnAction((event) -> {
