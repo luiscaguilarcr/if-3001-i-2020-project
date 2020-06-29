@@ -114,7 +114,7 @@ public class ViewCustomer_Form implements PaneViewer {
             MainManagePane.clearPane();
             unShow();
         } else {
-            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The user was not edited");
+            PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The user was not removed");
 
         }
     }
