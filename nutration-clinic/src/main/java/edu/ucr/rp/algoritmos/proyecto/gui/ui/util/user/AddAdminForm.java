@@ -115,7 +115,10 @@ public class AddAdminForm implements PaneViewer {
     }
 
     private void addUser() {
+        
+        
         if (validateAdd()) {
+            
             Utility utility = new Utility();
             User user = new User();
             user.setName(nameTextField.getText());

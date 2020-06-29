@@ -15,7 +15,7 @@ public class Utility {
      * @param password que se quiere encriptar
      * @return contraseña encriptada
      */
-    public String encrypt(String password) {
+    public static String encrypt(String password) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
 

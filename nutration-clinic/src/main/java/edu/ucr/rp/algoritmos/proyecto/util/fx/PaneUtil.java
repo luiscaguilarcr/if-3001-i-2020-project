@@ -1,5 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.util.fx;
 
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -16,10 +17,13 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Font;
 
 public class PaneUtil {
-
+private static ObservableList<String> selectCustomerObservableList;
+  private static UserService userService;
+//private static User user;
     public static GridPane buildPane() {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER_RIGHT);
@@ -31,6 +35,19 @@ public class PaneUtil {
         ColumnConstraints columnTwoConstrains = new ColumnConstraints(INPUT_WITH, INPUT_WITH, INPUT_WITH_MAX);
         columnTwoConstrains.setHgrow(Priority.ALWAYS);
         gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
+
+        return gridPane;
+    }
+       public static GridPane buildPaneBig() {
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER_RIGHT);
+        gridPane.setPadding(new Insets(40, 40, 40, 40));
+        gridPane.setHgap(5);
+        gridPane.setVgap(5);
+        ColumnConstraints columnOneConstraints = new ColumnConstraints(1000, 1000,1000);
+        columnOneConstraints.setHalignment(HPos.RIGHT);
+        
+        gridPane.getColumnConstraints().addAll(columnOneConstraints);
 
         return gridPane;
     }
@@ -150,55 +167,43 @@ public class PaneUtil {
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> bc
                 = new BarChart<String, Number>(xAxis, yAxis);
-        bc.setTitle("Advabces");
+        bc.setTitle("Customer advancements");
 
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("2003");
+        series1.setName("Fat");
         series1.getData().add(new XYChart.Data("Fat", 25601.34));
-//        series1.getData().add(new XYChart.Data(brazil, 20148.82));
-//        series1.getData().add(new XYChart.Data(france, 10000));
-//        series1.getData().add(new XYChart.Data(italy, 35407.15));
-//        series1.getData().add(new XYChart.Data(usa, 12000));
-
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName("");
+        series2.setName("Hidratation");
         series2.getData().add(new XYChart.Data("Hidration", 57401.85));
-//        series2.getData().add(new XYChart.Data(brazil, 41941.19));
-//        series2.getData().add(new XYChart.Data(france, 45263.37));
-//        series2.getData().add(new XYChart.Data(italy, 117320.16));
-//        series2.getData().add(new XYChart.Data(usa, 14845.27));
-
         XYChart.Series series3 = new XYChart.Series();
-        series3.setName("");
+        series3.setName("Muscle");
         series3.getData().add(new XYChart.Data("Muscle", 45000.65));
-//        series3.getData().add(new XYChart.Data(brazil, 44835.76));
-//        series3.getData().add(new XYChart.Data(france, 18722.18));
-//        series3.getData().add(new XYChart.Data(italy, 17557.31));
-//        series3.getData().add(new XYChart.Data(usa, 92633.68));
-        //bc.getData().addAll(series1, series2, series3);
+
+        bc.getData().addAll(series1, series2, series3);
+        pane.add(bc, 0, 0);
 
         return xAxis;
     }
-//     public static TableView builTableView(GridPane pane) {
-//    
-//}
 
-    public static GridPane buildTableViewUser(GridPane pane, int column, int row) {
-        final Label label = new Label("Address Book");
+    public static TableView buildTableViewUser(GridPane pane, ObservableList observableList,int column, int row) {
+        
+        Label label = new Label("Address Book");
         label.setFont(new Font("Arial", 20));
-     TableView table = new TableView();
+        TableView table = new TableView();
 
-    table.setEditable (
-    true);
- 
-        TableColumn firstNameCol = new TableColumn("First Name");
-    TableColumn lastNameCol = new TableColumn("Last Name");
-    TableColumn emailCol = new TableColumn("Email");
+        table.setEditable(
+                true);
 
-   
+        TableColumn nameCol = new TableColumn("Name");
+        TableColumn idCol = new TableColumn("Id");
+        TableColumn phoneNumberCol = new TableColumn("Phone Number");
+        
 
-table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
-pane.add(table, 1, 0);
-return pane;
+        nameCol.setMinWidth(100);
+        nameCol.setCellValueFactory(
+                new PropertyValueFactory<UserService, String>("name"));
+        table.getColumns().addAll(nameCol, idCol, phoneNumberCol);
+        pane.add(table, 1, 0);
+        return table;
     }
 }

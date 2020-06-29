@@ -47,7 +47,7 @@ public class MainManagePane implements PaneViewer {
         panes.put(PaneName.SIGN_UP_FORM, new SignUpForm().getPane());
         panes.put(PaneName.ADD_ADMIN, new AddAdminForm().getPane());
         panes.put(PaneName.MODIFY_USER_FORM, new ModifyUserForm().getPane());
-        panes.put(PaneName.VIEW_USER_FORM, new ViewProfile().getPane());
+        //panes.put(PaneName.VIEW_USER_FORM, new ViewProfile().getPane());
         panes.put(PaneName.VIEW_CUSTOMER_FORM, new ViewCustomer_Form().getPane());
       // panes.put(PaneName., new .getPane());   
         panes.put(PaneName.CHANGE_PASSWORD, new ChangePasswordForm().getPane());

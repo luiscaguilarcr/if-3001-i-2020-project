@@ -8,7 +8,10 @@ package edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import static edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddAdminForm.serviceInstance;
 import static edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ViewAdminForm.tableView;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -18,24 +21,28 @@ import javafx.scene.layout.Pane;
  * @author Noel
  */
 public class ViewCustomer_Form implements PaneViewer {
-
+     private static UserService userService;
     private static GridPane pane;
     private static TableView tableView;
-
+ private static ObservableList<String> customerObservableList;
     public GridPane ViewCustomer() {
-        pane = PaneUtil.buildPane();
+        pane = PaneUtil.buildPaneBig();
+              serviceInstance();
         setupControls();
         //addHandlers();
-        //serviceInstance();
+       
         //visible();
         return pane;
     }
-
+ public static void serviceInstance() {
+       
+        userService = UserService.getInstance();
+    }
     
     private void setupControls() {
-//tableView= PaneUtil.buildTableViewUser(pane, 1, 2);
+        customerObservableList =FXCollections.observableArrayList(userService.getCustomerNames());
+    tableView= PaneUtil.buildTableViewUser(pane, customerObservableList,1, 2);
 
-pane= PaneUtil.buildTableViewUser(pane, 1, 0);
 }
     
     
