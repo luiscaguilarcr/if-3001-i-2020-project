@@ -33,7 +33,7 @@ public class CustomerDateServiceTest implements TestService {
     public void testDelete() {
         CustomerDateService customerDateService = CustomerDateService.getInstance();
         if (customerDateService.getAll() != null) {
-            CustomerDate customerDate = customerDateService.getByID(141);
+            CustomerDate customerDate = customerDateService.getByID(242);
             if (customerDateService.remove(customerDate)) {
                 System.out.println("DATE DELETED");
             } else {

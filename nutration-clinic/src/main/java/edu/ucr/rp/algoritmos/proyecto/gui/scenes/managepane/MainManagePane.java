@@ -38,10 +38,8 @@ public class MainManagePane implements PaneViewer {
     private void initializePanes(Stage stage, Pane basePane) {
         panes.put(PaneName.BASE, basePane);
         panes.put(PaneName.LOG_IN, new Main_MenuBar(stage).getPane());
-        panes.put(PaneName.GRAPHIC, new Graphic().getPane());
-        //panes.put(PaneName.CHANGE_PASSWORD), new ChangePassword().getPane());
         //panes.put(PaneName.GENERATE_REPORT), new GenerateReport().getPane());
-        //panes.put(PaneName.PERSONAL_PROGRESS), new PersonalProgress().getPane());
+        panes.put(PaneName.PERSONAL_PROGRESS, new PersonalProgress().getPane());
         panes.put(PaneName.CHANGE_PASSWORD, new ChangePasswordForm().getPane());
         panes.put(PaneName.ADD_CUSTOMER_FORM, new AddCustomerForm().getPane());
             //put(PaneName.SIGN_UP_FORM, new SignUpForm().getPane());

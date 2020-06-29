@@ -108,12 +108,15 @@ public class ModifyDate implements PaneViewer {
     }
 
     private void addHandlers() {
-        cancelButton.setOnAction(e -> MainManagePane.clearPane());
-
-        modifyDateButton.setOnAction(e -> {
-            modify();
-            MainManagePane.clearPane();
-            refreshItems();
+        selectCustomerButton.setOnAction(event -> {
+            User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
+            if (customerDateService.getByID(user.getID()) == null) {
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You must first add a new date");
+                MainManagePane.clearPane();
+            } else {
+                oldCustomerDate = customerDateService.getByID(user.getID());
+                show();
+            }
         });
 
         checkInDatePicker.setOnAction(event -> {
@@ -121,7 +124,12 @@ public class ModifyDate implements PaneViewer {
             selectDoctorObservableList.clear();
             selectHourObservableList.clear();
             String date = checkInDatePicker.getEditor().getText();
-            selectDoctorObservableList.addAll(adminAvailabilityService.getAdminNamesAvailableListByDate(date));
+            int rol = LogIn.getRol();
+            if(rol == 1 || rol == 2){
+                selectDoctorObservableList.addAll(adminAvailabilityService.getAdminNamesAvailableListByDate(date));
+            }else if(rol ==3){
+
+            }
         });
 
         doctorsComboBox.setOnAction(event -> {
@@ -139,15 +147,12 @@ public class ModifyDate implements PaneViewer {
             modifyDateButton.setVisible(true);
         });
 
-        selectCustomerButton.setOnAction(event -> {
-            User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
-            if (customerDateService.getByID(user.getID()) == null) {
-                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You must first add a new date");
-                MainManagePane.clearPane();
-            } else {
-                oldCustomerDate = customerDateService.getByID(user.getID());
-                show();
-            }
+        cancelButton.setOnAction(e -> MainManagePane.clearPane());
+
+        modifyDateButton.setOnAction(e -> {
+            modify();
+            MainManagePane.clearPane();
+            refreshItems();
         });
 
     }
