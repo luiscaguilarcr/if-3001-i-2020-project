@@ -158,6 +158,20 @@ public class UserService implements UserControlService<User> {
     }
 
     @Override
+    public List<String> getUserNames() {
+        refresh();
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < userLinkedList.size(); i++) {
+            User user = userLinkedList.get(i);
+            int rol = user.getRol();
+            if(rol == 2 || rol == 3){
+                list.add(user.getName());
+            }
+        }
+        return list;
+    }
+
+    @Override
     public UserLinkedList getAll() {
         refresh();
         return userLinkedList;

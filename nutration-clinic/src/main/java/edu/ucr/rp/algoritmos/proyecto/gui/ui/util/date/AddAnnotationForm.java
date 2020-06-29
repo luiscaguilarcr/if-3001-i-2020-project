@@ -29,7 +29,7 @@ import javafx.scene.image.Image;
 
 /**
  *
- * @author Alvaro Miranda Cort
+ * @author Mikel
  */
 public class AddAnnotationForm implements PaneViewer {
 

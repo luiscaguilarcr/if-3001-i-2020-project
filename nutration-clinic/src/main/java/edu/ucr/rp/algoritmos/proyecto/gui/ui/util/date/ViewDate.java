@@ -25,8 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 /**
- *
- * @author Alvaro Miranda Cort
+ * @author Mikel
  */
 public class ViewDate implements PaneViewer {
 
@@ -51,7 +50,7 @@ public class ViewDate implements PaneViewer {
     private Pane viewDate() {
         pane = PaneUtil.buildPane();
         setupControls();
-       
+
         addHandlers();
         serviceInstance();
         return pane;
@@ -85,7 +84,7 @@ public class ViewDate implements PaneViewer {
 
         dateTable = PaneUtil.buildTableView(pane, 1, 1);
 
- 
+
 //    tC_name.setCellValueFactory(new PropertyValueFactory<CustomerDate,String>("Date"));
 //    
 //    
@@ -125,7 +124,7 @@ public class ViewDate implements PaneViewer {
         });
 
         taavButton.setOnAction(e -> {
- setupControls2();
+            setupControls2();
             tC_name.setCellValueFactory(new PropertyValueFactory<CustomerDate, String>("Date"));
 
             dates.add(customerDateService.getByID(LogIn.getUser().getID()));
@@ -134,7 +133,8 @@ public class ViewDate implements PaneViewer {
             final ObservableList<CustomerDate> tabladates = dateTable.getSelectionModel().getSelectedItems();
         });
     }
-//private final ListChangeListener<CustomerDate> selectortablacustomer =
+
+    //private final ListChangeListener<CustomerDate> selectortablacustomer =
 //        new ListChangeListener<CustomerDate>() {
 //       
 //      @Override
@@ -150,7 +150,7 @@ public class ViewDate implements PaneViewer {
 //            posi
 //            
 //        }
-   @Override
+    @Override
     public Pane getPane() {
         return viewDate();
     }

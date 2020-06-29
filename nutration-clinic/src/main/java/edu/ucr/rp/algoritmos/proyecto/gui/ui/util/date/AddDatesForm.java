@@ -30,7 +30,7 @@ import javafx.collections.*;
 import javafx.scene.control.Alert;
 
 /**
- * @author Alvaro Miranda Cort
+ * @author Mikel y Luis Carlos
  */
 public class AddDatesForm implements PaneViewer {
     private static AdminAvailabilityGeneralService adminAvailabilityService;

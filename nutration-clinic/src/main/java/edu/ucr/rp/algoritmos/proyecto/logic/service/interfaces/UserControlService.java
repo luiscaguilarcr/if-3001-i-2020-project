@@ -1,16 +1,20 @@
 package edu.ucr.rp.algoritmos.proyecto.logic.service.interfaces;
 
+import java.util.List;
+
 public interface UserControlService<E> extends Service<E> {
 
     boolean edit(E oldElement, E newElement);
 
-    E getByID(int iD);
+    Object getByID(int iD);
 
-    E getByName(String name);
+    Object getByName(String name);
 
     Object getAdminNames();
 
     Object getCustomerNames();
+
+    Object getUserNames();
 
     Object getAll();
 }

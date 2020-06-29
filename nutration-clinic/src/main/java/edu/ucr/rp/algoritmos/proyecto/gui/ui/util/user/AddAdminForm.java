@@ -28,7 +28,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 /**
- * @author Noel
+ * @author Noel y y Luis Carlos
  */
 public class AddAdminForm implements PaneViewer {
     private static UserService userService;
@@ -53,20 +53,14 @@ public class AddAdminForm implements PaneViewer {
 
     public GridPane AddAdmin() {
         pane = PaneUtil.buildPane();
+        serviceInstance();
         setupControls();
         addHandlers();
-        serviceInstance();
-        //visible();
         return pane;
     }
 
     private void setupControls() {
-        List<String> list = new ArrayList<String>();
-        list.add("2");
-
-        ObservableList<String> observableList = FXCollections.observableList(list);
         nameLabel = PaneUtil.buildLabel(pane, "Name", 1, 1);
-
         nameTextField = PaneUtil.buildTextInput(pane, 1, 2);
         passwordLabel = PaneUtil.buildLabel(pane, "Password", 1, 3);
         passwordTextField = PaneUtil.buildTextInput(pane, 1, 4);
@@ -98,8 +92,6 @@ public class AddAdminForm implements PaneViewer {
 
         addButton.setOnAction(e -> {
             addUser();
-            MainManagePane.clearPane();
-            refreshItems();
         });
 
         nameTextField.setOnAction(event ->
@@ -139,7 +131,7 @@ public class AddAdminForm implements PaneViewer {
                 MainManagePane.clearPane();
                 refreshItems();
             } else {
-                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The user was not added correctly");
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "The user was not added");
             }
         }
 

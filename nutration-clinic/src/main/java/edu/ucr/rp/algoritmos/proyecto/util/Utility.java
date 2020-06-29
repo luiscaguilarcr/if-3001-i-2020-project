@@ -1,5 +1,6 @@
 package edu.ucr.rp.algoritmos.proyecto.util;
 
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
@@ -32,8 +33,12 @@ public class Utility {
     public void historyApp(String action) { //TODO test
         HistoryAppService historyAppService = HistoryAppService.getInstance();
         LocalDateTime now = LocalDateTime.now();
-        //int userActionID = LogIn.getUser().getID();
-        int userActionID = 777;
+        int userActionID;
+        if(LogIn.getUser() != null){
+            userActionID = LogIn.getUser().getID();
+        }else
+            userActionID = 1234567890;
+
         HistoryApp historyApp = new HistoryApp();
         historyApp.setInfo(action);
         historyApp.setDate(now.getDayOfMonth() + "/" + now.getMonth() + "/" + now.getYear());

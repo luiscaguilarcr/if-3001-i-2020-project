@@ -10,6 +10,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.system.CleanApp;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddAdminForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ChangePasswordForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ModifyUserForm;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -88,8 +89,6 @@ public class Main_MenuBar implements PaneViewer {
 
         personalProgress_MenuItem.setOnAction((event) -> {
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.GRAPHIC));
-            JOptionPane.showMessageDialog(null, "hols");
-
         });
 
         guide_MenuItem.setOnAction((event) -> {
@@ -141,12 +140,14 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         modifyAdmin_MenuItem.setOnAction((event) -> {
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.MODIFY_USER_FORM));
+            ModifyUserForm.setRol(2);
+            ModifyUserForm.unShow();
+            ModifyUserForm.refresh();
         });
 
         viewAdmin_MenuItem.setOnAction((event) -> {
              //MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.TABLEVIEW));
-            
-            
         });
 
         admin_Menu.getItems().addAll(addAdmin_MenuItem, modifyAdmin_MenuItem, viewAdmin_MenuItem);
@@ -172,7 +173,9 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         modifyCustomer_MenuItem.setOnAction((event) -> {
-
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.MODIFY_USER_FORM));
+            ModifyUserForm.setRol(3);
+            ModifyUserForm.refresh();
         });
 
         viewCustomer_MenuItem.setOnAction((event) -> {

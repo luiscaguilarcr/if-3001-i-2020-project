@@ -5,7 +5,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.App;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.LogInManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
-import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.AddCustomerForm;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.SignUpForm;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
@@ -17,39 +17,38 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class LogIn implements PaneViewer {
-
+    private static UserService userService = UserService.getInstance();
+    public static User userLog;
+    private Utility utility = new Utility();
+    private Stage stage;
     private static GridPane pane;
-    private static Label iDLabel;
+    private static Label nameLabel;
     private static Label passwordNameLabel;
-    private static TextField iDTextField;
+    private static TextField nameTextField;
     private static PasswordField passwordTextField;
     private static Button exitButton;
     private static Button logInButton;
-    private static boolean validUser = false;
-    private Stage stage;
-    private Utility utility = new Utility();
-    private static UserService userService = UserService.getInstance();
-    private GridPane gridPane;
     private static Button registerButton;
+    private static boolean validUser = false;
 
+    /**
+     * @autor Luis Carlos
+     * @param stage principal
+     */
     public LogIn(Stage stage) {
         this.stage = stage;
     }
-
-    public static User userLog;
 
     public GridPane LogIn() {
         pane = PaneUtil.buildPane();
         setupControls();
         addHandlers();
-        //visible();
-
         return pane;
     }
 
     private void setupControls() {
-        iDLabel = PaneUtil.buildLabel(pane, "ID", 0, 0);
-        iDTextField = PaneUtil.buildTextInput(pane, 1, 0);
+        nameLabel = PaneUtil.buildLabel(pane, "Name", 0, 0);
+        nameTextField = PaneUtil.buildTextInput(pane, 1, 0);
         passwordNameLabel = PaneUtil.buildLabel(pane, "Password", 0, 1);
         passwordTextField = PaneUtil.buildPasswordField(pane, 1, 1);
         logInButton = PaneUtil.buildButton("LOGIN", pane, 1, 2);
@@ -61,8 +60,8 @@ public class LogIn implements PaneViewer {
 
     private void addHandlers() {
         exitButton.setOnAction(e -> Platform.exit());
-        iDTextField.setOnMouseClicked(e -> iDTextField.setStyle("-fx-background-color: #FFFFFF"));
-        passwordTextField.setOnAction(e -> iDTextField.setStyle("-fx-background-color: #FFFFFF"));
+        nameTextField.setOnMouseClicked(e -> nameTextField.setStyle("-fx-background-color: #FFFFFF"));
+        passwordTextField.setOnAction(e -> nameTextField.setStyle("-fx-background-color: #FFFFFF"));
         logInButton.setOnAction(e -> {
             if (validateLogIn()) {
                 if (logInUser() == null) {
@@ -71,22 +70,18 @@ public class LogIn implements PaneViewer {
             }
         });
         registerButton.setOnAction(e -> {
-
-            //notVisible();
             LogInManagePane.clearPane();
-            LogInManagePane.setCenterPane(LogInManagePane.getPanes().get(PaneName.ADD_CUSTOMER_FORM));
-
-            AddCustomerForm.visible();
-
+            LogInManagePane.setCenterPane(LogInManagePane.getPanes().get(PaneName.SIGN_UP_FORM));
+            SignUpForm.visible();
         });
     }
 
     private boolean validateLogIn() {
-        if (iDTextField.getText().isEmpty()) {
-            iDTextField.setPromptText("Obligatory field");
-            iDTextField.setStyle("-fx-background-color: #FDC7C7");
+        if (nameTextField.getText().isEmpty()) {
+            nameTextField.setPromptText("Obligatory field");
+            nameTextField.setStyle("-fx-background-color: #FDC7C7");
         } else {
-            iDTextField.setStyle("-fx-background-color: #FFFFFF");
+            nameTextField.setStyle("-fx-background-color: #FFFFFF");
         }
         if (passwordTextField.getText().isEmpty()) {
             passwordTextField.setPromptText("Obligatory field");
@@ -94,15 +89,15 @@ public class LogIn implements PaneViewer {
         } else {
             passwordTextField.setStyle("-fx-background-color: #FFFFFF");
         }
-        if (!iDTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty()) {
+        if (!nameTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty()) {
             return true;
         }
         return false;
     }
 
     public User logInUser() {
-        if (userService.getByID(Integer.parseInt(iDTextField.getText())) != null) {
-            userLog = userService.getByID(Integer.parseInt(iDTextField.getText()));
+        if (userService.getByName(nameTextField.getText()) != null) {
+            userLog = userService.getByName(nameTextField.getText());
             if ((userLog.getPassword()).equals(utility.encrypt(passwordTextField.getText()))) {
                 validUser = true;
                 App app = new App();
@@ -121,21 +116,11 @@ public class LogIn implements PaneViewer {
         validUser = false;
     }
 
-    private void notVisible() {
-        passwordTextField.setVisible(false);
-        iDTextField.setVisible(false);
-        exitButton.setVisible(false);
-        iDLabel.setVisible(false);
-        logInButton.setVisible(false);
-        passwordNameLabel.setVisible(false);
-        registerButton.setVisible(false);
-    }
-
     public static void visible() {
         passwordTextField.setVisible(true);
-        iDTextField.setVisible(true);
+        nameTextField.setVisible(true);
         exitButton.setVisible(true);
-        iDLabel.setVisible(true);
+        nameLabel.setVisible(true);
         logInButton.setVisible(true);
         passwordNameLabel.setVisible(true);
         registerButton.setVisible(true);
@@ -150,7 +135,7 @@ public class LogIn implements PaneViewer {
 
     public static int getRol() {
         if (validUser) {
-            return userService.getByID(Integer.parseInt(iDTextField.getText())).getRol();
+            return userService.getByName(nameTextField.getText()).getRol();
         }
         return -1;
     }
