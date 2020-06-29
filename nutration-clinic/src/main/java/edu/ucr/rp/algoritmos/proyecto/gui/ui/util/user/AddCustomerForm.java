@@ -93,6 +93,25 @@ public class AddCustomerForm implements PaneViewer {
         addButton.setOnAction(e -> {
             addCustomer();
         });
+
+        nameTextField.setOnMouseClicked(event ->
+                nameTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
+        emailTextField.setOnMouseClicked(event ->
+                emailTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
+        addressTextField.setOnMouseClicked(event ->
+                addressTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
+        phoneNumberTextField.setOnMouseClicked(event ->
+                phoneNumberTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
+        passwordTextField.setOnMouseClicked(event ->
+                passwordTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
+        iDTextField.setOnMouseClicked(event ->
+                iDTextField.setStyle("-fx-background-color: #FFFFFF")
+        );
     }
 
     private void addCustomer() {
@@ -125,6 +144,19 @@ public class AddCustomerForm implements PaneViewer {
         addressTextField.clear();
         phoneNumberTextField.clear();
         iDTextField.clear();
+
+        nameTextField.setStyle("-fx-background-color: #FFFFFF");
+        nameTextField.setPromptText("");
+        emailTextField.setStyle("-fx-background-color: #FFFFFF");
+        emailTextField.setPromptText("");
+        addressTextField.setStyle("-fx-background-color: #FFFFFF");
+        addressTextField.setPromptText("");
+        phoneNumberTextField.setStyle("-fx-background-color: #FFFFFF");
+        phoneNumberTextField.setPromptText("");
+        passwordTextField.setStyle("-fx-background-color: #FFFFFF");
+        passwordTextField.setPromptText("");
+        iDTextField.setStyle("-fx-background-color: #FFFFFF");
+        iDTextField.setPromptText("");
     }
 
     private boolean validateAdd() {

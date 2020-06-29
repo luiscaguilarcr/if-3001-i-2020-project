@@ -42,7 +42,6 @@ public class ModifyDate implements PaneViewer {
     private static AdminAvailabilityService adminAvailabilityService;
     private static CustomerDateService customerDateService;
     private static UserService userService;
-    public static CustomerDate oldCustomerDate;
     private static GridPane pane;
     private static Label addDateTitleLabel;
     private static Label dateFieldLabel;
@@ -114,7 +113,6 @@ public class ModifyDate implements PaneViewer {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You must first add a new date");
                 MainManagePane.clearPane();
             } else {
-                oldCustomerDate = customerDateService.getByID(user.getID());
                 show();
             }
         });
@@ -125,9 +123,9 @@ public class ModifyDate implements PaneViewer {
             selectHourObservableList.clear();
             String date = checkInDatePicker.getEditor().getText();
             int rol = LogIn.getRol();
-            if(rol == 1 || rol == 2){
+            if (rol == 1 || rol == 2) {
                 selectDoctorObservableList.addAll(adminAvailabilityService.getAdminNamesAvailableListByDate(date));
-            }else if(rol ==3){
+            } else if (rol == 3) {
 
             }
         });
@@ -150,9 +148,11 @@ public class ModifyDate implements PaneViewer {
         cancelButton.setOnAction(e -> MainManagePane.clearPane());
 
         modifyDateButton.setOnAction(e -> {
-            modify();
-            MainManagePane.clearPane();
-            refreshItems();
+            if (selectCustomerComboBox.getSelectionModel().getSelectedItem() != null) {
+                modify();
+                MainManagePane.clearPane();
+                refreshItems();
+            }
         });
 
     }
@@ -178,7 +178,9 @@ public class ModifyDate implements PaneViewer {
     }
 
     public void refreshItems() {
-
+        selectCustomerComboBox.getSelectionModel().clearSelection();
+        doctorsComboBox.getSelectionModel().clearSelection();
+        hoursComboBox.getSelectionModel().clearSelection();
     }
 
     public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
@@ -221,7 +223,14 @@ public class ModifyDate implements PaneViewer {
         }
 
         if (verify) {
+            CustomerDate oldCustomerDate;
             CustomerDate newCustomerDate = new CustomerDate();
+            if(LogIn.getRol() == 3){
+                oldCustomerDate = customerDateService.getByID(LogIn.getUser().getID());
+            }else {
+                User user = userService.getByName(selectCustomerComboBox.getSelectionModel().getSelectedItem().toString());
+                oldCustomerDate = customerDateService.getByID(user.getID());
+            }
             newCustomerDate.setCustomerID(oldCustomerDate.getCustomerID());
             User admin = userService.getByName(doctorsComboBox.getSelectionModel().getSelectedItem().toString());
             newCustomerDate.setAdminID(admin.getID());
@@ -280,7 +289,6 @@ public class ModifyDate implements PaneViewer {
                 PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "You must first add a new date");
                 MainManagePane.clearPane();
             } else {
-                oldCustomerDate = customerDateService.getByID(user.getID());
                 show();
             }
         }
