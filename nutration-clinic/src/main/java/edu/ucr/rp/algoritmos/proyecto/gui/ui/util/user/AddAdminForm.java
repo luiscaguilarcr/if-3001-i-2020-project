@@ -104,13 +104,13 @@ public class AddAdminForm implements PaneViewer {
                 addressTextField.setStyle("-fx-background-color: #FFFFFF")
         );
         phoneNumberTextField.setOnAction(event ->
-                phoneNumberTextField.setStyle("-fx-background-color: #FDC7C7")
+                phoneNumberTextField.setStyle("-fx-background-color: #FFFFFF")
         );
         passwordTextField.setOnAction(event ->
-                passwordTextField.setStyle("-fx-background-color: #FDC7C7")
+                passwordTextField.setStyle("-fx-background-color: #FFFFFF")
         );
         iDTextField.setOnAction(event ->
-                iDTextField.setStyle("-fx-background-color: #FDC7C7")
+                iDTextField.setStyle("-fx-background-color: #FFFFFF")
         );
     }
 

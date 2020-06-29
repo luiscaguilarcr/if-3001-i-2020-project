@@ -10,7 +10,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.CustomerDate;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
-import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityGeneralService;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAvailabilityService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
@@ -33,7 +33,7 @@ import javafx.scene.control.Alert;
  * @author Mikel y Luis Carlos
  */
 public class AddDatesForm implements PaneViewer {
-    private static AdminAvailabilityGeneralService adminAvailabilityService;
+    private static AdminAvailabilityService adminAvailabilityService;
     private static CustomerDateService customerDateService;
     private static UserService userService;
     public static CustomerDate customerDateOLD;
@@ -65,7 +65,7 @@ public class AddDatesForm implements PaneViewer {
     public static void serviceInstance() {
         customerDateService = CustomerDateService.getInstance();
         userService = UserService.getInstance();
-        adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
+        adminAvailabilityService = AdminAvailabilityService.getInstance();
     }
 
     private void setupControls() {
@@ -108,7 +108,7 @@ public class AddDatesForm implements PaneViewer {
             hoursComboBox.setDisable(false);
             selectHourObservableList.clear();
             User user = userService.getByName(doctorsComboBox.getSelectionModel().getSelectedItem().toString());
-            Map<String, List> map = adminAvailabilityService.getByID2(user.getID());
+            Map<String, List> map = adminAvailabilityService.getByIDMapAvailability(user.getID());
             String date = checkInDatePicker.getEditor().getText();
             List<String> hours = map.get(date);
             selectHourObservableList.clear();

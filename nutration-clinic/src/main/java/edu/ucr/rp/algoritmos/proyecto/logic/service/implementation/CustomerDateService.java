@@ -21,7 +21,7 @@ import java.util.List;
 public class CustomerDateService implements DateService<CustomerDate> {
     public CustomerDateStack stack;
     private CustomerDatePersistence customerDatePersistence;
-    private AdminAvailabilityGeneralService adminAvailabilityService;
+    private AdminAvailabilityService adminAvailabilityService;
     private static CustomerDateService instance;
     private Utility utility;
 
@@ -31,7 +31,7 @@ public class CustomerDateService implements DateService<CustomerDate> {
     private CustomerDateService() {
         stack = new CustomerDateStack();
         customerDatePersistence = new CustomerDatePersistence();
-        adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
+        adminAvailabilityService = AdminAvailabilityService.getInstance();
         utility = new Utility();
         refresh();
     }
@@ -236,7 +236,7 @@ public class CustomerDateService implements DateService<CustomerDate> {
     private void addAdminAvailability(CustomerDate customerDate) {
         CustomerDate newCustomerDate = customerDate;
 
-        adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
+        adminAvailabilityService = AdminAvailabilityService.getInstance();
         AdminAvailability adminAvailability = adminAvailabilityService.getByID(customerDate.getAdminID());
 
         AdminAvailability adminAvailability1 = adminAvailability;
@@ -249,7 +249,7 @@ public class CustomerDateService implements DateService<CustomerDate> {
     }
 
     private void deleteAdminAvailability(CustomerDate customerDate) {
-        adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
+        adminAvailabilityService = AdminAvailabilityService.getInstance();
         AdminAvailability adminAvailability = adminAvailabilityService.getByID(customerDate.getAdminID());
 
         AdminAvailability adminAvailability1 = adminAvailability;

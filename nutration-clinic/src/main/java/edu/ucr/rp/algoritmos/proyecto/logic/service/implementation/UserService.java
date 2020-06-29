@@ -207,14 +207,14 @@ public class UserService implements UserControlService<User> {
     }
 
     private void addAdminAvailability(int iD) { //TODO test
-        AdminAvailabilityGeneralService adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
+        AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
         TestUtility testUtility = new TestUtility();
         AdminAvailability adminAvailability = testUtility.generateAdminAvailability(iD);
         adminAvailabilityService.add(adminAvailability);
     }
 
     private void deleteAdminAvailability(int iD) { //TODO test
-        AdminAvailabilityGeneralService adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
+        AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
         AdminAvailability adminAvailability = adminAvailabilityService.getByID(iD);
         adminAvailabilityService.remove(adminAvailability);
     }

@@ -88,12 +88,12 @@ public class TestUtility {
     UserService userService;
     CustomerDateService customerDateService;
     UserLinkedList userLinkedList;
-    AdminAvailabilityGeneralService adminAvailabilityService;
+    AdminAvailabilityService adminAvailabilityService;
 
     private void initializeService() {
         userService = UserService.getInstance();
         customerDateService = CustomerDateService.getInstance();
-        adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
+        adminAvailabilityService = AdminAvailabilityService.getInstance();
         userLinkedList = userService.getAll();
     }
 
@@ -225,7 +225,7 @@ public class TestUtility {
                 UserService userService = UserService.getInstance();
                 AdminAvailabilityPersistence adminAvailabilityPersistence = new AdminAvailabilityPersistence();
                 CustomerDatePersistence customerDatePersistence = new CustomerDatePersistence();
-                AdminAvailabilityGeneralService adminAvailabilityService = AdminAvailabilityGeneralService.getInstance();
+                AdminAvailabilityService adminAvailabilityService = AdminAvailabilityService.getInstance();
 
                 UserLinkedList userLinkedList = userService.getAll();
 
