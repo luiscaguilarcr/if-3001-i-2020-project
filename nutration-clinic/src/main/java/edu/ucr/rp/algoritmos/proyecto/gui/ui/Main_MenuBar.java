@@ -129,7 +129,7 @@ public class Main_MenuBar implements PaneViewer {
         exit_MenuItem.setOnAction((event) -> Platform.exit());
         exit_MenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 
-        config_Menu.getItems().addAll(changePassword_MenuItem, personalProgress_MenuItem, guide_MenuItem, logOut_MenuItem, cleanApp_MenuItem, exit_MenuItem);
+        config_Menu.getItems().addAll(changePassword_MenuItem, personalProgress_MenuItem, guide_MenuItem, exercise_MenuItem, logOut_MenuItem, cleanApp_MenuItem, exit_MenuItem);
 
         ////////////////////////////////////////////////////////////////////////// Menu "ADMIN"
         admin_Menu = new Menu("ADMIN");
