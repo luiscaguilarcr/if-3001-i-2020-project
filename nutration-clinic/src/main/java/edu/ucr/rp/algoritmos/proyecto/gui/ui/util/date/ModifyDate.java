@@ -112,7 +112,8 @@ public class ModifyDate implements PaneViewer {
 
         modifyDateButton.setOnAction(e -> {
             modify();
-            serviceInstance();
+            MainManagePane.clearPane();
+            refreshItems();
         });
 
         checkInDatePicker.setOnAction(event -> {
@@ -168,6 +169,10 @@ public class ModifyDate implements PaneViewer {
         selectHourObservableList.clear();
         selectDoctorObservableList.addAll(hours);
         hoursComboBox.getSelectionModel().select(customerDate.getHour());
+    }
+
+    public void refreshItems(){
+
     }
 
     public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
