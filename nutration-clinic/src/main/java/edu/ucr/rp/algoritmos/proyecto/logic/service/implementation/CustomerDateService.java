@@ -95,6 +95,8 @@ public class CustomerDateService implements DateService<CustomerDate> {
             stack = removeCustomerDate(customerDate);
             addAdminAvailability(customerDate);
             utility.historyApp("Cita removida para el usuario " + customerDate.getCustomerID());
+            CustomerDatesHistoryService customerDatesHistoryService = CustomerDatesHistoryService.getInstance();
+            customerDatesHistoryService.add(customerDate);
             return customerDatePersistence.write(stack);
         }
         return false;
