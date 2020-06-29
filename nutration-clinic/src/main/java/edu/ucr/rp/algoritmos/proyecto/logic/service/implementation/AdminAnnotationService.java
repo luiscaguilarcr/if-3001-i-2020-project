@@ -27,7 +27,7 @@ public class AdminAnnotationService implements AnnotationService<AdminAnnotation
         queue = new AdminAnnotationQueue();
         annotationPersistence = new AnnotationPersistence();
         utility = new Utility();
-        customerDatesHistoryService = CustomerDatesHistoryService.getInstance();
+//        customerDatesHistoryService = CustomerDatesHistoryService.getInstance();
         customerDateService = CustomerDateService.getInstance();
         refresh();
     }
@@ -52,7 +52,7 @@ public class AdminAnnotationService implements AnnotationService<AdminAnnotation
         refresh();
         if (adminAnnotation != null) {
             queue.enQueue(adminAnnotation);
-            customerDatesHistoryService.add(customerDateService.getByID(adminAnnotation.getCustomerID()));
+//            customerDatesHistoryService.add(customerDateService.getByID(adminAnnotation.getCustomerID()));
             customerDateService.remove(customerDateService.getByID(adminAnnotation.getCustomerID()));
             utility.historyApp("Anotaciones agregadas para el usuario " + adminAnnotation.getCustomerID() + " en la fecha " + adminAnnotation.getDate());
             return annotationPersistence.write(queue);

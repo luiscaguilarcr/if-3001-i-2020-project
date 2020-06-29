@@ -28,7 +28,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 /**
- * @author Mikel
+ * @author Maikel
  */
 public class ViewDate implements PaneViewer {
 

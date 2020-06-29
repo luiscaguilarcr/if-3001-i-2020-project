@@ -16,6 +16,8 @@ import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.EatingPlanSer
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -54,8 +56,8 @@ public class AddAnnotationForm implements PaneViewer {
     private static TextField doctorIDTextField;
     private static Button addAnnotationButton;
     private static Button cancelButton;
-    private static Button refreshButton;
-    private ObservableList<String> selectCustomerObservableList;
+    private static ObservableList<String> selectCustomerObservableList;
+    private static CustomerDateService customerDateService;
 
     public GridPane addAnnotationForm() {
         pane = PaneUtil.buildPane();
@@ -69,13 +71,13 @@ public class AddAnnotationForm implements PaneViewer {
         dateService = CustomerDateService.getInstance();
         userService = UserService.getInstance();
         adminAnnotationService = AdminAnnotationService.getInstance();
+        customerDateService = CustomerDateService.getInstance();
     }
 
     private void setupControls() {
         customerIDLabel = PaneUtil.buildLabel(pane, " Select Customer ", 0, 0);
         selectCustomerObservableList = FXCollections.observableArrayList();
         customerIDComboBox = PaneUtil.buildComboBox(pane, selectCustomerObservableList, 1, 0);
-        refreshButton = PaneUtil.buildButtonImage(new Image("refresh.png"), pane, 2, 0);
         weightLabel = PaneUtil.buildLabel(pane, " Insert weight ", 0, 1);
         weightKgLabel = PaneUtil.buildLabel(pane, "KG", 2, 1);
         weightTextField = PaneUtil.buildTextField(pane, 1);
@@ -103,10 +105,19 @@ public class AddAnnotationForm implements PaneViewer {
         addAnnotationButton.setOnAction(e -> {
             addAnnotation();
         });
-        refreshButton.setOnAction(event -> {
-            selectCustomerObservableList.clear();
-            selectCustomerObservableList = FXCollections.observableArrayList(dateService.getDatesByAdminID(LogIn.getUser().getID()));
+
+        customerIDComboBox.setOnAction(event -> {
+            User user = userService.getByName(customerIDComboBox.getSelectionModel().getSelectedItem().toString());
+            if (customerDateService.getByID(user.getID()) == null) {
+                PaneUtil.showAlert(Alert.AlertType.ERROR, "Error", "This user can't add another date");
+                MainManagePane.clearPane();
+            }
+            LocalDate localDate = LocalDate.now();
+            String date = localDate.getDayOfMonth() + "/" + localDate.getMonthValue() + "/" + localDate.getYear();
+            dateTextField.setText(date);
+            doctorIDTextField.setText(LogIn.getUser().getID() + "");
         });
+
     }
 
     public void addAnnotation() {
@@ -140,13 +151,16 @@ public class AddAnnotationForm implements PaneViewer {
             adminAnnotation.setDocID(LogIn.getUser().getID());
             EatingPlanService eatingPlanService = EatingPlanService.getInstance();
             adminAnnotation.setEatingPlan(eatingPlanService.getPlanByFat(fat));
-
-            if (adminAnnotationService.add(adminAnnotation)) {
-                MainManagePane.clearPane();
-                refreshItems();
-                PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Annotation added", "The annotation was correctly added");
-            } else {
-                PaneUtil.showAlert(Alert.AlertType.ERROR, "ERROR", "The annotation was not added");
+            try {
+                if (adminAnnotationService.add(adminAnnotation)) {
+                    MainManagePane.clearPane();
+                    refreshItems();
+                    PaneUtil.showAlert(Alert.AlertType.INFORMATION, "Annotation added", "The annotation was correctly added");
+                } else {
+                    PaneUtil.showAlert(Alert.AlertType.ERROR, "ERROR", "The annotation was not added");
+                }
+            } catch (Exception e) {
+                System.out.println();
             }
         }
     }
@@ -158,6 +172,13 @@ public class AddAnnotationForm implements PaneViewer {
         weightTextField.clear();
         heightTextField.clear();
         fatTextField.clear();
+    }
+
+    public static void refresh() {
+
+        selectCustomerObservableList.clear();
+        selectCustomerObservableList.addAll(userService.getCustomerNames());
+
     }
 
     @Override

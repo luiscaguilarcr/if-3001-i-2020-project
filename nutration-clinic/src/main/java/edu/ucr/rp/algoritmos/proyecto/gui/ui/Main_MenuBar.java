@@ -4,6 +4,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.App;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
+import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddAnnotationForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.AddDatesForm;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.system.CleanApp;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
@@ -220,6 +221,7 @@ public class Main_MenuBar implements PaneViewer {
 
         annotationsDate_MenuItem.setOnAction((event) -> {
             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.ADD_ANNOTATION_FORM));
+            AddAnnotationForm.refresh();
         });
 
         dates_Menu.getItems().addAll(addDate_MenuItem, modifyDate_MenuItem, viewDate_MenuItem, annotationsDate_MenuItem);
