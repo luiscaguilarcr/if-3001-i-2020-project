@@ -9,11 +9,13 @@ import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.MainManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.LogIn;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAnnotation;
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.AdminAvailability;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.AdminAnnotationService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.CustomerDateService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.EatingPlanService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
+import edu.ucr.rp.algoritmos.proyecto.logic.tdamethods.implementation.CustomerDateStack;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
 import java.time.LocalDate;
 import java.util.List;
@@ -175,10 +177,10 @@ public class AddAnnotationForm implements PaneViewer {
     }
 
     public static void refresh() {
+        List<String> list = customerDateService.getDatesByAdminID(LogIn.getUser().getID());
 
         selectCustomerObservableList.clear();
-        selectCustomerObservableList.addAll(userService.getCustomerNames());
-
+        selectCustomerObservableList.addAll(list);
     }
 
     @Override

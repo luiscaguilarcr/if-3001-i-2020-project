@@ -11,6 +11,7 @@ import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ModifyDate;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.date.ViewDate;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.PersonalProgress;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.ModifyUserForm;
+import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -28,7 +29,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main_MenuBar implements PaneViewer {
-  
+
     private Stage stage;
     private Menu admin_Menu;
     private Menu dates_Menu;
@@ -38,6 +39,8 @@ public class Main_MenuBar implements PaneViewer {
     private MenuItem annotationsDate_MenuItem;
     private MenuItem cleanApp_MenuItem;
     private MenuItem exercise_MenuItem;
+    private Utility utility = new Utility();
+
     public Main_MenuBar(Stage stage) {
         this.stage = stage;
     }
@@ -97,7 +100,7 @@ public class Main_MenuBar implements PaneViewer {
 
         exercise_MenuItem.setOnAction((event) -> {
             try {
-                File path = new File("ejercicio.pdf");
+                File path = new File("train.pdf");
                 Desktop.getDesktop().open(path);
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -114,6 +117,7 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         logOut_MenuItem.setOnAction((event) -> {
+            utility.historyApp("The user with the id "+LogIn.getUser().getID()+" logged out");
             LogIn.refresh();
             App app = new App();
             app.start(stage);
@@ -121,13 +125,15 @@ public class Main_MenuBar implements PaneViewer {
 
         cleanApp_MenuItem.setOnAction((event -> {
             CleanApp.cleanApp();
-
             LogIn.refresh();
             App app = new App();
             app.start(stage);
         }));
 
-        exit_MenuItem.setOnAction((event) -> Platform.exit());
+        exit_MenuItem.setOnAction((event) -> {
+            utility.historyApp("The user with the id "+LogIn.getUser().getID()+" closed the application");
+            Platform.exit();
+        });
         exit_MenuItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 
         config_Menu.getItems().addAll(changePassword_MenuItem, personalProgress_MenuItem, guide_MenuItem, exercise_MenuItem, logOut_MenuItem, cleanApp_MenuItem, exit_MenuItem);
@@ -159,7 +165,7 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         viewAdmin_MenuItem.setOnAction((event) -> {
-             MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_ADMIN_FORM));
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_ADMIN_FORM));
         });
 
         admin_Menu.getItems().addAll(addAdmin_MenuItem, modifyAdmin_MenuItem, viewAdmin_MenuItem);
@@ -191,7 +197,7 @@ public class Main_MenuBar implements PaneViewer {
         });
 
         viewCustomer_MenuItem.setOnAction((event) -> {
-              MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_CUSTOMER_FORM));
+            MainManagePane.setCenterPane(MainManagePane.getPanes().get(PaneName.VIEW_CUSTOMER_FORM));
         });
 
         customer_Menu.getItems().addAll(addCustomer_MenuItem, modifyCustomer_MenuItem, viewCustomer_MenuItem);

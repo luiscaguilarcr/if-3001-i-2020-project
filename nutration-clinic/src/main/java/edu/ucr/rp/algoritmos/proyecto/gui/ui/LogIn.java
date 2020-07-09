@@ -1,11 +1,13 @@
 package edu.ucr.rp.algoritmos.proyecto.gui.ui;
 
+import edu.ucr.rp.algoritmos.proyecto.logic.domain.HistoryApp;
 import edu.ucr.rp.algoritmos.proyecto.logic.domain.User;
 import edu.ucr.rp.algoritmos.proyecto.gui.App;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.LogInManagePane;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneName;
 import edu.ucr.rp.algoritmos.proyecto.gui.scenes.managepane.model.PaneViewer;
 import edu.ucr.rp.algoritmos.proyecto.gui.ui.util.user.SignUpForm;
+import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.HistoryAppService;
 import edu.ucr.rp.algoritmos.proyecto.logic.service.implementation.UserService;
 import edu.ucr.rp.algoritmos.proyecto.util.Utility;
 import edu.ucr.rp.algoritmos.proyecto.util.fx.PaneUtil;
@@ -102,6 +104,7 @@ public class LogIn implements PaneViewer {
                 validUser = true;
                 App app = new App();
                 app.start(stage);
+                utility.historyApp("The user with the id "+userLog.getID()+" logged in");
                 return userLog;
             }
         }

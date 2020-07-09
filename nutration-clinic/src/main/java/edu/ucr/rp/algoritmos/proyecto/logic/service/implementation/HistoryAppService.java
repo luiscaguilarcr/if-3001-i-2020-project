@@ -95,7 +95,7 @@ public class HistoryAppService implements HistoryService<HistoryApp> {
         avl = historyAppPersistence.read();
         if (avl != null) {
             int size = avl.size();
-            for (int i = 0; i < size-1; i++) {
+            for (int i = 0; i < size; i++) {
                 historyAppAVL.add(avl.get(i));
             }
         }
